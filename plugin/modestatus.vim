@@ -42,14 +42,27 @@ if !exists('g:Modestatus_statuslineNC')
 endif
 
 " mode colors
-hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold	ctermfg=148		ctermbg=22		cterm=bold
-hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold	ctermfg=23		ctermbg=117		cterm=bold
-hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold	ctermfg=160		ctermbg=231		cterm=bold
-hi Modestatus_visual		guifg=#ff8700	guibg=#870000	gui=bold	ctermfg=208		ctermbg=88		cterm=bold
-hi Modestatus_select		guifg=#606060	guibg=#ffffff	gui=bold	ctermfg=241		ctermbg=231		cterm=bold
+hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
+hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
+hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
+hi Modestatus_visual		guifg=#ff8700	guibg=#870000	gui=bold
+hi Modestatus_select		guifg=#606060	guibg=#ffffff	gui=bold
+if &t_Co > 255
+	hi Modestatus_normal		ctermfg=148		ctermbg=22		cterm=bold
+	hi Modestatus_insert		ctermfg=23		ctermbg=117		cterm=bold
+	hi Modestatus_replace		ctermfg=160		ctermbg=231		cterm=bold
+	hi Modestatus_visual		ctermfg=208		ctermbg=88		cterm=bold
+	hi Modestatus_select		ctermfg=241		ctermbg=231		cterm=bold
+else
+	hi link Modestatus_normal	StatusLine
+	hi link Modestatus_insert	StatusLine
+	hi link Modestatus_replace	StatusLine
+	hi link Modestatus_visual	StatusLine
+	hi link	Modestatus_select	StatusLine
+endif
 
 " linnk current color to statusline
-hi link Modestatus_current Statusline
+hi link Modestatus_current StatusLine
 " change color and return mode id
 
 function! Modestatus_GetMode()
@@ -58,7 +71,7 @@ function! Modestatus_GetMode()
 		hi link Modestatus_current Modestatus_insert
 		return g:Modestatus_mode_insert
 	elseif mode =~# '\v(R|Rv)'
-		hi link Modestatus_current Modestatus_repace
+		hi link Modestatus_current Modestatus_replace
 		return g:Modestatus_mode_replace
 	elseif mode =~# '\vv'
 		hi link Modestatus_current Modestatus_visual
