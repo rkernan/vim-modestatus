@@ -3,6 +3,6 @@ Modestatus
 
 todo
 ----
--add documentation
--add theming capability
+- add documentation
+- add theming capability
 
