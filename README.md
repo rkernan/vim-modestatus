@@ -1,8 +1,8 @@
 Modestatus
 =================
 
-TODO
+todo
 ----
-add documentation
-add theming capability
+-add documentation
+-add theming capability
 
