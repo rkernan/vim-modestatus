@@ -42,7 +42,6 @@ if !exists('g:Modestatus_statuslineNC')
 endif
 
 " mode colors
-let l:fullcolor=1
 hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
 hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
 hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
