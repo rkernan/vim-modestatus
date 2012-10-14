@@ -1,7 +1,7 @@
 " modeline.vim
 " @author Robert Kernan
 " @created 10-12-2012
-" @modified 10-12-2012
+" @modified 10-14-2012
 
 " mode dispay names
 if !exists('g:Modestatus_mode_normal')
@@ -42,6 +42,7 @@ if !exists('g:Modestatus_statuslineNC')
 endif
 
 " mode colors
+let l:fullcolor=1
 hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
 hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
 hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
@@ -53,12 +54,6 @@ if &t_Co > 255
 	hi Modestatus_replace		ctermfg=160		ctermbg=231		cterm=bold
 	hi Modestatus_visual		ctermfg=208		ctermbg=88		cterm=bold
 	hi Modestatus_select		ctermfg=241		ctermbg=231		cterm=bold
-else
-	hi link Modestatus_normal	StatusLine
-	hi link Modestatus_insert	StatusLine
-	hi link Modestatus_replace	StatusLine
-	hi link Modestatus_visual	StatusLine
-	hi link	Modestatus_select	StatusLine
 endif
 
 " linnk current color to statusline
