@@ -34,11 +34,11 @@ endif
 
 " active statusline
 if !exists('g:Modestatus_statusline')
-	let g:Modestatus_statusline='%#Modestatus_current#%{Modestatus_GetMode()}%*%=[%n] %f %{&mod?"+":""}%r [%{strlen(&ft)?&ft:"none"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}] %l/%L,%c'
+	let g:Modestatus_statusline='%#Modestatus_current#%{Modestatus_GetMode()}%* [%n] %f %{&mod?"+":""}%r [%{strlen(&ft)?&ft:"none"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}]%=%l/%L,%c'
 endif
 " inactive statusline
 if !exists('g:Modestatus_statuslineNC')
-	let g:Modestatus_statuslineNC='[%n] %f %{&mod?"+":""}%r%=[%{strlen(&ft)?&ft:"non"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}] %l/%L,%c'
+	let g:Modestatus_statuslineNC='[%n] %f %{&mod?"+":""}%r [%{strlen(&ft)?&ft:"non"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}]%=%l/%L,%c'
 endif
 
 " mode colors
