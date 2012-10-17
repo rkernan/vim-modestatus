@@ -99,5 +99,5 @@ function! Modestatus_GetMode()
 endfunction
 
 " active/inactive statusline switch
-autocmd BufEnter,WinEnter * let &l:statusline=g:Modestatus_statusline
+autocmd BufEnter,WinEnter,BufUnload,FileType * let &l:statusline=g:Modestatus_statusline
 autocmd BufLeave,WinLeave * let &l:statusline=g:Modestatus_statuslineNC
