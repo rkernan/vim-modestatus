@@ -3,6 +3,11 @@
 " @created 10-12-2012
 " @modified 10-14-2012
 
+if exists('g:loaded_Modestatus')
+	finish "not loading"
+endif
+let g:loaded_Modestatus=1
+
 " mode dispay names
 if !exists('g:Modestatus_mode_normal')
 	let g:Modestatus_mode_normal='NORMAL'
