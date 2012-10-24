@@ -104,5 +104,12 @@ function! Modestatus_GetMode()
 endfunction
 
 " active/inactive statusline switch
-autocmd BufEnter,WinEnter,BufUnload,FileType * let &l:statusline=g:Modestatus_statusline
-autocmd BufLeave,WinLeave * let &l:statusline=g:Modestatus_statuslineNC
+let exclude_filetypes=['tagbar', 'gundo', 'nerdtree']
+autocmd BufEnter,WinEnter,BufUnload,FileType * 
+	\ if index(exclude_filetypes, &ft) < 0
+	\	let &l:statusline=g:Modestatus_statusline
+	\ endif
+autocmd BufLeave,WinLeave *
+	\ if index(exclude_filetypes, &ft) < 0
+	\	let &l:statusline=g:Modestatus_statuslineNC
+	\ endif
