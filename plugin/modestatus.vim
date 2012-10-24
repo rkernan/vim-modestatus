@@ -103,13 +103,19 @@ function! Modestatus_GetMode()
 	endif
 endfunction
 
+function! Modestatus_StatuslineToggle(active)
+	if exists('b:Modestatus_NoToggle')
+		return
+	endif
+	if a:active == 1
+		let &l:statusline=g:Modestatus_statusline
+	else
+		let &l:statusline=g:Modestatus_statuslineNC
+	endif
+endfunction
+
 " active/inactive statusline switch
-let exclude_filetypes=['tagbar', 'gundo', 'nerdtree']
-autocmd BufEnter,WinEnter,BufUnload,FileType * 
-	\ if index(exclude_filetypes, &ft) < 0
-	\	let &l:statusline=g:Modestatus_statusline
-	\ endif
-autocmd BufLeave,WinLeave *
-	\ if index(exclude_filetypes, &ft) < 0
-	\	let &l:statusline=g:Modestatus_statuslineNC
-	\ endif
+autocmd FileType tagbar,gundo,nerdtree let b:Modestatus_NoToggle=1
+" active/inactive statusline toggle
+autocmd BufEnter,WinEnter,BufUnload,FileType * call Modestatus_StatuslineToggle(1)
+autocmd BufLeave,WinLeave * call Modestatus_StatuslineToggle(0)
