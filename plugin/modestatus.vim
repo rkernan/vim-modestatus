@@ -1,10 +1,10 @@
 " modeline.vim
 " @author Robert Kernan
 " @created 10-12-2012
-" @modified 10-14-2012
+" @modified 11-14-2012
 
 if exists('g:loaded_Modestatus')
-	finish "not loading"
+	finish
 endif
 let g:loaded_Modestatus=1
 
@@ -67,10 +67,11 @@ else
 	hi link Modestatus_select	StatusLine
 endif
 
-" linnk current color to statusline
+" link current color to statusline
 hi link Modestatus_current StatusLine
 " change color and return mode id
 
+" get current mode and switch colors
 function! Modestatus_GetMode()
 	let mode=mode()
 	if mode =~# '\vi'
@@ -114,8 +115,12 @@ function! Modestatus_StatuslineToggle(active)
 	endif
 endfunction
 
-" active/inactive statusline switch
-autocmd FileType tagbar,gundo,nerdtree let b:Modestatus_NoToggle=1
-" active/inactive statusline toggle
-autocmd BufEnter,WinEnter,BufUnload,FileType * call Modestatus_StatuslineToggle(1)
-autocmd BufLeave,WinLeave * call Modestatus_StatuslineToggle(0)
+" context switches
+augroup Modestatus_switches
+	autocmd!
+	" active/inactive statusline switch
+	autocmd FileType tagbar,gundo,nerdtree let b:Modestatus_NoToggle=1
+	" active/inactive statusline toggle
+	autocmd BufEnter,WinEnter,BufUnload,FileType * call Modestatus_StatuslineToggle(1)
+	autocmd BufLeave,WinLeave * call Modestatus_StatuslineToggle(0)
+augroup END
