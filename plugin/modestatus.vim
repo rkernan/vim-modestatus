@@ -46,26 +46,31 @@ if !exists('g:Modestatus_statuslineNC')
 	let g:Modestatus_statuslineNC='[%n] %f %{&mod?"+":""}%r [%{strlen(&ft)?&ft:"non"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}]%=%l/%L,%c'
 endif
 
-" mode colors
-if has('gui_running')
-	hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
-	hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
-	hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
-	hi Modestatus_visual		guifg=#ff8700	guibg=#870000	gui=bold
-	hi Modestatus_select		guifg=#606060	guibg=#ffffff	gui=bold
-elseif &t_Co > 255
-	hi Modestatus_normal		ctermfg=148		ctermbg=22		cterm=bold
-	hi Modestatus_insert		ctermfg=23		ctermbg=117		cterm=bold
-	hi Modestatus_replace		ctermfg=160		ctermbg=231		cterm=bold
-	hi Modestatus_visual		ctermfg=208		ctermbg=88		cterm=bold
-	hi Modestatus_select		ctermfg=241		ctermbg=231		cterm=bold
-else
-	hi link Modestatus_normal	StatusLine
-	hi link Modestatus_insert	StatusLine
-	hi link Modestatus_replace	StatusLine
-	hi link Modestatus_visual	StatusLine
-	hi link Modestatus_select	StatusLine
-endif
+" setup all colors, TODO theme files
+function! Modestatus_SetColors()
+	" mode colors
+	if has('gui_running')
+		hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
+		hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
+		hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
+		hi Modestatus_visual		guifg=#ff8700	guibg=#870000	gui=bold
+		hi Modestatus_select		guifg=#606060	guibg=#ffffff	gui=bold
+	elseif &t_Co > 255
+		hi Modestatus_normal		ctermfg=148		ctermbg=22		cterm=bold
+		hi Modestatus_insert		ctermfg=23		ctermbg=117		cterm=bold
+		hi Modestatus_replace		ctermfg=160		ctermbg=231		cterm=bold
+		hi Modestatus_visual		ctermfg=208		ctermbg=88		cterm=bold
+		hi Modestatus_select		ctermfg=241		ctermbg=231		cterm=bold
+	else
+		hi link Modestatus_normal	StatusLine
+		hi link Modestatus_insert	StatusLine
+		hi link Modestatus_replace	StatusLine
+		hi link Modestatus_visual	StatusLine
+		hi link Modestatus_select	StatusLine
+	endif
+endfunction
+
+autocmd VimEnter,ColorScheme * call Modestatus_SetColors()
 
 " link current color to statusline
 hi link Modestatus_current StatusLine
