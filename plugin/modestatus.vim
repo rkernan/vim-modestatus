@@ -8,6 +8,10 @@ if exists('g:loaded_Modestatus')
 endif
 let g:loaded_Modestatus=1
 
+if !has("autocmd")
+	finish
+endif
+
 " mode dispay names
 if !exists('g:Modestatus_mode_normal')
 	let g:Modestatus_mode_normal='NORMAL'
