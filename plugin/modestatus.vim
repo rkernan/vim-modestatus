@@ -1,11 +1,13 @@
 " modeline.vim
-" @author Robert Kernan
-" @created 10-12-2012
-" @modified 11-14-2012
+"
+" @author   Robert Kernan
+" @created  2012-10-12
+" @modified 2012-12-14
 
 if exists('g:loaded_Modestatus')
 	finish
 endif
+
 let g:loaded_Modestatus=1
 
 if !has("autocmd")
@@ -50,35 +52,40 @@ if !exists('g:Modestatus_statuslineNC')
 	let g:Modestatus_statuslineNC='[%n] %f %{&mod?"+":""}%r [%{strlen(&ft)?&ft:"non"}, %{strlen(&fenc)?&fenc:&enc}, %{&fileformat}]%=%l/%L,%c'
 endif
 
-" setup all colors, TODO theme files
+" setup all colors
 function! Modestatus_SetColors()
-	" mode colors
-	if has('gui_running')
-		hi Modestatus_normal		guifg=#afdf00	guibg=#005f00	gui=bold
-		hi Modestatus_insert		guifg=#005f5f	guibg=#87dfff	gui=bold
-		hi Modestatus_replace		guifg=#df0000	guibg=#ffffff	gui=bold
-		hi Modestatus_visual		guifg=#ff8700	guibg=#870000	gui=bold
-		hi Modestatus_select		guifg=#606060	guibg=#ffffff	gui=bold
-	elseif &t_Co > 255
-		hi Modestatus_normal		ctermfg=148		ctermbg=22		cterm=bold
-		hi Modestatus_insert		ctermfg=23		ctermbg=117		cterm=bold
-		hi Modestatus_replace		ctermfg=160		ctermbg=231		cterm=bold
-		hi Modestatus_visual		ctermfg=208		ctermbg=88		cterm=bold
-		hi Modestatus_select		ctermfg=241		ctermbg=231		cterm=bold
-	else
-		hi link Modestatus_normal	StatusLine
-		hi link Modestatus_insert	StatusLine
-		hi link Modestatus_replace	StatusLine
-		hi link Modestatus_visual	StatusLine
-		hi link Modestatus_select	StatusLine
+	if !exists('g:Modestatus_customtheme')
+		" mode colors
+		if has('gui_running')
+			" status colors
+			hi Modestatus_normal  guifg=#afdf00 guibg=#005f00 gui=none
+			hi Modestatus_insert  guifg=#005f5f guibg=#87dfff gui=none
+			hi Modestatus_replace guifg=#df0000 guibg=#ffffff gui=none
+			hi Modestatus_visual  guifg=#ff8700 guibg=#870000 gui=none
+			hi Modestatus_select  guifg=#606060 guibg=#ffffff gui=none
+		elseif &t_Co > 255
+			" status colors
+			hi Modestatus_normal  ctermfg=148 ctermbg=22  cterm=none
+			hi Modestatus_insert  ctermfg=23  ctermbg=117 cterm=none
+			hi Modestatus_replace ctermfg=160 ctermbg=231 cterm=none
+			hi Modestatus_visual  ctermfg=208 ctermbg=88  cterm=none
+			hi Modestatus_select  ctermfg=241 ctermbg=231 cterm=none
+		else
+			" status colors
+			hi link Modestatus_normal  StatusLine
+			hi link Modestatus_insert  StatusLine
+			hi link Modestatus_replace StatusLine
+			hi link Modestatus_visual  StatusLine
+			hi link Modestatus_select  StatusLine
+		endif
 	endif
 endfunction
 
+" reset colors whenever the config is reloaded
 autocmd VimEnter,ColorScheme * call Modestatus_SetColors()
 
 " link current color to statusline
 hi link Modestatus_current StatusLine
-" change color and return mode id
 
 " get current mode and switch colors
 function! Modestatus_GetMode()
@@ -113,6 +120,7 @@ function! Modestatus_GetMode()
 	endif
 endfunction
 
+" toggle between active and background statusbar
 function! Modestatus_StatuslineToggle(active)
 	if exists('b:Modestatus_NoToggle')
 		return
@@ -124,8 +132,8 @@ function! Modestatus_StatuslineToggle(active)
 	endif
 endfunction
 
-" context switches
-augroup Modestatus_switches
+" automatically change modes
+augroup Modestatus_statusSwitches
 	autocmd!
 	" active/inactive statusline switch
 	autocmd FileType tagbar,gundo,nerdtree let b:Modestatus_NoToggle=1
