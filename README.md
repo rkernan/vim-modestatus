@@ -10,4 +10,4 @@ todo
 ----
 - add documentation
 - add theming capability
-
+- add 'modified' flag color
