@@ -11,3 +11,4 @@ todo
 - add documentation
 - add theming capability
 - add 'modified' flag color
+- disable statusline customization for user specified files/filetypes
