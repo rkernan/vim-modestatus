@@ -42,6 +42,8 @@ function! modestatus#init#bootstrap()
 		\   '?':      '?',
 		\ }, 'keep')
 
+	call s:check_defined('g:modestatus#filename_replace', {})
+
 	call s:check_defined('g:modestatus#user1_keys', {
 		\   'term': 'bold',
 		\   'cterm': 'bold',
