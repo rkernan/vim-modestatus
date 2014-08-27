@@ -19,8 +19,6 @@ function! modestatus#refresh(nr)
 	" TODO(2014-08-26) Spellcheck
 	if active
 		let statusline .= ' '
-		let statusline .= '<' . g:modestatus#mode_map[mode()] . '>'
-		let statusline .= ' '
 		let statusline .= modestatus#util#pad_before(
 			\   '(' . string(float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0))),
 			\ 4) . '%%)'
@@ -29,49 +27,25 @@ function! modestatus#refresh(nr)
 			\ ':' . modestatus#util#pad_after(virtcol('.'), 3)
 	endif
 	let statusline .= ' '
-	let statusline .= '%f' " filename
+	let statusline .= Color(active, 1, '%f')
 	let modified = getbufvar(bufnum, '&modified')
-	let statusline .= Color(active, 1, modified ? ' +' : '')
+	let statusline .= Color(active, 3, modified ? ' +' : '')
 	let readonly = getbufvar(bufnum, '&readonly')
-	let statusline .= Color(active, 1, readonly ? ' ‼' : '')
+	let statusline .= Color(active, 3, readonly ? ' ‼' : '')
 	let statusline .= ' '
 	let filetype = getbufvar(bufnum, '&filetype')
-	let fileformat = getbufvar(bufnum, '&fileformat')
 	let encoding = getbufvar(bufnum, '&encoding')
-	let statusline .= '[' . filetype . ',' . fileformat . ',' . encoding . ']'
+	let filetype = len(filetype) ? filetype . ',' : ''
+	let statusline .= len(filetype) || len(encoding) ? '[' . filetype . encoding . ']' : ''
+	if active
+		let statusline .= ' '
+		let statusline .= Color(active, 2, '‹' . g:modestatus#mode_map[mode()] . '›')
+	endif
+	let statusline .= ' '
+	let statusline .= Color(active, 7, modestatus#loclist#errors(a:nr))
+	let statusline .= Color(active, 8, modestatus#loclist#warnings(a:nr))
 	let statusline .= '%='
-	" let modestatus .= Color(active, 1, modestatus#loclist_errors(a:nr))
-	" let modestatus .= Color(active, 2, modestatus#loclist_warnings(a:nr))
 	return statusline
-endfunction
-
-function! modestatus#loclist_num_types(nr, type)
-	let loclist = getloclist(a:nr)
-	let num_types = 0
-	for i in loclist
-		if i.type == a:type
-			let num_types += 1
-		endif
-	endfor
-	return num_types
-endfunction
-
-function! modestatus#loclist_errors(nr)
-	let num_errors = modestatus#loclist_num_types(a:nr, 'E')
-	let error_str = ''
-	if num_errors > 0
-		let error_str .= ' E: ' . num_errors . ' '
-	endif
-	return error_str
-endfunction
-
-function! modestatus#loclist_warnings(nr)
-	let num_warnings = modestatus#loclist_num_types(a:nr, 'W')
-	let warning_str = ''
-	if num_warnings > 0
-		let warning_str .= ' W: ' . num_warnings . ' '
-	endif
-	return warning_str
 endfunction
 
 function! modestatus#update()
