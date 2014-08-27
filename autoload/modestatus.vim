@@ -2,16 +2,6 @@ function! modestatus#statusline(nr)
 	let active = a:nr == winnr()
 	let bufnum = winbufnr(a:nr)
 
-	let filename = bufname(bufnum)
-	if has_key(g:modestatus#filename_replace, filename)
-		let filename = g:modestatus#filename_replace[filename]
-	endif
-
-	let buftype = getbufvar(bufnum, '&buftype')
-	if buftype ==# 'help'
-		let filename = 'help'
-	endif
-
 	function! Color(active, num, content)
 		if a:active && a:num != 0
 			return '%' . a:num . '*' . a:content . '%*'
@@ -49,9 +39,17 @@ function! modestatus#statusline(nr)
 		let statusline .= LeftSectionWithSpacer(modestatus#util#pad_before(line('.'), strlen(line('$'))) .
 			\ ',' . modestatus#util#pad_after(virtcol('.'), 3))
 		" mode
-		let statusline .= Color(active, 2, LeftSectionWithSpacer('‹' . g:modestatus#mode_map[mode()] . '›'))
+		if getbufvar(bufnum, '&modifiable')
+			let statusline .= Color(active, 2, LeftSectionWithSpacer('‹' . g:modestatus#mode_map[mode()] . '›'))
+		endif
 	endif
 	" filename
+	let filename = bufname(bufnum)
+	if has_key(g:modestatus#filename_replace, filename)
+		let filename = g:modestatus#filename_replace[filename]
+	else
+		let filename = '%f'
+	endif
 	let statusline .= Color(active, 1, LeftSectionWithSpacer(filename))
 	" modified
 	let modified = getbufvar(bufnum, '&modified')
