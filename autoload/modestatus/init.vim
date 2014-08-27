@@ -48,10 +48,7 @@ function! modestatus#init#bootstrap()
 		\   'gui': 'bold'
 		\ })
 	call s:check_defined('g:modestatus#user2_keys', {
-		\   'term': 'bold',
-		\   'cterm': 'bold',
 		\   'ctermfg': 'Yellow',
-		\   'gui': 'bold',
 		\   'guifg': 'Yellow'
 		\ })
 	call s:check_defined('g:modestatus#user3_keys', {
