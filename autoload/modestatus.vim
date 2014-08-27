@@ -47,7 +47,7 @@ function! modestatus#statusline(nr)
 			\ 4) . '%%)')
 		" line:column
 		let statusline .= LeftSectionWithSpacer(modestatus#util#pad_before(line('.'), strlen(line('$'))) .
-			\ ':' . modestatus#util#pad_after(virtcol('.'), 3))
+			\ ',' . modestatus#util#pad_after(virtcol('.'), 3))
 		" mode
 		let statusline .= Color(active, 2, LeftSectionWithSpacer('‹' . g:modestatus#mode_map[mode()] . '›'))
 	endif
