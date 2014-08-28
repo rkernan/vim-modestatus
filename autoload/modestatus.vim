@@ -30,47 +30,17 @@ function! modestatus#statusline(nr)
 
 	" TODO(2014-08-27) Customizable statusline.
 	let statusline = ' '
-	if active
-		" line percent
-		let statusline .= LeftSectionWithSpacer(modestatus#util#pad_before(
-			\   '(' . string(float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0))),
-			\ 4) . '%%)')
-		" line:column
-		let statusline .= LeftSectionWithSpacer(modestatus#util#pad_before(line('.'), strlen(line('$'))) .
-			\ ',' . modestatus#util#pad_after(virtcol('.'), 3))
-		" mode
-		if getbufvar(bufnum, '&modifiable')
-			let statusline .= Color(active, 2, LeftSectionWithSpacer('‹' . g:modestatus#mode_map[mode()] . '›'))
-		endif
-	endif
-	" filename
-	let filename = bufname(bufnum)
-	if has_key(g:modestatus#filename_replace, filename)
-		let filename = g:modestatus#filename_replace[filename]
-	else
-		let filename = '%f'
-	endif
-	let statusline .= Color(active, 1, LeftSectionWithSpacer(filename))
-	" modified
-	let modified = getbufvar(bufnum, '&modified')
-	let statusline .= Color(active, 3, LeftSectionWithSpacer(modified ? '+' : ''))
-	" readonly
-	let readonly = getbufvar(bufnum, '&readonly')
-	let statusline .= Color(active, 3, LeftSectionWithSpacer(readonly ? '‼' : ''))
-	" paste
-	if active && &paste
-		let statusline .= Color(active, 3, LeftSectionWithSpacer(active, 3, 'P'))
-	endif
-	" filetype and encoding
-	let filetype = getbufvar(bufnum, '&filetype')
-	let statusline .= LeftSectionWithSpacer(len(filetype) ? '[' . filetype . ']' : '')
-	let encoding = getbufvar(bufnum, '&encoding')
-	let encoding = len(encoding) ? encoding . ':' : ''
-	let fileformat = getbufvar(bufnum, '&fileformat')
-	let statusline .= LeftSectionWithSpacer(len(encoding) || len(fileformat) ? '[' . encoding . fileformat . ']' : '')
-	" errors
-	let statusline .= LeftSectionWithSpacer(Color(active, 8, modestatus#loclist#errors(a:nr)), '')
-	let statusline .= LeftSectionWithSpacer(Color(active, 9, modestatus#loclist#warnings(a:nr)), '')
+	let statusline .= LeftSectionWithSpacer(modestatus#extensions#core#line_percent(a:nr))
+	let statusline .= LeftSectionWithSpacer(modestatus#extensions#core#position(a:nr))
+	let statusline .= Color(active, 2, LeftSectionWithSpacer(modestatus#util#surround(modestatus#extensions#core#mode(a:nr), '‹', '›')))
+	let statusline .= Color(active, 1, LeftSectionWithSpacer(modestatus#extensions#core#filename(a:nr)))
+	let statusline .= Color(active, 3, LeftSectionWithSpacer(modestatus#extensions#core#modified(a:nr)))
+	let statusline .= Color(active, 3, LeftSectionWithSpacer(modestatus#extensions#core#readonly(a:nr)))
+	let statusline .= Color(active, 3, LeftSectionWithSpacer(modestatus#extensions#core#paste(a:nr)))
+	let statusline .= LeftSectionWithSpacer(modestatus#util#surround(modestatus#extensions#core#filetype(a:nr), '[', ']'))
+	let statusline .= LeftSectionWithSpacer(modestatus#util#surround(modestatus#extensions#core#encoding_and_format(a:nr), '[', ']'))
+	let statusline .= LeftSectionWithSpacer(Color(active, 8, modestatus#util#surround(modestatus#extensions#loclist#errors(a:nr), ' ')), '')
+	let statusline .= LeftSectionWithSpacer(Color(active, 9, modestatus#util#surround(modestatus#extensions#loclist#warnings(a:nr), ' ')), '')
 	let statusline .= '%='
 	let statusline .= ' '
 	return statusline
