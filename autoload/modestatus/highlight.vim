@@ -68,3 +68,8 @@ function! modestatus#highlight#modify(group, keys)
 	call extend(nkeys, a:keys, 'force')
 	call modestatus#highlight#add(a:group, nkeys)
 endfunction
+
+function! modestatus#highlight#copy_and_modify(from, to, keys)
+	call modestatus#highlight#copy(a:from, a:to)
+	call modestatus#highlight#modify(a:to, a:keys)
+endfunction

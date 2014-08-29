@@ -1,15 +1,19 @@
-if exists('g:modestatus#extensions#loclist#loaded')
-	finish
-endif
+let s:initialized = 0
+function! modestatus#extensions#loclist#init()
+	if s:initialized
+		return
+	endif
+	let s:initialized = 1
 
-" TODO(2014-08-27)
-call modestatus#util#check_defined('g:modestatus#extensions#loclist#message', {})
-call extend(g:modestatus#extensions#loclist#message, {
-	\   'error': 'E: %d',
-	\   'warning': 'W: %d'
-	\ }, 'keep')
+	call modestatus#util#check_defined('g:modestatus#extensions#loclist#message', {})
+	call extend(g:modestatus#extensions#loclist#message, {
+		\   'error': 'E: %d',
+		\   'warning': 'W: %d'
+		\ }, 'keep')
 
-let modestatus#extensions#loclist#loaded = 1
+	call modestatus#parts#add('loclist_errors', 'modestatus#extensions#loclist#errors')
+	call modestatus#parts#add('loclist_warnings', 'modestatus#extensions#loclist#warnings')
+endfunction
 
 function! s:loclist_types(nr, type, fmt)
 	let loclist = getloclist(a:nr)
