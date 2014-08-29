@@ -14,7 +14,6 @@ function! modestatus#statusline(nr)
 			let content = {modestatus#parts#get(a:key)}(a:nr)
 			return content
 		catch
-			echom v:exception
 			return ''
 		endtry
 	endfunction

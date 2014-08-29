@@ -1,4 +1,5 @@
 let s:initialized = 0
+
 function! modestatus#extensions#loclist#init()
 	if s:initialized
 		return

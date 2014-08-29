@@ -8,7 +8,8 @@ function! modestatus#parts#get(key)
 	if has_key(s:parts, a:key)
 		return s:parts[a:key]
 	else
-		throw 'part "' . a:key . '" not found'
+		call modestatus#log#error('part "' . a:key . '" not found')
+		return 0
 	endif
 endfunction
 

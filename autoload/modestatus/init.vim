@@ -1,9 +1,12 @@
-let s:loaded = 0
+let s:initialized = 0
+
 function! modestatus#init#bootstrap()
-	if s:loaded
+	if s:initialized
 		return
 	endif
-	let s:loaded = 1
+	let s:initialized = 1
+
+	set statusline=
 
 	" statusline
 	call modestatus#util#check_defined('g:modestatus#statusline', {
