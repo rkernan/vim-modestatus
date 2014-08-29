@@ -87,7 +87,8 @@ function! modestatus#init#bootstrap()
 	call modestatus#colors#add('warning', 9)
 
 	call modestatus#init#highlight()
-	call modestatus#init#extensions()
+
+	call modestatus#extensions#enable_all()
 endfunction
 
 function! modestatus#init#highlight()
@@ -100,11 +101,4 @@ function! modestatus#init#highlight()
 	call modestatus#highlight#copy_and_modify('Statusline', 'User7', g:modestatus#highlights['user7'])
 	call modestatus#highlight#copy_and_modify('Statusline', 'User8', g:modestatus#highlights['user8'])
 	call modestatus#highlight#copy_and_modify('Statusline', 'User9', g:modestatus#highlights['user9'])
-endfunction
-
-function! modestatus#init#extensions()
-	for file in split(globpath(&rtp, 'autoload/modestatus/extensions/*.vim'), '\n')
-		let name = fnamemodify(file, ':t:r')
-		call modestatus#extensions#{name}#init()
-	endfor
 endfunction
