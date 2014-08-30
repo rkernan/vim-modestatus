@@ -15,7 +15,6 @@ CONTENTS                                                  *modestatus-contents*
 9.  Extensions: LocList.........................|modestatus-extensions-loclist|
 10. Examples..............................................|modestatus-examples|
 
-
 ===============================================================================
 INTRO                                                        *modestatus-intro*
 
