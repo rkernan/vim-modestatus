@@ -1,0 +1,334 @@
+*modestatus.txt* A "vanilla" statusline for Vim.
+
+===============================================================================
+CONTENTS                                                  *modestatus-contents*
+
+1.  Intro.....................................................|modestatus-intro|
+2.  Settings..............................................|modestatus-settings|
+3.  Functions............................................|modestatus-functions|
+4.  Parts....................................................|modestatus-parts|
+5.  Options................................................|modestatus-options|
+6.  Colors..................................................|modestatus-colors|
+7.  Extensions..........................................|modestatus-extensions|
+8.  Extensions: Core...............................|modestatus-extensions-core|
+9.  Extensions: LocList.........................|modestatus-extensions-loclist|
+10. Examples..............................................|modestatus-examples|
+
+
+===============================================================================
+INTRO                                                        *modestatus-intro*
+
+/* TODO(2014-08-30) */
+
+===============================================================================
+SETTINGS                                                   *modestatus-options*
+
+Overview:~
+  |modestatus_loaded|.......................................Disable the plugin.
+  |modestatus#statusline|.....................................Statusline parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+g:modestatus_loaded                                     *'g:modestatus_loaded'*
+  Use this to disable the plugin:>
+    let g:modestatus_loaded = 1
+<
+
+g:modestatus#statusline                             *'g:modestatus#statusline'*
+  Statusline dictionary representation. This is a list of |modestatus#parts|.
+
+  default:>
+    let g:modestatus#statusline.active = {
+    \ 'active': {
+    \   'left': [
+    \     'mode',
+    \     'paste',
+    \     'filename',
+    \     'modified',
+    \     'readonly',
+    \     'filetype',
+    \     'encoding',
+    \     'fileformat',
+    \   ],
+    \   'right': [
+    \     'position',
+    \     'line_percent'
+    \   ],
+    \ },
+    \ 'inactive': {
+    \   'left': [
+    \     'filename',
+    \     'modified',
+    \     'readonly',
+    \     'filetype',
+    \     'encoding',
+    \     'fileformat'
+    \   ],
+    \   'right': []
+    \ }}
+<
+
+===============================================================================
+PARTS                                                        *modestatus-parts*
+
+Overview:~
+  |modestatus#parts|.....................................................Parts.
+  |modestatus#parts#add|............................................Add a part.
+  |modestatus#parts#has|..................................Check if part exists.
+  |modestatus#parts#get|............................................Get a part.
+  |modestatus#parts#list|.......................................List all parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                             *modestatus#parts*
+Statusline parts are stored in the form:>
+  {{key}: {func}}
+<
+Where:
+  {key} is the part name
+  {func} is the name of the function that creates the part contents
+
+modestatus#parts#add({key}, {func})                      *modestatus#parts#add*
+  Add a new statusline part referenced by {key} with content function {func}.
+
+modestatus#parts#has({key})                              *modestatus#parts#has*
+  Check if a part {key} exists.
+
+modestatus#parts#get({key})                              *modestatus#parts#get*
+  Get the name of the function that creates the content of the part {key}.
+
+modestatus#parts#list()                                 *modestatus#parts#list*
+  Echo a list of all the existing  parts.
+
+===============================================================================
+OPTIONS                                                    *modestatus-options*
+
+Overview:~
+  |modestatus#options|.................................................Options.
+  |modestatus#options#add|.........................................Add options.
+  |modestatus#options#has|..............................Check if options exist.
+  |modestatus#options#get|.........................................Get options.
+  |modestatus#options#list|...................................List all options.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                           *modestatus#options*
+Each part can have a set of options of the form:>
+  {{key}, {'active': {{opts}}, 'inactive': {{opts}}}}
+<
+Where:
+  {key} is the name of a part
+  {opt} is a dictionary of valid options
+
+Valid options:
+  'color':  a |modestatus#colors| name
+  'format': a printf format string
+  'separator': a string separator
+
+modestatus#options#add({key}, {val})                   *modestatus#options#add*
+  Add options to a statusline part {key} with content {val}.
+
+modestatus#options#has({key})                          *modestatus#options#has*
+  Check if options exist for statusline part {key}.
+
+modestatus#options#get({key})                          *modestatus#options#get*
+  Get the options for a statusline part {key}.
+
+modestatus#options#list()                             *modestatus#options#list*
+  Echo a list of all existing options.
+
+===============================================================================
+FUNCTIONS                                                *modestatus-functions*
+
+Overview:~
+  |modestatus#util#check_defined|.................Check and default a variable.
+  |modestatus#util#pad_before|..............................Add prefix padding.
+  |modestatus#util#pad_after|..............................Add postfix padding.
+  |modestatus#util#prefix|........................................Add a prefix.
+  |modestatus#util#postfix|.......................................Add a posfix.
+  |modestatus#highlight#copy|........................Deep copy highlight group.
+  |modestatus#highlight#mod|............................Modify highlight group.
+  |modestatus#highlight#copymod|...............Copy and modify highlight group.
+
+-------------------------------------------------------------------------------
+Description:~
+
+modestatus#util#check_defined({var}, {default})   *modestatus#util#check_defined*
+  Check if {var} is defined and set it to {default} if not.
+
+modestatus#util#pad_before({str}, {amt}[, {pad}])    *modestatus#util#pad_before*
+  Prefix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
+  length zero returns empty string.
+
+modestatus#util#pad_after({str}, {amt}[, {pad}])      *modestatus#util#pad_after*
+  Postfix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
+  length zero returns empty strig.
+
+modestatus#util#prefix({str}, {pre})                     *modestatus#util#prefix*
+  Prefix {str} with {pre}. If {str} has length zero returns empty string.
+
+modestatus#util#postfix({str}, {post})                  *modestatus#util#postfix*
+  Postfix {str} with {post}. If {str} has length zero returns empty string.
+
+modestatus#highlight#copy({to}, {from})               *modestatus#highlight#copy*
+  Deep copy a highlight group {from} to a group {to}.
+
+modestatus#highlight#mod({grp}, {keys})                *modestatus#highlight#mod*
+  Modify an existing highlight group {grp} with {keys} changed.
+
+  keys:>
+    {'term': ..., 'start': ..., 'stop': ...,
+     'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
+     'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
+  <
+
+modestatus#highlight#copymod({to}, {from},{keys})  *modestatus#highlight#copymod*
+  Copy an existing highlight group {from} to a group {to} with {keys} changed.
+
+  keys:>
+    {'term': ..., 'start': ..., 'stop': ...,
+     'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
+     'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
+  <
+
+===============================================================================
+COLORS                                                      *modestatus-colors*
+
+Overview:~
+  |modestatus#colors|...................................................Colors.
+  |modestatus#colors#add|..........................................Add a color.
+  |modestatus#colors#has|................................Check if color exists.
+  |modestatus#colors#get|..........................................Get a color.
+  |modestatus#colors#list|.....................................List all colors.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                            *modestatus#colors*
+Colors refer to vim User# colors and have the form:
+  {{key}: {idx}}
+<
+Where:
+  {key} is the name of a color
+  {idx} is an index [1,9] of the User# highlight group
+
+modestatus#colors#add({key}, {val})                     *modestatus#colors#add*
+  Add a new color referenced by {key} refering to a User# highlight group
+  with index {val}.
+
+modestatus#colors#has({key})                            *modestatus#colors#has*
+  Check if a color {key} exists.
+
+modestatus#colors#get({key})                            *modestatus#colors#get*
+  Get the index of the User# highlight group the color {key} refers to.
+
+modestatus#colors#list()                               *modestatus#colors#list*
+  Echo a list of all the existing colors.
+
+===============================================================================
+EXTENSIONS                                              *modestatus-extensions*
+
+Overview:~
+  |modestatus#extensions|...........................................Extensions.
+  |modestatus#extensions#enable|...........................Enable an extension.
+  |modestatus#extensions#enable_all|.....................Enable all extensions.
+  |modestatus#extensions#list|.............................List all extensions.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                        *modestatus#extensions*
+Extensions define a set of parts that can be used to build the statusline.
+
+All extensions should define a function>modestatus#extensions#{name}#init<
+that contains all extension initialization.
+
+modestatus#extensions#enable({ext})              *modestatus#extensions#enable*
+  Enable an extension with the given name {ext}.
+
+modestatus#extensions#enable_all()           *modestatus#extensions#enable_all*
+  Enable all extensions in '${rtp}/autoload/extensions/*.vim'.
+
+modestatus#extensions#list()                       *modestatus#extensions#list*
+  Echo a list of all enabled extensions.
+
+===============================================================================
+EXTENSIONS- CORE                                   *modestatus-extensions-core*
+
+Overview:~
+  |modestatus#extensions#core|..................................Core extension.
+  |modestatus#extensions#core#parts|..........................Statusline parts.
+  |modestatus#extensions#core#symbols|.............................Symbols map.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                   *modestatus#extensions#core*
+Defined a set of basic statusline parts.
+see: |modestatus#extensions#core#parts|
+
+                                             *modestatus#extensions#core#parts*
+Parts:
+  'line_percent'
+  'position'
+  'filename'
+  'filetype'
+  'encoding'
+  'fileformat'
+  'modified'
+  'readonly'
+  'paste'
+
+g:modestatus#core#extensions#symbols   *'g:modestatus#extensions#core#symbols'*
+  Symbols used by the part generator functions.
+
+  default:>
+    let g:modestatus#core#extensions#symbols = {
+      \   'modes': {
+      \     'n':      'N',
+      \     'i':      'I',
+      \     'R':      'R',
+      \     'v':      'V',
+      \     'V':      'V',
+      \     "\<c-v>": 'V',
+      \     'c':      'C',
+      \     's':      'S',
+      \     'S':      'S',
+      \     "\<c-s>": 'S',
+      \     '?':      '?'
+      \   },
+      \   'modified': '+',
+      \   'readonly': '‼',
+      \   'paste': 'P'
+      \ }
+<
+
+===============================================================================
+EXTENSIONS- LOCLIST                             *modestatus-extensions-loclist*
+
+Overview:~
+  |modestatus#extensions#loclist|............................LocList extension.
+  |modestatus#extensions#loclist#parts|.......................Statusline parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                *modestatus#extensions#loclist*
+Defines statusline parts for creating error lines from location list entries.
+see: |modestatus#extensions#loclist#parts|
+
+                                          *modestatus#extensions#loclist#parts*
+Parts:
+  'loclist_errors'   => 'E {num}'
+  'loclist_warnings' => 'W {num}'
+
+===============================================================================
+EXAMPLES                                                  *modestatus-examples*
+
+/* TODO(2014-08-30) */
+
+===============================================================================
+vim:tw=78:sw=2:ts=8:norl:noet:ft=help
