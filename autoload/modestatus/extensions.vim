@@ -5,7 +5,7 @@ function! modestatus#extensions#enable(ext)
 		call modestatus#extensions#{a:ext}#init()
 		call add(s:extensions, a:ext)
 	catch
-		call modestatus#log#error('extensions: "modestatus#' . a:ext . '#init()" not found')
+		call modestatus#log#error('extension: "modestatus#extensions#' . a:ext . '#init()" not found')
 	endtry
 endfunction
 
