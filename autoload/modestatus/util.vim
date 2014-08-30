@@ -13,17 +13,16 @@ function! modestatus#util#check_defined(var, default)
 endfunction
 
 function! modestatus#util#prefix(content, pre)
-	return modestatus#util#surround(a:content, a:pre, '')
+	if len(a:content)
+		return a:pre . a:content
+	else
+		return ''
+	endif
 endfunction
 
 function! modestatus#util#postfix(content, post)
-	return modestatus#util#surround(a:content, '', a:post)
-endfunction
-
-function! modestatus#util#surround(content, left, ...)
-	let right = a:0 == 1 ? a:1 : a:left
 	if len(a:content)
-		return a:left . a:content . right
+		return a:content . a:post
 	else
 		return ''
 	endif
