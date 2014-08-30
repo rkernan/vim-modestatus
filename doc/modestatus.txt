@@ -305,6 +305,8 @@ Overview:~
   |modestatus#extensions#core|..................................Core extension.
   |modestatus#extensions#core#parts|..........................Statusline parts.
   |modestatus#extensions#core#symbols|.............................Symbols map.
+  |modestatus#extensions#core#filename_override|.....Override filename by name.
+  |modestatus#extensions#core#filetype_override|.....Override filename by type.
 
 -------------------------------------------------------------------------------
 Description:~
@@ -325,28 +327,47 @@ Parts:
   'readonly'
   'paste'
 
-g:modestatus#core#extensions#symbols   *'g:modestatus#extensions#core#symbols'*
-  Symbols used by the part generator functions.
+                                       *'g:modestatus#extensions#core#symbols'*
+Symbols used by the part generator functions.
 
-  default:>
-    let g:modestatus#core#extensions#symbols = {
-      \   'modes': {
-      \     'n':      'N',
-      \     'i':      'I',
-      \     'R':      'R',
-      \     'v':      'V',
-      \     'V':      'V',
-      \     "\<c-v>": 'V',
-      \     'c':      'C',
-      \     's':      'S',
-      \     'S':      'S',
-      \     "\<c-s>": 'S',
-      \     '?':      '?'
-      \   },
-      \   'modified': '+',
-      \   'readonly': '‼',
-      \   'paste': 'P'
-      \ }
+default:>
+  let g:modestatus#core#extensions#symbols = {
+    \   'modes': {
+    \     'n':      'N',
+    \     'i':      'I',
+    \     'R':      'R',
+    \     'v':      'V',
+    \     'V':      'V',
+    \     "\<c-v>": 'V',
+    \     'c':      'C',
+    \     's':      'S',
+    \     'S':      'S',
+    \     "\<c-s>": 'S',
+    \     '?':      '?'
+    \   },
+    \   'modified': '+',
+    \   'readonly': '‼',
+    \   'paste': 'P'
+    \ }
+<
+
+                             *'g:modestatus#extensions#core#filename_override'*
+Dictionary of display filename overrides.
+
+example:>
+  let g:modestatus#extensions#core#filename_override = {
+    \   '__Gundo__': 'Undo Tree',
+    \   '__Gundo_Preview__': 'Undo Preview'
+    \ }
+<
+
+                             *'g:modestatus#extensions#core#filetype_override'*
+Dictionary of display filname filetype overrides.
+
+example:>
+  let g:modestatus#extensions#core#filetype_override = {
+    \   'qf': 'Quick Fix'
+    \ }
 <
 
 ===============================================================================
