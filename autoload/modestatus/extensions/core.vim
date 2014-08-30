@@ -7,7 +7,6 @@ function! modestatus#extensions#core#init()
 	let s:initialized = 1
 
 	call modestatus#util#check_defined('g:modestatus#extensions#core#filename_override', {})
-	call modestatus#util#check_defined('g:modestatus#extensions#core#filetype_override', {})
 	call modestatus#util#check_defined('g:modestatus#extensions#core#symbols', {})
 	call extend(g:modestatus#extensions#core#symbols, {'modes': {}}, 'keep')
 	call extend(g:modestatus#extensions#core#symbols.modes, {
@@ -64,14 +63,10 @@ endfunction
 
 function! modestatus#extensions#core#filename(nr)
 	let filename = bufname(winbufnr(a:nr))
-	let filetype = getbufvar(winbufnr(a:nr), '&filetype')
 	if has_key(g:modestatus#extensions#core#filename_override, filename)
-		return g:modestatus#extensions#core#filename_replace[filename]
-	elseif has_key(g:modestatus#extensions#core#filetype_override, filetype)
-		return g:modestatus#extensions#core#filetype_override[filetype]
-	else
-		return '%f'
+		let filename = g:modestatus#extensions#core#filename_override[filename]
 	endif
+	return filename
 endfunction
 
 function! modestatus#extensions#core#filetype(nr)
@@ -89,7 +84,7 @@ endfunction
 function! modestatus#extensions#core#encoding_and_format(nr)
 	let encoding = getbufvar(winbufnr(a:nr), '&encoding')
 	let format = getbufvar(winbufnr(a:nr), '&fileformat')
-	return modestatus#util#postfix(encoding, ',') . format
+	return modestatus#util#postfix(encoding, ':') . format
 endfunction
 
 function! modestatus#extensions#core#modified(nr)
