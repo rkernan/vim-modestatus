@@ -3,7 +3,7 @@
 ===============================================================================
 CONTENTS                                                  *modestatus-contents*
 
-1.  Intro.....................................................|modestatus-intro|
+1.  Intro....................................................|modestatus-intro|
 2.  Settings..............................................|modestatus-settings|
 3.  Functions............................................|modestatus-functions|
 4.  Parts....................................................|modestatus-parts|
@@ -233,6 +233,7 @@ EXTENSIONS                                              *modestatus-extensions*
 
 Overview:~
   |modestatus#extensions|...........................................Extensions.
+  |modestatus#extensions#auto|............................Auto load extensions.
   |modestatus#extensions#enable|...........................Enable an extension.
   |modestatus#extensions#enable_all|.....................Enable all extensions.
   |modestatus#extensions#list|.............................List all extensions.
@@ -242,9 +243,17 @@ Description:~
 
                                                         *modestatus#extensions*
 Extensions define a set of parts that can be used to build the statusline.
+They need to be enabled manually unless |g:modestatus#extensions#auto| is set.
 
 All extensions should define a function>modestatus#extensions#{name}#init<
 that contains all extension initialization.
+
+g:modestatus#extensions#auto                   *'g:modestatus#extensions#auto'*
+  Set to let modestatus automatically enable all extensions.
+
+  default:>
+    let g:modestatus#extensions#auto = 0
+  <
 
 modestatus#extensions#enable({ext})              *modestatus#extensions#enable*
   Enable an extension with the given name {ext}.

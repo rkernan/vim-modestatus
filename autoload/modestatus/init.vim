@@ -8,7 +8,6 @@ function! modestatus#init#bootstrap()
 
 	set statusline=
 
-	" statusline
 	call modestatus#util#check_defined('g:modestatus#statusline', {
 		\ 'active': {
 		\   'left': [
@@ -38,5 +37,8 @@ function! modestatus#init#bootstrap()
 		\   'right': []
 		\ }})
 
-	call modestatus#extensions#enable_all()
+	call modestatus#util#check_defined('g:modestatus#extensions#auto', 0)
+	if g:modestatus#extensions#auto
+		call modestatus#extensions#enable_all()
+	endif
 endfunction
