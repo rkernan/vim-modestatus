@@ -1,4 +1,4 @@
-function! modestatus#highlight#get_keys(group)
+function! s:get_keys(group)
 	" get group definition
 	redir => str
 		exec 'silent hi ' . a:group
@@ -43,7 +43,7 @@ function! modestatus#highlight#get_keys(group)
 	return keys
 endfunction
 
-function! modestatus#highlight#make_cmd(group, keys)
+function! s:make_cmd(group, keys)
 	let cmd = ''
 	for k in keys(a:keys)
 		let cmd .= k . '=' . a:keys[k] . ' '
@@ -52,24 +52,24 @@ function! modestatus#highlight#make_cmd(group, keys)
 endfunction
 
 function! modestatus#highlight#add(group, keys)
-	let cmd = modestatus#highlight#make_cmd(a:group, a:keys)
+	let cmd = s:make_cmd(a:group, a:keys)
 	if len(cmd)
 		exec cmd
 	endif
 endfunction
 
 function! modestatus#highlight#copy(from, to)
-	let keys = modestatus#highlight#get_keys(a:from)
+	let keys = s:get_keys(a:from)
 	call modestatus#highlight#add(a:to, keys)
 endfunction
 
-function! modestatus#highlight#modify(group, keys)
-	let nkeys = modestatus#highlight#get_keys(a:group)
+function! modestatus#highlight#mod(grp, keys)
+	let nkeys = s:get_keys(a:grp)
 	call extend(nkeys, a:keys, 'force')
-	call modestatus#highlight#add(a:group, nkeys)
+	call modestatus#highlight#add(a:grp, nkeys)
 endfunction
 
-function! modestatus#highlight#copy_and_modify(from, to, keys)
+function! modestatus#highlight#copymod(from, to, keys)
 	call modestatus#highlight#copy(a:from, a:to)
-	call modestatus#highlight#modify(a:to, a:keys)
+	call modestatus#highlight#mod(a:to, a:keys)
 endfunction
