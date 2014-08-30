@@ -35,10 +35,7 @@ function! modestatus#init#bootstrap()
 		\     'encoding',
 		\     'fileformat'
 		\   ],
-		\   'right': [
-		\     'position',
-		\     'line_percent'
-		\   ]
+		\   'right': []
 		\ }})
 
 	call modestatus#extensions#enable_all()
