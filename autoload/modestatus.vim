@@ -1,13 +1,5 @@
 function! modestatus#statusline(nr)
 
-	function! Color(active, num, content)
-		if a:active && a:num != 0 && a:num < 10
-			return '%' . a:num . '*' . a:content . '%*'
-		else
-			return '%*' . a:content
-		endif
-	endfunction
-
 	function! Section(nr, key)
 		try
 			let func = modestatus#parts#get(a:key)
