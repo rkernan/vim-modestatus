@@ -13,13 +13,8 @@ function! modestatus#statusline(nr)
 					let content = printf(options['format'], content)
 				endif
 				" add a separator
-				if has_key(options, 'separator')
+				if has_key(options, 'nosep') && options['nosep']
 					let nosep = 1
-					if a:side ==# 'left'
-						let content = modestatus#util#postfix(content, options['separator'])
-					else
-						let content = modestatus#util#prefix(content, options['separator'])
-					endif
 				endif
 				" color the part
 				if has_key(options, 'color')
