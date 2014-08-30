@@ -40,7 +40,6 @@ function! modestatus#extensions#core#init()
 endfunction
 
 function! modestatus#extensions#core#line_percent(nr)
-	" TODO(2014-08-29) Allow for inactive buffers.
 	if a:nr == winnr()
 		return modestatus#util#pad_before(string(float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0))), 3) . '%%'
 	else
@@ -49,11 +48,9 @@ function! modestatus#extensions#core#line_percent(nr)
 endfunction
 
 function! modestatus#extensions#core#position(nr)
-	" TODO(2014-08-29) Allow for inactive buffers.
 	if a:nr == winnr()
 		let linenum = line('.')
 		let colnum = virtcol('.')
-		" TODO(2014-08-28) Performace?
 		let max_colnum = max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 		return modestatus#util#pad_before(linenum, strlen(line('$'))) . ',' . modestatus#util#pad_after(colnum, len(max_colnum))
 	else

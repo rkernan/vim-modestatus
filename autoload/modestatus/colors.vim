@@ -8,8 +8,12 @@ function! modestatus#colors#add(key, val)
 	endif
 endfunction
 
+function! modestatus#colors#has(key)
+	return has_key(s:colors, a:key)
+endfunction
+
 function! modestatus#colors#get(key)
-	if has_key(s:colors, a:key)
+	if modestatus#colors#has(a:key)
 		return s:colors[a:key]
 	else
 		call modestatus#log#error('color "' . a:key . '" not found')
