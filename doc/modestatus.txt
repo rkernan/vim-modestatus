@@ -337,7 +337,59 @@ Parts:
 ===============================================================================
 EXAMPLES                                                  *modestatus-examples*
 
-/* TODO(2014-08-30) */
+example:>
+  call modestatus#extensions#enable('core')
+
+  let g:modestatus#statusline = {
+    \ 'active': {
+    \   'left': [
+    \     'mode',
+    \     'filename',
+    \     'modified',
+    \     'readonly',
+    \     'filetype',
+    \     'encoding',
+    \     'fileformat'
+    \   ],
+    \   'right': [
+    \     'position',
+    \     'line_percent'
+    \   ]
+    \ },
+    \ 'inactive': {
+    \   'left': [
+    \     'filename',
+    \     'modified',
+    \     'readonly',
+    \     'filetype'
+    \   ],
+    \   'right': []
+    \ }
+    \}
+
+  call modestatus#highlight#copymod('Statusline', 'User1', {
+    \ 'term': 'bold', 'cterm': 'bold', 'gui': 'bold'})
+  call modestatus#colors#add('bold', 1)
+
+  call modestatus#highlight#copymod('Statusline', 'User2', {
+    \ 'term': 'bold', 'cterm': 'bold', 'ctermfg': 'Red',
+    \ 'gui': 'bold', 'guifg': 'Red'})
+  call modestatus#colors#add('redbold', 2)
+
+  call modestatus#options#add('filename', {
+    \ 'active': {'color': 'bold'}})
+  call modestatus#options#add('modified', {
+    \ 'active': {'color': 'redbold'})
+  call modestatus#options#add('readonly', {
+    \ 'active': {'color': 'redbold'})
+  call modestatus#options#add('filetype', {
+    \ 'active': {'format': '[%s]',
+    \ 'inactive': {'format': '[%s]'}})
+  call modestatus#options#add('encoding', {
+    \ 'active': {'format': '[%s', 'separator': ':'}})
+  call modestatus#options#add('fileformat': {
+    \ 'active': {'format': '%s]'}})
+<
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help
