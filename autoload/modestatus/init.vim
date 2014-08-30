@@ -22,7 +22,7 @@ function! modestatus#init#bootstrap()
 		\     'filetype',
 		\     'encoding_and_format',
 		\     'loclist_errors',
-		\     'loclist_warnings'
+		\     'loclist_warnings',
 		\   ],
 		\   'right': []
 		\ },
