@@ -28,7 +28,7 @@ It includes APIs for:
 - adding part-specific formatting options including colors
 
 ===============================================================================
-SETTINGS                                                   *modestatus-options*
+SETTINGS                                                  *modestatus-settings*
 
 Overview:~
   |modestatus_loaded|.......................................Disable the plugin.
