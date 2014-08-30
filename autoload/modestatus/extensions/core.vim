@@ -32,7 +32,6 @@ function! modestatus#extensions#core#init()
 	call modestatus#parts#add('filetype', 'modestatus#extensions#core#filetype')
 	call modestatus#parts#add('encoding', 'modestatus#extensions#core#encoding')
 	call modestatus#parts#add('fileformat', 'modestatus#extensions#core#fileformat')
-	call modestatus#parts#add('encoding_and_format', 'modestatus#extensions#core#encoding_and_format')
 	call modestatus#parts#add('modified', 'modestatus#extensions#core#modified')
 	call modestatus#parts#add('readonly', 'modestatus#extensions#core#readonly')
 	call modestatus#parts#add('paste', 'modestatus#extensions#core#paste')
@@ -60,8 +59,11 @@ endfunction
 
 function! modestatus#extensions#core#filename(nr)
 	let filename = bufname(winbufnr(a:nr))
+	let filetype = getbufvar(winbufnr(a:nr), '&filetype')
 	if has_key(g:modestatus#extensions#core#filename_override, filename)
 		let filename = g:modestatus#extensions#core#filename_override[filename]
+	elseif has_key(g:modestatus#extensions#core#filetype_override, filetype)
+		let filename = g:modestatus#extensions#core#filetype_override[filetype]
 	endif
 	return filename
 endfunction
@@ -76,12 +78,6 @@ endfunction
 
 function! modestatus#extensions#core#fileformat(nr)
 	return getbufvar(winbufnr(a:nr), '&fileformat')
-endfunction
-
-function! modestatus#extensions#core#encoding_and_format(nr)
-	let encoding = getbufvar(winbufnr(a:nr), '&encoding')
-	let format = getbufvar(winbufnr(a:nr), '&fileformat')
-	return modestatus#util#postfix(encoding, ':') . format
 endfunction
 
 function! modestatus#extensions#core#modified(nr)
