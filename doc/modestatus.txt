@@ -1,4 +1,5 @@
 *modestatus.txt* A "vanilla" statusline for Vim.
+*modestatus* *Modestatus*
 
 ===============================================================================
 CONTENTS                                                  *modestatus-contents*
