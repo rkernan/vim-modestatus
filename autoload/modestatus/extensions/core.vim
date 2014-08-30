@@ -23,7 +23,11 @@ function! modestatus#extensions#core#init()
 		\   '?':      '?'
 		\ }, 'keep')
 	call extend(g:modestatus#extensions#core#symbols, {'modified': '+'}, 'keep')
-	call extend(g:modestatus#extensions#core#symbols, {'readonly': '‼'}, 'keep')
+	if has('multi_byte')
+		call extend(g:modestatus#extensions#core#symbols, {'readonly': '‼'}, 'keep')
+	else
+		call extend(g:modestatus#extensions#core#symbols, {'readonly': '!!'}, 'keep')
+	endif
 	call extend(g:modestatus#extensions#core#symbols, {'paste': 'P'}, 'keep')
 
 	call modestatus#parts#add('line_percent', 'modestatus#extensions#core#line_percent')
