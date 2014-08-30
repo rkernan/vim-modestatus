@@ -38,12 +38,14 @@ Overview:~
 -------------------------------------------------------------------------------
 Description:~
 
-g:modestatus_loaded                                     *'g:modestatus_loaded'*
+                                                        *'g:modestatus_loaded'*
+g:modestatus_loaded
   Use this to disable the plugin:>
     let g:modestatus_loaded = 1
 <
 
-g:modestatus#statusline                             *'g:modestatus#statusline'*
+                                                    *'g:modestatus#statusline'*
+g:modestatus#statusline
   Statusline dictionary representation. This is a list of |modestatus#parts|.
 
   default:>
@@ -98,16 +100,20 @@ Where:
   {key} is the part name
   {func} is the name of the function that creates the part contents
 
-modestatus#parts#add({key}, {func})                      *modestatus#parts#add*
+                                                         *modestatus#parts#add*
+modestatus#parts#add({key}, {func})
   Add a new statusline part referenced by {key} with content function {func}.
 
-modestatus#parts#has({key})                              *modestatus#parts#has*
+                                                         *modestatus#parts#has*
+modestatus#parts#has({key})
   Check if a part {key} exists.
 
-modestatus#parts#get({key})                              *modestatus#parts#get*
+                                                         *modestatus#parts#get*
+modestatus#parts#get({key})
   Get the name of the function that creates the content of the part {key}.
 
-modestatus#parts#list()                                 *modestatus#parts#list*
+                                                        *modestatus#parts#list*
+modestatus#parts#list()
   Echo a list of all the existing  parts.
 
 ===============================================================================
@@ -136,16 +142,20 @@ Valid options:
   'format': a printf format string
   'separator': a string separator
 
-modestatus#options#add({key}, {val})                   *modestatus#options#add*
+                                                       *modestatus#options#add*
+modestatus#options#add({key}, {val})
   Add options to a statusline part {key} with content {val}.
 
-modestatus#options#has({key})                          *modestatus#options#has*
+                                                       *modestatus#options#has*
+modestatus#options#has({key})
   Check if options exist for statusline part {key}.
 
-modestatus#options#get({key})                          *modestatus#options#get*
+                                                       *modestatus#options#get*
+modestatus#options#get({key})
   Get the options for a statusline part {key}.
 
-modestatus#options#list()                             *modestatus#options#list*
+                                                      *modestatus#options#list*
+modestatus#options#list()
   Echo a list of all existing options.
 
 ===============================================================================
@@ -164,27 +174,34 @@ Overview:~
 -------------------------------------------------------------------------------
 Description:~
 
-modestatus#util#check_defined({var}, {default})   *modestatus#util#check_defined*
+                                                  *modestatus#util#check_defined*
+modestatus#util#check_defined({var}, {default})
   Check if {var} is defined and set it to {default} if not.
 
-modestatus#util#pad_before({str}, {amt}[, {pad}])    *modestatus#util#pad_before*
+                                                     *modestatus#util#pad_before*
+modestatus#util#pad_before({str}, {amt}[, {pad}])
   Prefix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
   length zero returns empty string.
 
-modestatus#util#pad_after({str}, {amt}[, {pad}])      *modestatus#util#pad_after*
+                                                      *modestatus#util#pad_after*
+modestatus#util#pad_after({str}, {amt}[, {pad}])
   Postfix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
   length zero returns empty strig.
 
-modestatus#util#prefix({str}, {pre})                     *modestatus#util#prefix*
+                                                         *modestatus#util#prefix*
+modestatus#util#prefix({str}, {pre})
   Prefix {str} with {pre}. If {str} has length zero returns empty string.
 
-modestatus#util#postfix({str}, {post})                  *modestatus#util#postfix*
+                                                        *modestatus#util#postfix*
+modestatus#util#postfix({str}, {post})
   Postfix {str} with {post}. If {str} has length zero returns empty string.
 
-modestatus#highlight#copy({to}, {from})               *modestatus#highlight#copy*
+                                                      *modestatus#highlight#copy*
+modestatus#highlight#copy({to}, {from})
   Deep copy a highlight group {from} to a group {to}.
 
-modestatus#highlight#mod({grp}, {keys})                *modestatus#highlight#mod*
+                                                       *modestatus#highlight#mod*
+modestatus#highlight#mod({grp}, {keys})
   Modify an existing highlight group {grp} with {keys} changed.
 
   keys:>
@@ -193,7 +210,8 @@ modestatus#highlight#mod({grp}, {keys})                *modestatus#highlight#mod
      'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
   <
 
-modestatus#highlight#copymod({to}, {from},{keys})  *modestatus#highlight#copymod*
+                                                   *modestatus#highlight#copymod*
+modestatus#highlight#copymod({to}, {from},{keys})
   Copy an existing highlight group {from} to a group {to} with {keys} changed.
 
   keys:>
@@ -223,17 +241,21 @@ Where:
   {key} is the name of a color
   {idx} is an index [1,9] of the User# highlight group
 
-modestatus#colors#add({key}, {val})                     *modestatus#colors#add*
+                                                        *modestatus#colors#add*
+modestatus#colors#add({key}, {val})
   Add a new color referenced by {key} refering to a User# highlight group
   with index {val}.
 
-modestatus#colors#has({key})                            *modestatus#colors#has*
+                                                        *modestatus#colors#has*
+modestatus#colors#has({key})
   Check if a color {key} exists.
 
-modestatus#colors#get({key})                            *modestatus#colors#get*
+                                                        *modestatus#colors#get*
+modestatus#colors#get({key})
   Get the index of the User# highlight group the color {key} refers to.
 
-modestatus#colors#list()                               *modestatus#colors#list*
+                                                       *modestatus#colors#list*
+modestatus#colors#list()
   Echo a list of all the existing colors.
 
 ===============================================================================
@@ -256,20 +278,24 @@ They need to be enabled manually unless |g:modestatus#extensions#auto| is set.
 All extensions should define a function>modestatus#extensions#{name}#init<
 that contains all extension initialization.
 
-g:modestatus#extensions#auto                   *'g:modestatus#extensions#auto'*
+                                               *'g:modestatus#extensions#auto'*
+g:modestatus#extensions#auto
   Set to let modestatus automatically enable all extensions.
 
   default:>
     let g:modestatus#extensions#auto = 0
   <
 
-modestatus#extensions#enable({ext})              *modestatus#extensions#enable*
+                                                 *modestatus#extensions#enable*
+modestatus#extensions#enable({ext})
   Enable an extension with the given name {ext}.
 
-modestatus#extensions#enable_all()           *modestatus#extensions#enable_all*
+                                             *modestatus#extensions#enable_all*
+modestatus#extensions#enable_all()
   Enable all extensions in '${rtp}/autoload/extensions/*.vim'.
 
-modestatus#extensions#list()                       *modestatus#extensions#list*
+                                                   *modestatus#extensions#list*
+modestatus#extensions#list()
   Echo a list of all enabled extensions.
 
 ===============================================================================
