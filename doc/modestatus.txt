@@ -163,9 +163,9 @@ FUNCTIONS                                                *modestatus-functions*
 Overview:~
   |modestatus#util#check_defined|.................Check and default a variable.
   |modestatus#util#pad_before|..............................Add prefix padding.
-  |modestatus#util#pad_after|..............................Add postfix padding.
+  |modestatus#util#pad_after|..............................Add suffix padding.
   |modestatus#util#prefix|........................................Add a prefix.
-  |modestatus#util#postfix|.......................................Add a posfix.
+  |modestatus#util#suffix|.......................................Add a posfix.
   |modestatus#highlight#copy|........................Deep copy highlight group.
   |modestatus#highlight#mod|............................Modify highlight group.
   |modestatus#highlight#copymod|...............Copy and modify highlight group.
@@ -184,16 +184,16 @@ modestatus#util#pad_before({str}, {amt}[, {pad}])
 
                                                       *modestatus#util#pad_after*
 modestatus#util#pad_after({str}, {amt}[, {pad}])
-  Postfix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
+  suffix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
   length zero returns empty strig.
 
                                                          *modestatus#util#prefix*
 modestatus#util#prefix({str}, {pre})
   Prefix {str} with {pre}. If {str} has length zero returns empty string.
 
-                                                        *modestatus#util#postfix*
-modestatus#util#postfix({str}, {post})
-  Postfix {str} with {post}. If {str} has length zero returns empty string.
+                                                        *modestatus#util#suffix*
+modestatus#util#suffix({str}, {post})
+  suffix {str} with {post}. If {str} has length zero returns empty string.
 
                                                       *modestatus#highlight#copy*
 modestatus#highlight#copy({to}, {from})

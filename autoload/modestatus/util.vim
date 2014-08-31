@@ -17,7 +17,7 @@ function! modestatus#util#pad_after(str, amt, ...)
 	if a:0 == 1
 		let pad = a:1
 	endif
-	return modestatus#util#postfix(a:str, repeat(pad, a:amt - len(a:str)))
+	return modestatus#util#suffix(a:str, repeat(pad, a:amt - len(a:str)))
 endfunction
 
 function! modestatus#util#prefix(str, pre)
@@ -28,7 +28,7 @@ function! modestatus#util#prefix(str, pre)
 	endif
 endfunction
 
-function! modestatus#util#postfix(str, post)
+function! modestatus#util#suffix(str, post)
 	if len(a:str)
 		return a:str . a:post
 	else

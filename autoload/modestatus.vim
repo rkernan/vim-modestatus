@@ -26,7 +26,7 @@ function! modestatus#statusline(nr)
 			" add separator (if it hasnt been added already)
 			if !nosep
 				if a:side ==# 'left'
-					let content = modestatus#util#postfix(content, ' ')
+					let content = modestatus#util#suffix(content, ' ')
 				else
 					let content = modestatus#util#prefix(content, ' ')
 				endif
