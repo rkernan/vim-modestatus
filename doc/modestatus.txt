@@ -39,15 +39,14 @@ Description:~
 
                                                         *'g:modestatus_loaded'*
 g:modestatus_loaded
-  Use this to disable the plugin:>
+  Use this to disable the plugin: >
     let g:modestatus_loaded = 1
 <
-
                                                     *'g:modestatus#statusline'*
 g:modestatus#statusline
   Statusline dictionary representation. This is a list of |modestatus#parts|.
 
-  default:>
+  default: >
     let g:modestatus#statusline.active = {
     \ 'active': {
     \   'left': [
@@ -77,7 +76,6 @@ g:modestatus#statusline
     \   'right': []
     \ }}
 <
-
 ===============================================================================
 PARTS                                                        *modestatus-parts*
 
@@ -92,7 +90,7 @@ Overview:~
 Description:~
 
                                                              *modestatus#parts*
-Statusline parts are stored in the form:>
+Statusline parts are stored in the form: >
   {{key}: {func}}
 <
 Where:
@@ -129,7 +127,7 @@ Overview:~
 Description:~
 
                                                            *modestatus#options*
-Each part can have a set of options of the form:>
+Each part can have a set of options of the form: >
   {{key}, {'active': {{opts}}, 'inactive': {{opts}}}}
 <
 Where:
@@ -203,21 +201,20 @@ modestatus#highlight#copy({to}, {from})
 modestatus#highlight#mod({grp}, {keys})
   Modify an existing highlight group {grp} with {keys} changed.
 
-  keys:>
+  keys: >
     {'term': ..., 'start': ..., 'stop': ...,
      'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
      'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
-  <
-
+<
                                                    *modestatus#highlight#copymod*
 modestatus#highlight#copymod({to}, {from},{keys})
   Copy an existing highlight group {from} to a group {to} with {keys} changed.
 
-  keys:>
+  keys: >
     {'term': ..., 'start': ..., 'stop': ...,
      'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
      'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
-  <
+<
 
 ===============================================================================
 COLORS                                                      *modestatus-colors*
@@ -233,7 +230,7 @@ Overview:~
 Description:~
 
                                                             *modestatus#colors*
-Colors refer to vim User# colors and have the form:
+Colors refer to vim User# colors and have the form: >
   {{key}: {idx}}
 <
 Where:
@@ -281,10 +278,9 @@ that contains all extension initialization.
 g:modestatus#extensions#auto
   Set to let modestatus automatically enable all extensions.
 
-  default:>
+  default: >
     let g:modestatus#extensions#auto = 0
-  <
-
+<
                                                  *modestatus#extensions#enable*
 modestatus#extensions#enable({ext})
   Enable an extension with the given name {ext}.
@@ -315,7 +311,7 @@ Defined a set of basic statusline parts.
 see: |modestatus#extensions#core#parts|
 
                                              *modestatus#extensions#core#parts*
-Parts:
+Parts: >
   'line_percent'
   'position'
   'filename'
@@ -325,11 +321,11 @@ Parts:
   'modified'
   'readonly'
   'paste'
-
+<
                                        *'g:modestatus#extensions#core#symbols'*
 Symbols used by the part generator functions.
 
-default:>
+default: >
   let g:modestatus#core#extensions#symbols = {
     \   'modes': {
     \     'n':      'N',
@@ -349,26 +345,23 @@ default:>
     \   'paste': 'P'
     \ }
 <
-
                              *'g:modestatus#extensions#core#filename_override'*
 Dictionary of display filename overrides.
 
-example:>
+example: >
   let g:modestatus#extensions#core#filename_override = {
     \   '__Gundo__': 'Undo Tree',
     \   '__Gundo_Preview__': 'Undo Preview'
     \ }
 <
-
                              *'g:modestatus#extensions#core#filetype_override'*
 Dictionary of display filname filetype overrides.
 
-example:>
+example: >
   let g:modestatus#extensions#core#filetype_override = {
     \   'qf': 'Quick Fix'
     \ }
 <
-
 ===============================================================================
 EXTENSIONS- LOCLIST                             *modestatus-extensions-loclist*
 
@@ -384,14 +377,14 @@ Defines statusline parts for creating error lines from location list entries.
 see: |modestatus#extensions#loclist#parts|
 
                                           *modestatus#extensions#loclist#parts*
-Parts:
+Parts: >
   'loclist_errors'   => 'E {num}'
   'loclist_warnings' => 'W {num}'
-
+<
 ===============================================================================
 EXAMPLES                                                  *modestatus-examples*
 
-example:>
+example: >
   call modestatus#extensions#enable('core')
 
   let g:modestatus#statusline = {
@@ -444,6 +437,5 @@ example:>
   call modestatus#options#add('fileformat': {
     \ 'active': {'format': '%s]'}})
 <
-
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help
