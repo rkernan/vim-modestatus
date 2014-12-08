@@ -19,18 +19,71 @@ Just choose your favorite plugin manager:
 ## Usage
 
 The [documentation](doc/modestatus.txt) covers behavior and usage fairly
-concisely, so here's an example:
+concisely, so here's an example of my modestatus config:
 
-![example1][example1]
+![screenshot][screenshot]
 
 ```viml
+" to keep colors consistent
+hi StatusLine   guifg=#a59f85 guibg=#49483e gui=none ctermfg=20 ctermbg=19 cterm=none
+hi StatusLineNC guifg=#75715e guibg=#383830 gui=none ctermfg=08 ctermbg=18 cterm=none
+
+" enable extensions, could also use `modestatus#extensions#enable_all()`
 call modestatus#extensions#enable('core')
 call modestatus#extensions#enable('loclist')
 
+" the active/inactive statusline layout
+let g:modestatus#statusline = {
+    \ 'active': {
+    \     'left': [
+    \         'line_percent',
+    \         'position',
+    \         'mode',
+    \         'filename',
+    \         'modified',
+    \         'readonly',
+    \         'paste',
+    \         'filetype',
+    \         'encoding',
+    \         'fileformat',
+    \         'loclist_errors',
+    \         'loclist_warnings',
+    \     ],
+    \     'right': [
+    \     ]
+    \ },
+    \ 'inactive': {
+    \     'left': [
+    \         'filename',
+    \         'modified',
+    \         'readonly',
+    \         'filetype',
+    \         'encoding',
+    \         'fileformat',
+    \         'loclist_errors',
+    \         'loclist_warnings'
+    \     ],
+    \     'right': [
+    \     ]
+    \ }}
+
+" filename overrides, part of the core extension
+let g:modestatus#extensions#core#filename_override = {
+    \     '[No Name]':         '',
+    \     '__Gundo__':         'Undo Tree',
+    \     '__Gundo_Preview__': 'Undo Preview'
+    \ }
+
+" filename type-based overrides, part of the core extension
+let g:modestatus#extensions#core#filetype_override = {
+    \     'qf': ''
+    \ }
+
+" modify existing highlight groups
 call modestatus#highlight#copymod('Statusline', 'User1', {
-    \ 'term':  'bold',
+    \ 'term': 'bold',
     \ 'cterm': 'bold',
-    \ 'gui':   'bold'})
+    \ 'gui': 'bold'})
 call modestatus#highlight#copymod('Statusline', 'User2', {
     \ 'term':  'bold',
     \ 'cterm': 'bold', 'ctermfg': 'Yellow',
@@ -41,57 +94,26 @@ call modestatus#highlight#copymod('Statusline', 'User3', {
     \ 'gui':   'bold', 'guifg':   'Red'})
 call modestatus#highlight#copymod('Statusline', 'User8', {
     \ 'ctermfg': 'White', 'ctermbg': '124',
-    \ 'guifg':   'White', 'guibg': '#af0000'})
+    \ 'guifg':   'White', 'guibg':   '#af0000'})
 call modestatus#highlight#copymod('Statusline', 'User9', {
     \ 'ctermfg': 'Black', 'ctermbg': '178',
-    \ 'guifg':   'Black', 'guibg': '#dfaf00'})
+    \ 'guifg':   'Black', 'guibg':   '#dfaf00'})
 
+" name the newly created highlight groups
 call modestatus#colors#add('bold', 1)
 call modestatus#colors#add('ylw_bold', 2)
 call modestatus#colors#add('red_bold', 3)
 call modestatus#colors#add('error', 8)
 call modestatus#colors#add('warning', 9)
 
-let g:modestatus#statusline = {
-        \ 'active': {
-        \   'left': [
-        \     'line_percent',
-        \     'position',
-        \     'mode',
-        \     'filename',
-        \     'modified',
-        \     'readonly',
-        \     'paste',
-        \     'filetype',
-        \     'encoding',
-        \     'fileformat',
-        \     'loclist_errors',
-        \     'loclist_warnings',
-        \   ],
-        \   'right': [
-        \   ]
-        \ },
-        \ 'inactive': {
-        \   'left': [
-        \     'filename',
-        \     'modified',
-        \     'readonly',
-        \     'filetype',
-        \     'encoding',
-        \     'fileformat',
-        \     'loclist_errors',
-        \     'loclist_warnings'
-        \   ],
-        \   'right': [
-        \   ]
-        \ }}
-
+" setup general statusline part options
 call modestatus#options#add('filename', {
     \ 'active': {
     \     'color': 'bold'
     \ }})
 call modestatus#options#add('mode', {
     \ 'active': {
+    \     'color':  'ylw_bold',
     \     'format': '‹%s›'
     \ }})
 call modestatus#options#add('modified', {
@@ -111,52 +133,50 @@ call modestatus#options#add('filetype', {
     \     'format': '[%s]'
     \ },
     \ 'inactive': {
-    \     'format': [%s]
+    \     'format': '[%s]'
     \ }})
 call modestatus#options#add('encoding', {
     \ 'active': {
     \     'format': '[%s:',
-    \     'nosep': 1
+    \     'nosep':  1
     \ },
     \ 'inactive': {
     \     'format': '[%s:',
-    \     'nosep': 1
+    \     'nosep':  1
     \ }})
 call modestatus#options#add('fileformat', {
     \ 'active': {
-    \     'format': '%s]',
-    \     'nosep': 1
+    \     'format': '%s]'
     \ },
     \ 'inactive': {
-    \     'format': '%s]',
-    \     'nosep': 1
+    \     'format': '%s]'
     \ }})
 call modestatus#options#add('loclist_errors', {
     \ 'active': {
-    \     'color': 'error',
+    \     'color':  'error',
     \     'format': ' %s ',
-    \     'nosep': 1
+    \     'nosep':  1
     \ },
     \ 'inactive': {
     \     'nosep': 1
     \ }})
 call modestatus#options#add('loclist_warnings', {
     \ 'active': {
-    \     'color': 'warning',
+    \     'color':  'warning',
     \     'format': ' %s ',
-    \     'nosep': 1
+    \     'nosep':  1
     \ },
     \ 'inactive': {
     \     'nosep': 1
-    \ }})
+    \
 ```
 
 ## License
 
 MIT License. Copyright (c) 2014 Robert Kernan
 
-[example1]: https://raw.githubusercontent.com/kernan/i/master/vim-modestatus/example1.gif
-[neobundle]: https://github.com/Shougo/neobundle.vim
-[pathogen]: https://github.com/tpope/vim-pathogen
-[vim-plug]: https://github.com/junegunn/vim-plug
-[vundle]: https://github.com/gmarik/Vundle.vim
+[neobundle]:  https://github.com/Shougo/neobundle.vim
+[pathogen]:   https://github.com/tpope/vim-pathogen
+[screenshot]: https://raw.githubusercontent.com/kernan/vim-modestatus/master/screenshot.png
+[vim-plug]:   https://github.com/junegunn/vim-plug
+[vundle]:     https://github.com/gmarik/Vundle.vim
