@@ -21,13 +21,7 @@ CONTENTS                                                    *modestatus-contents
 INTRO                                                          *modestatus-intro*
 
 Modestatus is (yet another) statusline replacement aimed at users who prefer
-a more hands-on approach to customization.
-
-It includes APIs for:
-- Creating statusline parts
-- Modifying existing highlight groups
-- Adding named colors that can be applied to statusline parts
-- Adding part-specific formatting options including colors
+an easy to configure, minimalist vim statusline.
 
 ===============================================================================
 SETTINGS                                                    *modestatus-settings*
@@ -298,8 +292,8 @@ Description:~
 Extensions define a set of parts that can be used to build the statusline.
 They need to be enabled manually unless |g:modestatus#extensions#auto| is set.
 
-All extensions should define a function>modestatus#extensions#{name}#init<
-that contains all extension initialization.
+All extensions should define a function modestatus#extensions#{name}#init that
+contains all extension initialization.
 
                                                  *'g:modestatus#extensions#auto'*
 g:modestatus#extensions#auto
