@@ -27,7 +27,7 @@ Just choose your favorite plugin manager:
 ## Usage
 
 The [documentation](doc/modestatus.txt) covers behavior and usage fairly
-concisely, so here's an example of my modestatus config:
+concisely, so here's my modestatus config as an example:
 
 ![screenshot][screenshot]
 
