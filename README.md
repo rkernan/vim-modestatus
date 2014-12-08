@@ -4,11 +4,11 @@ Modestatus is (yet another) statusline replacement aimed at users who prefer
 an easy to configure, minimalist vim statusline.
 
 It's designed to be:
-- *Simple.* 100% vimscript and designed to have as few moving parts as
+- **Simple.** 100% vimscript and designed to have as few moving parts as
   possible.
-- *Customizable.* Everything from statusline part colors to string formats can
-  be modified.
-- *Extensible.* Extensions can define new parts and behaviors. New extensions
+- **Customizable.** Everything from statusline part colors to string formats
+  can be modified.
+- **Extensible.** Extensions can define new parts and behaviors. New extensions
   are easy to create.
 
 ## Installation
@@ -181,10 +181,10 @@ call modestatus#options#add('loclist_warnings', {
 
 ## Extensions
 
-Extensions are there to make it easier to add new statusline parts, but more
+Extensions exist to make it easier to add new statusline parts, but more
 advanced behavior is also possible. In order for the user to initialize an
 extension through modestatus it must be located in
-`autoload/modestatus/extensions` and have defined a function
+`autoload/modestatus/extensions` and define a function
 `modestatus#extensions#{name}#init()`.
 
 [loclist](autoload/modestatus/extensions/loclist.vim) is a simple example of an
