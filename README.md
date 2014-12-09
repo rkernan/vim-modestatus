@@ -4,8 +4,7 @@ Modestatus is (yet another) statusline replacement aimed at users who prefer
 an easy to configure, minimalist vim statusline.
 
 It's designed to be:
-- **Simple.** 100% vimscript and designed to have as few moving parts as
-  possible.
+- **Simple.** 100% vimscript with as few moving parts as possible.
 - **Customizable.** Everything from statusline part colors to string formats
   can be modified.
 - **Extensible.** Extensions can define new parts and behaviors. New extensions
