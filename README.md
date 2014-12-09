@@ -122,11 +122,11 @@ call modestatus#options#add('filetype', {
 call modestatus#options#add('encoding', {
     \ 'active': {
     \     'format': '[%s:',
-    \     'nosep': 1
+    \     'separator': ''
     \ },
     \ 'inactive': {
     \     'format': '[%s:',
-    \     'nosep': 1
+    \     'separator': ''
     \ }})
 call modestatus#options#add('fileformat', {
     \ 'active': {
@@ -139,19 +139,19 @@ call modestatus#options#add('loclist_errors', {
     \ 'active': {
     \     'color': 'ModestatusError',
     \     'format': ' %s ',
-    \     'nosep': 1
+    \     'separator': ''
     \ },
     \ 'inactive': {
-    \     'nosep': 1
+    \     'separator': ''
     \ }})
 call modestatus#options#add('loclist_warnings', {
     \ 'active': {
     \     'color': 'ModestatusWarning',
     \     'format': ' %s ',
-    \     'nosep': 1
+    \     'separator': ''
     \ },
     \ 'inactive': {
-    \     'nosep': 1
+    \     'separator': ''
     \ }})
 ```
 

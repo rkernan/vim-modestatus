@@ -2,33 +2,36 @@ function! modestatus#statusline(nr)
 
 	function! Section(nr, key, side)
 		if modestatus#parts#has(a:key)
-			let func = modestatus#parts#get(a:key)
 			let content = {modestatus#parts#get(a:key)}(a:nr)
-			let nosep = 0
+			let separator = g:modestatus#default_separator
+
 			" apply options
 			if modestatus#options#has(a:key) && len(content)
 				let options = modestatus#options#get(a:key)[a:nr == winnr() ? 'active' : 'inactive']
+
 				" format the part
 				if has_key(options, 'format')
 					let content = printf(options['format'], content)
 				endif
-				" add a separator
-				if has_key(options, 'nosep') && options['nosep']
-					let nosep = 1
+
+				" get separator
+				if has_key(options, 'separator')
+					let separator = options['separator']
 				endif
+
 				" color the part
 				if has_key(options, 'color')
 					let content = '%#' . options['color'] . '#' . content . '%*'
 				endif
 			endif
-			" add separator (if it hasnt been added already)
-			if !nosep
-				if a:side ==# 'left'
-					let content = modestatus#util#suffix(content, ' ')
-				else
-					let content = modestatus#util#prefix(content, ' ')
-				endif
+
+			" add separator
+			if a:side ==# 'left'
+				let content = modestatus#util#suffix(content, separator)
+			else
+				let content = modestatus#util#prefix(content, separator)
 			endif
+
 			return content
 		else
 			return ''
@@ -44,12 +47,13 @@ function! modestatus#statusline(nr)
 	endfunction
 
 	let statusline  = ''
-	for p in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].left
-		let statusline .= LeftSection(a:nr, p)
+	for part in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].left
+		let statusline .= LeftSection(a:nr, part)
 	endfor
+
 	let statusline .= '%='
-	for p in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].right
-		let statusline .= RightSection(a:nr, p)
+	for part in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].right
+		let statusline .= RightSection(a:nr, part)
 	endfor
 
 	return statusline

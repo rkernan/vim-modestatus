@@ -8,6 +8,7 @@ function! modestatus#init#bootstrap()
 
 	set statusline=
 
+	call modestatus#util#check_defined('g:modestatus#default_separator', ' ')
 	call modestatus#util#check_defined('g:modestatus#statusline', {
 		\ 'active': {
 		\   'left': [
