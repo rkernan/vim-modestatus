@@ -18,9 +18,7 @@ function! modestatus#statusline(nr)
 				endif
 				" color the part
 				if has_key(options, 'color')
-					if modestatus#colors#has(options['color'])
-						let content = '%' . modestatus#colors#get(options['color']) . '*' . content . '%*'
-					endif
+					let content = '%#' . options['color'] . '#' . content . '%*'
 				endif
 			endif
 			" add separator (if it hasnt been added already)
