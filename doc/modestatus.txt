@@ -4,18 +4,13 @@
 ===============================================================================
 CONTENTS                                                    *modestatus-contents*
 
-1.  Intro......................................................|modestatus-intro|
-2.  Settings................................................|modestatus-settings|
-3.  Util........................................................|modestatus-util|
-4.  Log..........................................................|modestatus-log|
-5.  Highlight..............................................|modestatus-highlight|
-6.  Parts......................................................|modestatus-parts|
-7.  Options..................................................|modestatus-options|
-8.  Colors....................................................|modestatus-colors|
-9.  Extensions............................................|modestatus-extensions|
-10. Extension: Core..................................|modestatus-extensions-core|
-11. Extension: LocList............................|modestatus-extensions-loclist|
-12. Examples................................................|modestatus-examples|
+1. Intro.......................................................|modestatus-intro|
+2. Settings.................................................|modestatus-settings|
+3. Parts.......................................................|modestatus-parts|
+4. Options...................................................|modestatus-options|
+5. Extensions.............................................|modestatus-extensions|
+6. Extension: Core...................................|modestatus-extensions-core|
+7. Extension: LocList.............................|modestatus-extensions-loclist|
 
 ===============================================================================
 INTRO                                                          *modestatus-intro*
@@ -71,92 +66,6 @@ g:modestatus#statusline
     \   ],
     \   'right': []
     \ }}
-<
-===============================================================================
-UTIL                                                            *modestatus-util*
-
-Overview:~
-  |modestatus#util#check_defined|...................Check and default a variable.
-  |modestatus#util#pad_before|................................Add prefix padding.
-  |modestatus#util#pad_after|.................................Add suffix padding.
-  |modestatus#util#prefix|..........................................Add a prefix.
-  |modestatus#util#suffix|..........................................Add a posfix.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                  *modestatus#util#check_defined*
-modestatus#util#check_defined({var}, {default})
-  Check if {var} is defined and set it to {default} if not.
-
-                                                     *modestatus#util#pad_before*
-modestatus#util#pad_before({str}, {amt}[, {pad}])
-  Prefix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
-  length zero returns empty string.
-
-                                                      *modestatus#util#pad_after*
-modestatus#util#pad_after({str}, {amt}[, {pad}])
-  Suffix {str} with {amt} of {pad}. {pad} defaults to space. If {str} has
-  length zero returns empty strig.
-
-                                                         *modestatus#util#prefix*
-modestatus#util#prefix({str}, {pre})
-  Prefix {str} with {pre}. If {str} has length zero returns empty string.
-
-                                                         *modestatus#util#suffix*
-modestatus#util#suffix({str}, {post})
-  Suffix {str} with {post}. If {str} has length zero returns empty string.
-
-===============================================================================
-LOG                                                              *modestatus-log*
-
-Overview:~
-  |modestatus#log#error|....................................Log an error message.
-  |modestatus#log#warning|.................................Log a warning message.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                           *modestatus#log#error*
-modestatus#log#error({msg})
-  Log a modestatus error {msg}.
-
-                                                         *modestatus#log#warning*
-modestatus#log#warning({msg})
-  Log a modestatus warning {msg}.
-
-===============================================================================
-HIGHLIGHT                                                 *modestatus-hightlight*
-
-Overview:~
-  |modestatus#highlight#copy|..........................Deep copy highlight group.
-  |modestatus#highlight#mod|..............................Modify highlight group.
-  |modestatus#highlight#copymod|.................Copy and modify highlight group.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                      *modestatus#highlight#copy*
-modestatus#highlight#copy({to}, {from})
-  Deep copy a highlight group {from} to a group {to}.
-
-                                                       *modestatus#highlight#mod*
-modestatus#highlight#mod({grp}, {keys})
-  Modify an existing highlight group {grp} with {keys} changed.
-
-  keys: >
-    {'term': ..., 'start': ..., 'stop': ...,
-     'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
-     'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
-<
-                                                   *modestatus#highlight#copymod*
-modestatus#highlight#copymod({to}, {from},{keys})
-  Copy an existing highlight group {from} to a group {to} with {keys} changed.
-
-  keys: >
-    {'term': ..., 'start': ..., 'stop': ...,
-     'cterm': ..., 'ctermfg': ..., 'ctermbg': ...,
-     'gui': ..., 'font': ..., 'guifg': ..., 'guibg': ..., 'guisp': ...}
 <
 ===============================================================================
 PARTS                                                          *modestatus-parts*
@@ -217,7 +126,7 @@ Where:
   {opt} is a dictionary of valid options
 
 Valid options:
-  'color':  a |modestatus#colors| name
+  'color':  a highlight group
   'format': a printf format string
   'separator': a string separator
 
@@ -236,44 +145,6 @@ modestatus#options#get({key})
                                                         *modestatus#options#list*
 modestatus#options#list()
   Echo a list of all existing options.
-
-===============================================================================
-COLORS                                                        *modestatus-colors*
-
-Overview:~
-  |modestatus#colors|.....................................................Colors.
-  |modestatus#colors#add|............................................Add a color.
-  |modestatus#colors#has|..................................Check if color exists.
-  |modestatus#colors#get|............................................Get a color.
-  |modestatus#colors#list|.......................................List all colors.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                              *modestatus#colors*
-Colors refer to vim User# colors and have the form: >
-  {{key}: {idx}}
-<
-Where:
-  {key} is the name of a color
-  {idx} is an index [1,9] of the User# highlight group
-
-                                                          *modestatus#colors#add*
-modestatus#colors#add({key}, {val})
-  Add a new color referenced by {key} refering to a User# highlight group
-  with index {val}.
-
-                                                          *modestatus#colors#has*
-modestatus#colors#has({key})
-  Check if a color {key} exists.
-
-                                                          *modestatus#colors#get*
-modestatus#colors#get({key})
-  Get the index of the User# highlight group the color {key} refers to.
-
-                                                         *modestatus#colors#list*
-modestatus#colors#list()
-  Echo a list of all the existing colors.
 
 ===============================================================================
 EXTENSIONS                                                *modestatus-extensions*
@@ -380,7 +251,8 @@ Dictionary of display filname filetype overrides.
 
 example: >
   let g:modestatus#extensions#core#filetype_override = {
-    \   'qf': 'Quick Fix'
+    \   'qf': 'Quick Fix',
+    \   'undotre': 'UndoTree'
     \ }
 <
 ===============================================================================
@@ -401,62 +273,6 @@ see: |modestatus#extensions#loclist#parts|
 Parts: >
   'loclist_errors'   => 'E {num}'
   'loclist_warnings' => 'W {num}'
-<
-===============================================================================
-EXAMPLES                                                    *modestatus-examples*
-
-example: >
-  call modestatus#extensions#enable('core')
-
-  let g:modestatus#statusline = {
-    \ 'active': {
-    \   'left': [
-    \     'mode',
-    \     'filename',
-    \     'modified',
-    \     'readonly',
-    \     'filetype',
-    \     'encoding',
-    \     'fileformat'
-    \   ],
-    \   'right': [
-    \     'position',
-    \     'line_percent'
-    \   ]
-    \ },
-    \ 'inactive': {
-    \   'left': [
-    \     'filename',
-    \     'modified',
-    \     'readonly',
-    \     'filetype'
-    \   ],
-    \   'right': []
-    \ }
-    \}
-
-  call modestatus#highlight#copymod('Statusline', 'User1', {
-    \ 'term': 'bold', 'cterm': 'bold', 'gui': 'bold'})
-  call modestatus#colors#add('bold', 1)
-
-  call modestatus#highlight#copymod('Statusline', 'User2', {
-    \ 'term': 'bold', 'cterm': 'bold', 'ctermfg': 'Red',
-    \ 'gui': 'bold', 'guifg': 'Red'})
-  call modestatus#colors#add('redbold', 2)
-
-  call modestatus#options#add('filename', {
-    \ 'active': {'color': 'bold'}})
-  call modestatus#options#add('modified', {
-    \ 'active': {'color': 'redbold'})
-  call modestatus#options#add('readonly', {
-    \ 'active': {'color': 'redbold'})
-  call modestatus#options#add('filetype', {
-    \ 'active': {'format': '[%s]',
-    \ 'inactive': {'format': '[%s]'}})
-  call modestatus#options#add('encoding', {
-    \ 'active': {'format': '[%s', 'separator': ':'}})
-  call modestatus#options#add('fileformat': {
-    \ 'active': {'format': '%s]'}})
 <
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help
