@@ -19,5 +19,15 @@ function! modestatus#options#get(key)
 endfunction
 
 function! modestatus#options#list()
-	echom string(s:options)
+	for k1 in keys(s:options)
+		echom string(k1) . ':'
+		for k2 in keys(s:options[k1])
+			if len(s:options[k1][k2])
+				echom '  ' . string(k2) . ':'
+				for k3 in keys(s:options[k1][k2])
+					echom '    ' . string(k3) . ': ' . string(s:options[k1][k2][k3])
+				endfor
+			endif
+		endfor
+	endfor
 endfunction

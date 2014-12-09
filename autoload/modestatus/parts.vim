@@ -18,5 +18,7 @@ function! modestatus#parts#get(key)
 endfunction
 
 function! modestatus#parts#list()
-	echom string(s:parts)
+	for key in keys(s:parts)
+		echom string(key) . ': ' . string(s:parts[key])
+	endfor
 endfunction
