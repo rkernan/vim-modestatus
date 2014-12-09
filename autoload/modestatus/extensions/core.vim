@@ -32,20 +32,56 @@ function! modestatus#extensions#core#init()
 	endif
 
 	call modestatus#parts#add('line_percent', 'modestatus#extensions#core#line_percent')
-	call modestatus#parts#add('position', 'modestatus#extensions#core#position')
-	call modestatus#parts#add('filename', 'modestatus#extensions#core#filename')
-	call modestatus#parts#add('filetype', 'modestatus#extensions#core#filetype')
-	call modestatus#parts#add('encoding', 'modestatus#extensions#core#encoding')
-	call modestatus#parts#add('fileformat', 'modestatus#extensions#core#fileformat')
-	call modestatus#parts#add('modified', 'modestatus#extensions#core#modified')
-	call modestatus#parts#add('readonly', 'modestatus#extensions#core#readonly')
-	call modestatus#parts#add('paste', 'modestatus#extensions#core#paste')
-	call modestatus#parts#add('mode', 'modestatus#extensions#core#mode')
+	call modestatus#parts#add('line',         'modestatus#extensions#core#line')
+	call modestatus#parts#add('max_line',     'modestatus#extensions#core#max_line')
+	call modestatus#parts#add('column',       'modestatus#extensions#core#column')
+	call modestatus#parts#add('max_column',   'modestatus#extensions#core#max_column')
+	call modestatus#parts#add('position',     'modestatus#extensions#core#position')
+	call modestatus#parts#add('filename',     'modestatus#extensions#core#filename')
+	call modestatus#parts#add('filetype',     'modestatus#extensions#core#filetype')
+	call modestatus#parts#add('encoding',     'modestatus#extensions#core#encoding')
+	call modestatus#parts#add('fileformat',   'modestatus#extensions#core#fileformat')
+	call modestatus#parts#add('modified',     'modestatus#extensions#core#modified')
+	call modestatus#parts#add('readonly',     'modestatus#extensions#core#readonly')
+	call modestatus#parts#add('paste',        'modestatus#extensions#core#paste')
+	call modestatus#parts#add('mode',         'modestatus#extensions#core#mode')
 endfunction
 
 function! modestatus#extensions#core#line_percent(nr)
 	if a:nr == winnr()
 		return modestatus#util#pad_before(string(float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0))), 3) . '%%'
+	else
+		return ''
+	endif
+endfunction
+
+function! modestatus#extensions#core#line(nr)
+	if a:nr == winnr()
+		return string(line('.'))
+	else
+		return ''
+	endif
+endfunction
+
+function! modestatus#extensions#core#max_line(nr)
+	if a:nr == winnr()
+		return string(line('$'))
+	else
+		return ''
+	endif
+endfunction
+
+function! modestatus#extensions#core#column(nr)
+	if a:nr == winnr()
+		return string(virtcol('.'))
+	else
+		return ''
+	endif
+endfunction
+
+function! modestatus#extensions#core#max_column(nr)
+	if a:nr == winnr()
+		return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 	else
 		return ''
 	endif
