@@ -2,7 +2,7 @@ let s:options = {}
 
 function! modestatus#options#add(key, val)
 	let s:options[a:key] = a:val
-	call extend(s:options[a:key], {'active': {}, 'inactive': {}}, 'keep')
+	call extend(s:options[a:key], {'common': {}, 'active': {}, 'inactive': {}}, 'keep')
 endfunction
 
 function! modestatus#options#has(key)

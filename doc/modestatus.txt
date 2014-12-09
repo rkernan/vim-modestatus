@@ -127,16 +127,20 @@ Description:~
 
                                                            *modestatus#options*
 Each part can have a set of options of the form: >
-  {{key}, {'active': {{opts}}, 'inactive': {{opts}}}}
+  {{key}, {'common': {{opts}}, 'active': {{opts}}, 'inactive': {{opts}}}}
 <
 Where:
   {key} is the name of a part
   {opt} is a dictionary of valid options
+  The 'common' dictionary specifies shared options.
+  The 'active' and 'inactive' dictionaries apply to the parts in the active
+  and inactive statusline respectively. Take precedence over 'common'.
 
 Valid options:
   'color':  a highlight group
   'format': a printf format string
   'separator': a string separator
+  'min_winwidth': the minimum window width before truncating the part
 
                                                        *modestatus#options#add*
 modestatus#options#add({key}, {val})
@@ -174,13 +178,6 @@ They need to be enabled manually unless |g:modestatus#extensions#auto| is set.
 All extensions should define a function modestatus#extensions#{name}#init that
 contains all extension initialization.
 
-                                               *'g:modestatus#extensions#auto'*
-g:modestatus#extensions#auto
-  Set to let modestatus automatically enable all extensions.
-
-  default: >
-    let g:modestatus#extensions#auto = 0
-<
                                                  *modestatus#extensions#enable*
 modestatus#extensions#enable({ext})
   Enable an extension with the given name {ext}.
@@ -254,8 +251,7 @@ Dictionary of displayed filename overrides.
 
 example: >
   let g:modestatus#extensions#core#filename_override = {
-    \   '__Gundo__': 'Undo Tree',
-    \   '__Gundo_Preview__': 'Undo Preview'
+    \   '[No Name]': ''
     \ }
 <
                              *'g:modestatus#extensions#core#filetype_override'*
@@ -264,7 +260,6 @@ Dictionary of display filname filetype overrides.
 example: >
   let g:modestatus#extensions#core#filetype_override = {
     \   'qf': 'Quick Fix',
-    \   'undotre': 'UndoTree'
     \ }
 <
 ===============================================================================

@@ -62,9 +62,17 @@ let g:modestatus#extensions#core#filetype_override = {
     \ }
 
 " setup general statusline part options
+call modestatus#options#add('line_percent', {
+    \ 'common': {
+    \     'min_winwidth': 30
+    \ }})
+call modestatus#options#add('position', {
+    \ 'common': {
+    \     'min_winwidth': 30
+    \ }})
 call modestatus#options#add('filename', {
     \ 'active': {
-    \     'color': 'ModestatusFilename'
+    \     'color': 'ModestatusFilename',
     \ }})
 call modestatus#options#add('mode', {
     \ 'active': {
@@ -84,43 +92,34 @@ call modestatus#options#add('paste', {
     \     'color': 'ModestatusModified'
     \ }})
 call modestatus#options#add('filetype', {
-    \ 'active': {
-    \     'format': '[%s]'
-    \ },
-    \ 'inactive': {
-    \     'format': '[%s]'
+    \ 'common': {
+    \     'format': '[%s]',
+    \     'min_winwidth': 50
     \ }})
 call modestatus#options#add('encoding', {
-    \ 'active': {
+    \ 'common': {
     \     'format': '[%s:',
-    \     'separator': ''
-    \ },
-    \ 'inactive': {
-    \     'format': '[%s:',
-    \     'separator': ''
+    \     'separator': '',
+    \     'min_winwidth': 70
     \ }})
 call modestatus#options#add('fileformat', {
-    \ 'active': {
-    \     'format': '%s]'
-    \ },
-    \ 'inactive': {
-    \     'format': '%s]'
+    \ 'common': {
+    \     'format': '%s]',
+    \     'min_winwidth': 70
     \ }})
 call modestatus#options#add('loclist_errors', {
+    \ 'common': {
+    \     'separator': ''
+    \ },
     \ 'active': {
     \     'color': 'ModestatusError',
     \     'format': ' %s ',
-    \     'separator': ''
-    \ },
-    \ 'inactive': {
-    \     'separator': ''
     \ }})
 call modestatus#options#add('loclist_warnings', {
+    \ 'common': {
+    \     'separator': ''
+    \ },
     \ 'active': {
     \     'color': 'ModestatusWarning',
     \     'format': ' %s ',
-    \     'separator': ''
-    \ },
-    \ 'inactive': {
-    \     'separator': ''
     \ }})

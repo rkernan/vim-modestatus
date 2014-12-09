@@ -7,7 +7,16 @@ function! modestatus#statusline(nr)
 
 			" apply options
 			if modestatus#options#has(a:key) && len(content)
-				let options = modestatus#options#get(a:key)[a:nr == winnr() ? 'active' : 'inactive']
+				let options = modestatus#options#get(a:key)
+				let options = extend(options['common'], options[a:nr == winnr() ? 'active' : 'inactive'], 'force')
+
+				" check if the part should be truncated
+				if has_key(options, 'min_winwidth')
+					let winwidth = winwidth(a:nr)
+					if winwidth < options['min_winwidth']
+						return ''
+					endif
+				endif
 
 				" format the part
 				if has_key(options, 'format')
