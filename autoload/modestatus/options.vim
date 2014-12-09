@@ -11,7 +11,7 @@ endfunction
 
 function! modestatus#options#get(key)
 	if modestatus#options#has(a:key)
-		return s:options[a:key]
+		return copy(s:options[a:key])
 	else
 		call modestatus#log#error('options for "' . a:key . '" not found')
 		return 0
