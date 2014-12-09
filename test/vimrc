@@ -1,37 +1,7 @@
-# Modestatus
+set nocp
+set rtp=../
+set laststatus=2
 
-Modestatus is (yet another) statusline replacement aimed at users who prefer
-an easy to configure, minimalist vim statusline.
-
-It's designed to be:
-- **Simple.** 100% vimscript and designed to have as few moving parts as
-  possible.
-- **Customizable.** Everything from statusline part colors to string formats
-  can be modified.
-- **Extensible.** Extensions can define new parts and behaviors. New extensions
-  are easy to create.
-
-## Installation
-
-Just choose your favorite plugin manager:
-
-- [NeoBundle][neobundle]
-  - `NeoBundle 'kernan/vim-modestatus'`
-- [Pathogen][pathogen]
-  - `git clone https://github.com/kernan/vim-modestatus.git ~/.vim/bundle/`
-- [vim-plug][vim-plug]
-  - `Plug 'kernan/vim-modestatus'`
-- [Vundle][vundle]
-  - `Plugin 'kernan/vim-modestatus'`
-
-## Usage
-
-The [documentation](doc/modestatus.txt) covers behavior and usage fairly
-concisely, so here's an example of my modestatus config:
-
-![screenshot][screenshot]
-
-```viml
 " colors
 hi StatusLine         guifg=#a59f85 guibg=#49483e gui=none ctermfg=20     ctermbg=19  cterm=none
 hi StatusLineNC       guifg=#75715e guibg=#383830 gui=none ctermfg=08     ctermbg=18  cterm=none
@@ -154,25 +124,3 @@ call modestatus#options#add('loclist_warnings', {
     \ 'inactive': {
     \     'nosep': 1
     \ }})
-```
-
-## Extensions
-
-Extensions exist to make it easier to add new statusline parts, but more
-advanced behavior is also possible. In order for the user to initialize an
-extension through modestatus it must be located in
-`autoload/modestatus/extensions` and define a function
-`modestatus#extensions#{name}#init()`.
-
-[loclist](autoload/modestatus/extensions/loclist.vim) is a simple example of an
-extension that adds new statusline parts.
-
-# License
-
-MIT License. Copyright (c) 2014 Robert Kernan
-
-[neobundle]:  https://github.com/Shougo/neobundle.vim
-[pathogen]:   https://github.com/tpope/vim-pathogen
-[screenshot]: https://raw.githubusercontent.com/kernan/vim-modestatus/master/screenshot.png
-[vim-plug]:   https://github.com/junegunn/vim-plug
-[vundle]:     https://github.com/gmarik/Vundle.vim
