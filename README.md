@@ -167,7 +167,7 @@ extension that adds new statusline parts.
 
 # License
 
-MIT License. Copyright (c) 2014 Robert Kernan
+MIT License. Copyright (c) 2014-2015 Robert Kernan
 
 [neobundle]:  https://github.com/Shougo/neobundle.vim
 [pathogen]:   https://github.com/tpope/vim-pathogen
