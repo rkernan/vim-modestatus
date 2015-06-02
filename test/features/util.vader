@@ -1,0 +1,51 @@
+Execute (Check defined when not defined):
+  call modestatus#util#check_defined('g:not_defined', 'default')
+  AssertEqual 'default', g:not_defined
+
+Execute (Check defined when defined):
+  let g:defined = 'defined'
+  call modestatus#util#check_defined('g:defined', 'default')
+  AssertEqual 'defined', g:defined
+
+Execute (Pad before with default):
+  AssertEqual '  test', modestatus#util#pad_before('test', 6)
+
+Execute (Pad before to smaller with default):
+  AssertEqual 'test', modestatus#util#pad_before('test', 3)
+
+Execute (Pad before to same size with default):
+  AssertEqual 'test', modestatus#util#pad_before('test', 4)
+
+Execute (Pad before with param):
+  AssertEqual '!!test', modestatus#util#pad_before('test', 6, '!')
+
+Execute (Pad before to smaller with param):
+  AssertEqual 'test', modestatus#util#pad_before('test', 3, '!')
+
+Execute (Pad before to same size with param):
+  AssertEqual 'test', modestatus#util#pad_before('test', 4, '!')
+
+Execute (Pad after with default):
+  AssertEqual 'test  ', modestatus#util#pad_after('test', 6)
+
+Execute (Pad after to smaller with default):
+  AssertEqual 'test', modestatus#util#pad_after('test', 3)
+
+Execute (Pad after to same size with default):
+  AssertEqual 'test', modestatus#util#pad_after('test', 4)
+
+Execute (Pad after with param):
+  AssertEqual 'test!!', modestatus#util#pad_after('test', 6, '!')
+
+Execute (Pad after to smaller with param):
+  AssertEqual 'test', modestatus#util#pad_after('test', 3, '!')
+
+Execute (Pad after to same size with param):
+  AssertEqual 'test', modestatus#util#pad_after('test', 4, '!')
+
+
+Execute (Add a prefix to a string):
+  AssertEqual 'abctest', modestatus#util#prefix('test', 'abc')
+
+Execute (Add a suffix to a string):
+  AssertEqual 'testabc', modestatus#util#suffix('test', 'abc')

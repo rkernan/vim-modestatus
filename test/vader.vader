@@ -1,0 +1,9 @@
+Include: include/setup.vader
+
+* Features
+Include: features/util.vader
+Include: features/options.vader
+Include: features/parts.vader
+Include: features/extensions.vader
+
+Include: include/teardown.vader

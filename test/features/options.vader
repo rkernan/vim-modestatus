@@ -1,0 +1,51 @@
+Before (Set up an option with no fields):
+  call modestatus#options#add('test', {})
+
+Execute (Ensure the empty option was added):
+  Assert modestatus#options#has('test')
+
+Execute (Ensure the empty option has all fields):
+  AssertEqual {'common': {}, 'active': {}, 'inactive': {}}, modestatus#options#get('test')
+
+Execute (Ensure that the option can be overriden):
+  call modestatus#options#add('test', {'active': {'test': 'test', 'test2': 'test'}})
+  AssertEqual {'common': {}, 'active': {'test': 'test', 'test2': 'test'}, 'inactive': {}}, modestatus#options#get('test')
+
+Before (Set up an option with some fields):
+  call modestatus#options#add('test', {'active': {'test': 'test'}})
+
+Execute (Ensure the semi complete option was added):
+  Assert modestatus#options#has('test')
+
+Execute (Ensure the semi complete option has all fields):
+  AssertEqual {'common': {}, 'active': {'test': 'test'}, 'inactive': {}}, modestatus#options#get('test')
+
+Before (Set up an option with all fields):
+  call modestatus#options#add('test', {'common': {'test': 'test'}, 'active': {'test': 'test'}, 'inactive': {'test': 'test'}})
+
+Execute (Ensure the complete option was added):
+  Assert modestatus#options#has('test')
+
+Execute (Ensure the complete option has all fields):
+  AssertEqual {'common': {'test': 'test'}, 'active': {'test': 'test'}, 'inactive': {'test': 'test'}}, modestatus#options#get('test')
+
+Before (Set up multiple options):
+  call modestatus#options#add('test1', {'common': {'test': 'test', 'test2': 'test'}})
+  call modestatus#options#add('test2', {})
+  call modestatus#options#add('test3', {'active': {'test': 'test'}, 'inactive': {'test': 'test'}})
+
+Execute (Ensure that all options were added):
+  Assert modestatus#options#has('test1')
+  Assert modestatus#options#has('test2')
+  Assert modestatus#options#has('test3')
+
+Execute (Ensure the options have all fields):
+  AssertEqual {'common': {'test': 'test', 'test2': 'test'}, 'active': {}, 'inactive': {}}, modestatus#options#get('test1')
+  AssertEqual {'common': {}, 'active': {}, 'inactive': {}}, modestatus#options#get('test2')
+  AssertEqual {'common': {}, 'active': {'test': 'test'}, 'inactive': {'test': 'test'}}, modestatus#options#get('test3')
+
+Execute (Ensure checking for an unknown option returns false):
+  Assert !modestatus#options#has('unknown')
+
+Execute (Ensure getting an unkown options raises an error):
+  Assert !modestatus#options#get('unknown')
