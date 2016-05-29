@@ -7,6 +7,7 @@ function! modestatus#extensions#core#init()
 	let s:initialized = 1
 
 	call modestatus#util#check_defined('g:modestatus#extensions#core#filename_override', {})
+	call modestatus#util#check_defined('g:modestatus#extensions#core#filetype_override', {})
 	call modestatus#util#check_defined('g:modestatus#extensions#core#symbols', {})
 	call extend(g:modestatus#extensions#core#symbols, {'modes': {}}, 'keep')
 	call extend(g:modestatus#extensions#core#symbols.modes, {
