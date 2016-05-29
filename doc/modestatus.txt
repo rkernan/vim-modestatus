@@ -11,6 +11,7 @@ CONTENTS                                                  *modestatus-contents*
 5. Extensions...........................................|modestatus-extensions|
 6. Extension: Core.................................|modestatus-extensions-core|
 7. Extension: LocList...........................|modestatus-extensions-loclist|
+8. Extension: Signify...........................|modestatus-extensions-signify|
 
 ===============================================================================
 INTRO                                                        *modestatus-intro*
@@ -280,6 +281,24 @@ see: |modestatus#extensions#loclist#parts|
 Parts:
   - loclist_errors
   - loclist_warnings
+
+===============================================================================
+EXTENSION - SIGNIFY                             *modestatus-extensions-signify*
+
+Overview:~
+  |modestatus#extensions#loclist|............................LocList extension.
+  |modestatus#extensions#loclist#parts|............................Added parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                *modestatus#extensions#signify*
+Defines statusline parts for displaying signify hunks.
+see: |modestatus#extensions#signify#parts|
+
+                                          *modestatus#extensions#signify#parts*
+Parts:
+  - signify_hunks
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help
