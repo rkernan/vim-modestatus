@@ -24,7 +24,7 @@ function! modestatus#extensions#core#init()
 		\ }, 'keep')
 	call extend(g:modestatus#extensions#core#symbols, {'modified': '+'}, 'keep')
 	call extend(g:modestatus#extensions#core#symbols, {'paste': 'P'}, 'keep')
-	call extend(g:modestatus#extensions#core#symbols, {'readonly': '!!'}, 'keep')
+	call extend(g:modestatus#extensions#core#symbols, {'readonly': 'RO'}, 'keep')
 
 	call modestatus#parts#add('line_percent', 'modestatus#extensions#core#line_percent')
 	call modestatus#parts#add('line',         'modestatus#extensions#core#line')
