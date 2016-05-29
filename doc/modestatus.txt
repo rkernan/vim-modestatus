@@ -256,7 +256,7 @@ example: >
     \ }
 <
                              *'g:modestatus#extensions#core#filetype_override'*
-Dictionary of display filname filetype overrides.
+Dictionary of displayed filetype overrides.
 
 example: >
   let g:modestatus#extensions#core#filetype_override = {
