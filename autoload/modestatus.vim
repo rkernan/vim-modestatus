@@ -70,6 +70,8 @@ endfunction
 
 function! modestatus#update()
 	for nr in range(1, winnr('$'))
-		call setwinvar(nr, '&statusline', '%!modestatus#statusline(' . nr . ')')
+		if index(g:modestatus#disable_filetypes, getbufvar(winbufnr(nr), '&filetype')) < 0
+			call setwinvar(nr, '&statusline', '%!modestatus#statusline(' . nr . ')')
+		endif
 	endfor
 endfunction

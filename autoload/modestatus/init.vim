@@ -37,8 +37,9 @@ function! modestatus#init#bootstrap()
 		\   ],
 		\   'right': []
 		\ }})
-
+	call modestatus#util#check_defined('g:modestatus#disable_filetypes', ['qf'])
 	call modestatus#util#check_defined('g:modestatus#extensions#auto', 0)
+
 	if g:modestatus#extensions#auto
 		call modestatus#extensions#enable_all()
 	endif

@@ -26,6 +26,7 @@ Overview:~
   |modestatus_loaded|.......................................Disable the plugin.
   |modestatus#statusline|.....................................Statusline parts.
   |modestatus#default#separator|........................Default part separator.
+  |modestatus#disable_filetypes|..................List of filetypes to disable.
 
 -------------------------------------------------------------------------------
 Description:~
@@ -75,6 +76,13 @@ g:modestatus#default_separator
 
   default: >
     let g:modestatus#default_separator = ' '
+<
+                                             *'g:modestatus#disable_filetypes'*
+g:modestatus#disable_filetypes
+  List of filestypes to disable the statusline on.
+
+  default: >
+    let g:modestatus#disable_for_filetypes = ['qf']
 <
 ===============================================================================
 PARTS                                                        *modestatus-parts*
