@@ -12,7 +12,7 @@ function! modestatus#extensions#signify#init()
 	call modestatus#parts#add('signify_hunks', 'modestatus#extensions#signify#hunks')
 endfunction
 
-function! modestatus#extensions#signify#hunks(nr)
+function! modestatus#extensions#signify#hunks(nr) abort
 	let symbols = [
 		\     g:modestatus#extensions#signify#symbols.added,
 		\     g:modestatus#extensions#signify#symbols.modified,

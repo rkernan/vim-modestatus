@@ -16,7 +16,7 @@ function! modestatus#extensions#loclist#init()
 	call modestatus#parts#add('loclist_warnings', 'modestatus#extensions#loclist#warnings')
 endfunction
 
-function! s:loclist_types(nr, type, fmt)
+function! s:loclist_types(nr, type, fmt) abort
 	let loclist = getloclist(a:nr)
 	let num_types = 0
 	for i in loclist
@@ -31,10 +31,10 @@ function! s:loclist_types(nr, type, fmt)
 	endif
 endfunction
 
-function! modestatus#extensions#loclist#errors(nr)
+function! modestatus#extensions#loclist#errors(nr) abort
 	return s:loclist_types(a:nr, 'E', g:modestatus#extensions#loclist#message.error)
 endfunction
 
-function! modestatus#extensions#loclist#warnings(nr)
+function! modestatus#extensions#loclist#warnings(nr) abort
 	return s:loclist_types(a:nr, 'W', g:modestatus#extensions#loclist#message.warning)
 endfunction

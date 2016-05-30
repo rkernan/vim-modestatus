@@ -43,7 +43,7 @@ function! modestatus#extensions#core#init()
 	call modestatus#parts#add('mode',         'modestatus#extensions#core#mode')
 endfunction
 
-function! modestatus#extensions#core#line_percent(nr)
+function! modestatus#extensions#core#line_percent(nr) abort
 	if a:nr == winnr()
 		return modestatus#util#pad_before(string(float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0))), 3) . '%%'
 	else
@@ -51,7 +51,7 @@ function! modestatus#extensions#core#line_percent(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#line(nr)
+function! modestatus#extensions#core#line(nr) abort
 	if a:nr == winnr()
 		return string(line('.'))
 	else
@@ -59,7 +59,7 @@ function! modestatus#extensions#core#line(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#max_line(nr)
+function! modestatus#extensions#core#max_line(nr) abort
 	if a:nr == winnr()
 		return string(line('$'))
 	else
@@ -67,7 +67,7 @@ function! modestatus#extensions#core#max_line(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#column(nr)
+function! modestatus#extensions#core#column(nr) abort
 	if a:nr == winnr()
 		return string(virtcol('.'))
 	else
@@ -75,7 +75,7 @@ function! modestatus#extensions#core#column(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#max_column(nr)
+function! modestatus#extensions#core#max_column(nr) abort
 	if a:nr == winnr()
 		return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 	else
@@ -83,7 +83,7 @@ function! modestatus#extensions#core#max_column(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#position(nr)
+function! modestatus#extensions#core#position(nr) abort
 	if a:nr == winnr()
 		let linenum = line('.')
 		let colnum = virtcol('.')
@@ -94,7 +94,7 @@ function! modestatus#extensions#core#position(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#filename(nr)
+function! modestatus#extensions#core#filename(nr) abort
 	let filename = bufname(winbufnr(a:nr))
 	let filetype = getbufvar(winbufnr(a:nr), '&filetype')
 	if has_key(g:modestatus#extensions#core#filename_override, filename)
@@ -105,27 +105,27 @@ function! modestatus#extensions#core#filename(nr)
 	return filename
 endfunction
 
-function! modestatus#extensions#core#filetype(nr)
+function! modestatus#extensions#core#filetype(nr) abort
 	return getbufvar(winbufnr(a:nr), '&filetype')
 endfunction
 
-function! modestatus#extensions#core#encoding(nr)
+function! modestatus#extensions#core#encoding(nr) abort
 	return getbufvar(winbufnr(a:nr), '&encoding')
 endfunction
 
-function! modestatus#extensions#core#fileformat(nr)
+function! modestatus#extensions#core#fileformat(nr) abort
 	return getbufvar(winbufnr(a:nr), '&fileformat')
 endfunction
 
-function! modestatus#extensions#core#modified(nr)
+function! modestatus#extensions#core#modified(nr) abort
 	return getbufvar(winbufnr(a:nr), '&modified') ? g:modestatus#extensions#core#symbols.modified : ''
 endfunction
 
-function! modestatus#extensions#core#readonly(nr)
+function! modestatus#extensions#core#readonly(nr) abort
 	return getbufvar(winbufnr(a:nr), '&readonly') ? g:modestatus#extensions#core#symbols.readonly : ''
 endfunction
 
-function! modestatus#extensions#core#paste(nr)
+function! modestatus#extensions#core#paste(nr) abort
 	if &paste
 		return g:modestatus#extensions#core#symbols.paste
 	else
@@ -133,6 +133,6 @@ function! modestatus#extensions#core#paste(nr)
 	endif
 endfunction
 
-function! modestatus#extensions#core#mode(nr)
+function! modestatus#extensions#core#mode(nr) abort
 	return g:modestatus#extensions#core#symbols.modes[mode()]
 endfunction
