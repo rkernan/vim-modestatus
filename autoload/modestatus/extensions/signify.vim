@@ -18,7 +18,8 @@ function! modestatus#extensions#signify#hunks(nr) abort
 		\     g:modestatus#extensions#signify#symbols.modified,
 		\     g:modestatus#extensions#signify#symbols.removed
 		\ ]
-	let stats = getbufvar(winbufnr(a:nr), 'sy').stats
+
+	let stats = getbufvar(winbufnr(a:nr), 'sy', {'stats': [-1, -1, -1]}).stats
 	let hunkline = ''
 	
 	for i in range(3)
