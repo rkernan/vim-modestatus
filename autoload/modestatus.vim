@@ -55,15 +55,32 @@ function! modestatus#statusline(nr)
 		return Section(a:nr, a:key, 'right')
 	endfunction
 
+	let statusline_parts = g:modestatus#statusline
+
+	" check filetype override
+	if has_key(g:modestatus#statusline_override, getbufvar(winbufnr(a:nr), '&filetype'))
+		let statusline_parts = g:modestatus#statusline_override[getbufvar(winbufnr(a:nr), '&filetype')]
+	endif
+
 	let statusline  = ''
-	for part in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].left
-		let statusline .= LeftSection(a:nr, part)
-	endfor
+
+	try
+		for part in statusline_parts[a:nr == winnr() ? 'active' : 'inactive'].left
+			let statusline .= LeftSection(a:nr, part)
+		endfor
+	catch
+		" ignore error
+	endtry
 
 	let statusline .= '%='
-	for part in g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive'].right
-		let statusline .= RightSection(a:nr, part)
-	endfor
+
+	try
+		for part in statusline_parts[a:nr == winnr() ? 'active' : 'inactive'].right
+			let statusline .= RightSection(a:nr, part)
+		endfor
+	catch
+		" ignore error
+	endtry
 
 	return statusline
 endfunction

@@ -34,9 +34,8 @@ function! modestatus#init#bootstrap()
 		\     'filetype',
 		\     'encoding',
 		\     'fileformat'
-		\   ],
-		\   'right': []
-		\ }})
+		\   ]}})
+	call modestatus#util#check_defined('g:modestatus#statusline_override', {})
 	call modestatus#util#check_defined('g:modestatus#disable_filetypes', ['qf'])
 	call modestatus#util#check_defined('g:modestatus#extensions#auto', 0)
 

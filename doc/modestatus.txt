@@ -84,6 +84,13 @@ g:modestatus#disable_filetypes
   default: >
     let g:modestatus#disable_for_filetypes = ['qf']
 <
+                                           *'g:modestatus#statusline_override'*
+g:modestatus#statusline_override
+  Dictionary to override the statusline by filetype.
+
+  default: >
+    let g:modestatus#statusline_override = {}
+
 ===============================================================================
 PARTS                                                        *modestatus-parts*
 
@@ -236,7 +243,7 @@ Parts:
 Symbols used by the part generator functions.
 
 default: >
-  let g:modestatus#core#extensions#symbols = {
+  let g:modestatus#extensions#core#symbols = {
     \   'modes': {
     \     'n':      'N',
     \     'i':      'I',
@@ -271,6 +278,42 @@ example: >
     \   'qf': 'Quick Fix',
     \ }
 <
+===============================================================================
+EXTENSION - DENITE                               *modestatus-extensions-denite*
+
+Overview:~
+  |modestatus#extensions#denite|..............................Denite extension.
+  |modestatus#extensions#denite#symbols|.........................Added symbols.
+  |modestatus#extensions#denite#parts|.............................Added parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                 *modestatus#extensions#denite*
+Defines statusline parts for creating a custom denite statusline.
+see: |modestatus#extensions#denite#parts|
+
+                                         *modestatus#extensions#denite#symbols*
+Dictionary of symbols used by the denite extension.
+
+default: >
+  let g:modestatus#extensions#denite#symbols = {
+    \   'modes': {
+    \     'n': 'N',
+    \     'i': 'I',
+    \     '?': '?'
+    \   }
+    \ }
+<
+                                           *modestatus#extensions#denite#parts*
+Parts:
+  - denite_line_percent
+  - denite_line
+  - denite_max_line
+  - denite_mode
+  - denite_sources
+  - denite_path
+
 ===============================================================================
 EXTENSION - LOCLIST                             *modestatus-extensions-loclist*
 
