@@ -136,6 +136,7 @@ Overview:~
   |modestatus#options#add|.........................................Add options.
   |modestatus#options#has|..............................Check if options exist.
   |modestatus#options#get|.........................................Get options.
+  |modestatus#options#get_concat|...........Get active/inactive+common options.
   |modestatus#options#list|...................................List all options.
 
 -------------------------------------------------------------------------------
@@ -170,6 +171,10 @@ modestatus#options#has({key})
 modestatus#options#get({key})
   Get the options for a statusline part {key}.
 
+                                                *modestatus#options#get_concat*
+modestatus#options#get_concat({key}, {isactive})
+  Concatenate active/inactive + common statusline options part {key}.
+
                                                       *modestatus#options#list*
 modestatus#options#list()
   Echo a list of all existing options.
@@ -179,7 +184,6 @@ EXTENSIONS                                              *modestatus-extensions*
 
 Overview:~
   |modestatus#extensions|...........................................Extensions.
-  |modestatus#extensions#auto|............................Auto load extensions.
   |modestatus#extensions#enable|...........................Enable an extension.
   |modestatus#extensions#enable_all|.....................Enable all extensions.
   |modestatus#extensions#list|.............................List all extensions.
@@ -189,7 +193,6 @@ Description:~
 
                                                         *modestatus#extensions*
 Extensions define a set of parts that can be used to build the statusline.
-They need to be enabled manually unless |g:modestatus#extensions#auto| is set.
 
 All extensions should define a function modestatus#extensions#{name}#init that
 contains all extension initialization.
@@ -227,9 +230,9 @@ see: |modestatus#extensions#core#parts|
 Parts:
   - line_percent
   - line
-  - line_max
+  - max_line
   - column
-  - column_max
+  - max_column
   - position
   - filename
   - filetype
@@ -238,6 +241,7 @@ Parts:
   - modified
   - readonly
   - paste
+  - mode
 
                                        *'g:modestatus#extensions#core#symbols'*
 Symbols used by the part generator functions.
@@ -349,7 +353,9 @@ see: |modestatus#extensions#signify#parts|
 
                                           *modestatus#extensions#signify#parts*
 Parts:
-  - signify_hunks
+  - signify_hunk_added
+  - signify_hunk_modified
+  - signify_hunk_removed
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help

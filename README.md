@@ -27,7 +27,7 @@ Just choose your favorite plugin manager:
 ## Usage
 
 The [documentation](doc/modestatus.txt) covers behavior and usage fairly
-concisely, so here's my modestatus config as an example:
+concisely, so here's my simplified modestatus config as an example:
 
 ![screenshot][screenshot]
 
@@ -60,11 +60,7 @@ let g:modestatus#statusline = {
     \         'encoding',
     \         'fileformat',
     \         'loclist_errors',
-    \         'loclist_warnings'
-    \     ],
-    \     'right': [
-    \     ]
-    \ },
+    \         'loclist_warnings']},
     \ 'inactive': {
     \     'left': [
     \         'filename',
@@ -74,85 +70,21 @@ let g:modestatus#statusline = {
     \         'encoding',
     \         'fileformat',
     \         'loclist_errors',
-    \         'loclist_warnings'
-    \     ],
-    \     'right': [
-    \     ]
-    \ }}
-
-" filename overrides, part of the core extension
-let g:modestatus#extensions#core#filename_override = {
-    \     '[No Name]': ''
-    \ }
-
-" filename type-based overrides, part of the core extension
-let g:modestatus#extensions#core#filetype_override = {
-    \     'qf': '',
-    \     'undotree': 'UndoTree'
-    \ }
+    \         'loclist_warnings']}}
 
 " setup general statusline part options
-call modestatus#options#add('line_percent', {
-    \ 'common': {
-    \     'min_winwidth': 30
-    \ }})
-call modestatus#options#add('position', {
-    \ 'common': {
-    \     'min_winwidth': 30
-    \ }})
-call modestatus#options#add('filename', {
-    \ 'active': {
-    \     'color': 'ModestatusFilename',
-    \ }})
-call modestatus#options#add('mode', {
-    \ 'active': {
-    \     'color': 'ModestatusMode',
-    \     'format': '‹%s›'
-    \ }})
-call modestatus#options#add('modified', {
-    \ 'active': {
-    \     'color': 'ModestatusModified'
-    \ }})
-call modestatus#options#add('readonly', {
-    \ 'active': {
-    \     'color': 'ModestatusModified'
-    \ }})
-call modestatus#options#add('paste', {
-    \ 'active': {
-    \     'color': 'ModestatusModified'
-    \ }})
-call modestatus#options#add('filetype', {
-    \ 'common': {
-    \     'format': '[%s]',
-    \     'min_winwidth': 50
-    \ }})
-call modestatus#options#add('encoding', {
-    \ 'common': {
-    \     'format': '[%s:',
-    \     'separator': '',
-    \     'min_winwidth': 70
-    \ }})
-call modestatus#options#add('fileformat', {
-    \ 'common': {
-    \     'format': '%s]',
-    \     'min_winwidth': 70
-    \ }})
-call modestatus#options#add('loclist_errors', {
-    \ 'common': {
-    \     'separator': ''
-    \ },
-    \ 'active': {
-    \     'color': 'ModestatusError',
-    \     'format': ' %s ',
-    \ }})
-call modestatus#options#add('loclist_warnings', {
-    \ 'common': {
-    \     'separator': ''
-    \ },
-    \ 'active': {
-    \     'color': 'ModestatusWarning',
-    \     'format': ' %s ',
-    \ }})
+call modestatus#options#add('line_percent', {'common': {'min_winwidth': 30}})
+call modestatus#options#add('position', {'common': {'min_winwidth': 30}})
+call modestatus#options#add('filename', {'active': {'color': 'ModestatusFilename'}})
+call modestatus#options#add('mode', {'active': {'color': 'ModestatusMode', 'format': "\u2039%s\u203A"}})
+call modestatus#options#add('modified', {'active': {'color': 'ModestatusModified'}})
+call modestatus#options#add('readonly', {'active': {'color': 'ModestatusModified'}})
+call modestatus#options#add('paste', {'active': {'color': 'ModestatusModified'}})
+call modestatus#options#add('filetype', {'common': {'format': '[%s]', 'min_winwidth': 50}})
+call modestatus#options#add('encoding', {'common': {'format': '[%s:', 'separator': '', 'min_winwidth': 70}})
+call modestatus#options#add('fileformat', {'common': {'format': '%s]', 'min_winwidth': 70}})
+call modestatus#options#add('loclist_errors', {'common': {'color': 'ModestatusError'}})
+call modestatus#options#add('loclist_warnings', {'common': {'color': 'ModestatusWarning'}})
 ```
 
 ## Extensions
