@@ -6,17 +6,12 @@ function! modestatus#extensions#loclist#init()
 	endif
 	let s:initialized = 1
 
-	call modestatus#util#check_defined('g:modestatus#extensions#loclist#message', {})
-	call extend(g:modestatus#extensions#loclist#message, {
-		\   'error': 'E: %d',
-		\   'warning': 'W: %d'
-		\ }, 'keep')
-
+	" TODO default format
 	call modestatus#parts#add('loclist_errors', 'modestatus#extensions#loclist#errors')
 	call modestatus#parts#add('loclist_warnings', 'modestatus#extensions#loclist#warnings')
 endfunction
 
-function! s:loclist_types(nr, type, fmt) abort
+function! s:loclist_types(nr, type) abort
 	let loclist = getloclist(a:nr)
 	let num_types = 0
 	for i in loclist
@@ -25,16 +20,16 @@ function! s:loclist_types(nr, type, fmt) abort
 		endif
 	endfor
 	if num_types > 0
-		return printf(a:fmt, num_types)
+		return num_types
 	else
 		return ''
 	endif
 endfunction
 
 function! modestatus#extensions#loclist#errors(nr) abort
-	return s:loclist_types(a:nr, 'E', g:modestatus#extensions#loclist#message.error)
+	return s:loclist_types(a:nr, 'E')
 endfunction
 
 function! modestatus#extensions#loclist#warnings(nr) abort
-	return s:loclist_types(a:nr, 'W', g:modestatus#extensions#loclist#message.warning)
+	return s:loclist_types(a:nr, 'W')
 endfunction
