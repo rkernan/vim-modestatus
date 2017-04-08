@@ -6,9 +6,11 @@ function! modestatus#extensions#loclist#init()
 	endif
 	let s:initialized = 1
 
-	" TODO default format
 	call modestatus#parts#add('loclist_errors', 'modestatus#extensions#loclist#errors')
 	call modestatus#parts#add('loclist_warnings', 'modestatus#extensions#loclist#warnings')
+	
+	call modestatus#options#add('loclist_errors', {'common': {'separator': '', 'format': ' E: %s '}}, 'keep')
+	call modestatus#options#add('loclist_warnings', {'common': {'separator': '', 'format': ' W: %s '}}, 'keep')
 endfunction
 
 function! s:loclist_types(nr, type) abort

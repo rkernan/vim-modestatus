@@ -6,10 +6,13 @@ function! modestatus#extensions#signify#init()
 	endif
 	let s:initialized = 1
 
-	" TODO default format
 	call modestatus#parts#add('signify_hunk_added', 'modestatus#extensions#signify#hunk_added')
 	call modestatus#parts#add('signify_hunk_modified', 'modestatus#extensions#signify#hunk_modified')
 	call modestatus#parts#add('signify_hunk_removed', 'modestatus#extensions#signify#hunk_removed')
+
+	call modestatus#options#add('signify_hunk_added', {'common': {'format': '+%s'}}, 'keep')
+	call modestatus#options#add('signify_hunk_modified', {'common': {'format': '~%s'}}, 'keep')
+	call modestatus#options#add('signify_hunk_removed', {'common': {'format': '-%s'}}, 'keep')
 endfunction
 
 function! s:get_sy_stats(nr) abort 
