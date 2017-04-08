@@ -1,20 +1,29 @@
 let s:options = {}
 
-function! modestatus#options#add(key, val)
-	let s:options[a:key] = a:val
-	call extend(s:options[a:key], {'common': {}, 'active': {}, 'inactive': {}}, 'keep')
+function! modestatus#options#add(key, val, ...)
+	call extend(s:options, {a:key: {}}, 'keep')
+	for subkey in keys(a:val)
+		call extend(s:options[a:key], {subkey: {}}, 'keep')
+		call extend(s:options[a:key][subkey], a:val[subkey], (a:0 == 1 ? a:1 : 'force'))
+	endfor
 endfunction
 
 function! modestatus#options#has(key)
 	return has_key(s:options, a:key)
 endfunction
 
-function! modestatus#options#get(key)
+function! modestatus#options#get_concat(key, is_active)
 	if modestatus#options#has(a:key)
-		return deepcopy(s:options[a:key])
+		let options = {}
+		if has_key(s:options[a:key], 'common')
+			let options = extend(options, s:options[a:key]['common'])
+		endif
+		if has_key(s:options[a:key], (a:is_active ? 'active' : 'inactive'))
+			let options = extend(options, s:options[a:key][(a:is_active ? 'active' : 'inactive')])
+		endif
+		return options
 	else
-		call modestatus#log#error('options for "' . a:key . '" not found')
-		return 0
+		return {}
 	endif
 endfunction
 
