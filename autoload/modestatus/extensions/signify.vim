@@ -6,30 +6,40 @@ function! modestatus#extensions#signify#init()
 	endif
 	let s:initialized = 1
 
-	call modestatus#util#check_defined('g:modestatus#extensions#signify#symbols', {})
-	call extend(g:modestatus#extensions#signify#symbols, {'added': '+', 'removed': '-', 'modified': '~'}, 'keep')
-
-	call modestatus#parts#add('signify_hunks', 'modestatus#extensions#signify#hunks')
+	" TODO default format
+	call modestatus#parts#add('signify_hunk_added', 'modestatus#extensions#signify#hunk_added')
+	call modestatus#parts#add('signify_hunk_modified', 'modestatus#extensions#signify#hunk_modified')
+	call modestatus#parts#add('signify_hunk_removed', 'modestatus#extensions#signify#hunk_removed')
 endfunction
 
-function! modestatus#extensions#signify#hunks(nr) abort
-	let symbols = [
-		\     g:modestatus#extensions#signify#symbols.added,
-		\     g:modestatus#extensions#signify#symbols.modified,
-		\     g:modestatus#extensions#signify#symbols.removed
-		\ ]
+function! s:get_sy_stats(nr) abort 
+	let stats_arr = getbufvar(winbufnr(a:nr), 'sy', {'stats': [-1, -1, -1]}).stats
+	return {'added': stats_arr[0], 'modified': stats_arr[1], 'removed': stats_arr[2]}
+endfunction
 
-	let stats = getbufvar(winbufnr(a:nr), 'sy', {'stats': [-1, -1, -1]}).stats
-	let hunkline = ''
-	
-	for i in range(3)
-		if stats[i] > 0
-			if len(hunkline) > 0
-				let hunkline .= ' '
-			endif
-			let hunkline .= printf('%s%s', symbols[i], stats[i])
-		endif
-	endfor
+function! modestatus#extensions#signify#hunk_added(nr) abort
+	let stats = s:get_sy_stats(a:nr)
+	if stats.added > 0
+		return stats.added
+	else
+		return ''
+	endif
+endfunction
 
-	return hunkline
+function! modestatus#extensions#signify#hunk_modified(nr) abort
+	let stats = s:get_sy_stats(a:nr)
+	if stats.modified > 0
+		return stats.modified
+	else
+		return ''
+	endif
+endfunction
+
+function! modestatus#extensions#signify#hunk_removed(nr) abort
+	let stats = s:get_sy_stats(a:nr)
+	if stats.removed > 0
+		return stats.removed
+	else
+		return ''
+	endif
 endfunction
