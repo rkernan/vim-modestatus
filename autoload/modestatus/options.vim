@@ -12,6 +12,14 @@ function! modestatus#options#has(key)
 	return has_key(s:options, a:key)
 endfunction
 
+function! modestatus#options#get(key)
+	if modestatus#options#has(a:key)
+		return s:options[a:key]
+	else
+		return {'common': {}, 'active': {}, 'inactive': {}}
+	endif
+endfunction
+
 function! modestatus#options#get_concat(key, is_active)
 	if modestatus#options#has(a:key)
 		let options = {}
