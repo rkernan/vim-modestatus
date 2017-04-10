@@ -1,11 +1,17 @@
 function! modestatus#section(nr, part, side, is_active)
 	if modestatus#parts#has(a:part)
 		let content = {modestatus#parts#get(a:part)}(a:nr)
-		let separator = g:modestatus#default_separator
 
 		" apply options
-		if modestatus#options#has(a:part) && len(content)
+		if modestatus#options#has(a:part)
+			let separator = g:modestatus#default_separator
 			let options = modestatus#options#get_concat(a:part, a:is_active)
+
+			if content == v:false
+				return ''
+			elseif type(content) != v:t_bool && len(content) == 0
+				return ''
+			endif
 
 			" check if the part should be truncated
 			if has_key(options, 'min_winwidth')
@@ -17,12 +23,23 @@ function! modestatus#section(nr, part, side, is_active)
 
 			" format the part
 			if has_key(options, 'format')
-				let content = printf(options['format'], content)
+				if content == v:true
+					let content = options['format']
+				else
+					let content = printf(options['format'], content)
+				endif
+			elseif type(content) == v:t_bool
+				throw printf('On/off part %s must have format', a:part)
 			endif
 
 			" get separator
 			if has_key(options, 'separator')
 				let separator = options['separator']
+			endif
+
+			if type(content) != v:t_string
+				" if the content isn't a string yet it never will be
+				return ''
 			endif
 
 			" color the part
@@ -32,7 +49,7 @@ function! modestatus#section(nr, part, side, is_active)
 		endif
 
 		" add separator
-		if a:side == 'left'
+		if a:side ==# 'left'
 			let content = modestatus#util#suffix(content, separator)
 		else
 			let content = modestatus#util#prefix(content, separator)
@@ -69,8 +86,6 @@ endfunction
 
 function! modestatus#update()
 	for nr in range(1, winnr('$'))
-		if index(g:modestatus#disable_filetypes, getbufvar(winbufnr(nr), '&filetype')) < 0
-			call setwinvar(nr, '&statusline', '%!modestatus#statusline(' . nr . ')')
-		endif
+		call setwinvar(nr, '&statusline', '%!modestatus#statusline(' . nr . ')')
 	endfor
 endfunction

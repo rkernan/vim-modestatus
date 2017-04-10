@@ -1,4 +1,5 @@
 let s:options = {}
+let s:default_options = {'common': {}, 'active': {}, 'inactive': {}}
 
 function! modestatus#options#add(key, val, ...)
 	call extend(s:options, {a:key: {}}, 'keep')

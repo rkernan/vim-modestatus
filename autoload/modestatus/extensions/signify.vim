@@ -23,7 +23,7 @@ endfunction
 function! modestatus#extensions#signify#hunk_added(nr) abort
 	let stats = s:get_sy_stats(a:nr)
 	if stats.added > 0
-		return stats.added
+		return string(stats.added)
 	else
 		return ''
 	endif
@@ -32,7 +32,7 @@ endfunction
 function! modestatus#extensions#signify#hunk_modified(nr) abort
 	let stats = s:get_sy_stats(a:nr)
 	if stats.modified > 0
-		return stats.modified
+		return string(stats.modified)
 	else
 		return ''
 	endif
@@ -41,7 +41,7 @@ endfunction
 function! modestatus#extensions#signify#hunk_removed(nr) abort
 	let stats = s:get_sy_stats(a:nr)
 	if stats.removed > 0
-		return stats.removed
+		return string(stats.removed)
 	else
 		return ''
 	endif

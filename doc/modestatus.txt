@@ -10,6 +10,7 @@ CONTENTS                                                  *modestatus-contents*
 4. Options.................................................|modestatus-options|
 5. Extensions...........................................|modestatus-extensions|
 6. Extension: Core.................................|modestatus-extensions-core|
+7. Extension: Denite.............................|modestatus-extensions-denite|
 7. Extension: LocList...........................|modestatus-extensions-loclist|
 8. Extension: Signify...........................|modestatus-extensions-signify|
 
@@ -23,10 +24,10 @@ an easy to configure, minimalist vim statusline.
 SETTINGS                                                  *modestatus-settings*
 
 Overview:~
-  |modestatus_loaded|.......................................Disable the plugin.
-  |modestatus#statusline|.....................................Statusline parts.
-  |modestatus#default#separator|........................Default part separator.
-  |modestatus#disable_filetypes|..................List of filetypes to disable.
+  |g:modestatus_loaded|.....................................Disable the plugin.
+  |g:modestatus#statusline|...................................Statusline parts.
+  |g:modestatus#default_separator|......................Default part separator.
+  |g:modestatus#statusline_override|...........Statusline override by filetype.
 
 -------------------------------------------------------------------------------
 Description:~
@@ -41,7 +42,7 @@ g:modestatus#statusline
   Statusline dictionary representation. This is a list of |modestatus#parts|.
 
   default: >
-    let g:modestatus#statusline.active = {
+    let g:modestatus#statusline = {
     \ 'active': {
     \   'left': [
     \     'mode',
@@ -76,13 +77,6 @@ g:modestatus#default_separator
 
   default: >
     let g:modestatus#default_separator = ' '
-<
-                                             *'g:modestatus#disable_filetypes'*
-g:modestatus#disable_filetypes
-  List of filestypes to disable the statusline on.
-
-  default: >
-    let g:modestatus#disable_for_filetypes = ['qf']
 <
                                            *'g:modestatus#statusline_override'*
 g:modestatus#statusline_override
@@ -215,9 +209,7 @@ EXTENSION - CORE                                   *modestatus-extensions-core*
 Overview:~
   |modestatus#extensions#core|..................................Core extension.
   |modestatus#extensions#core#parts|..........................Statusline parts.
-  |modestatus#extensions#core#symbols|.............................Symbols map.
-  |modestatus#extensions#core#filename_override|.....Override filename by name.
-  |modestatus#extensions#core#filetype_override|.....Override filename by type.
+  |g:modestatus#extensions#core#mode_symbols|.................Mode symbols map.
 
 -------------------------------------------------------------------------------
 Description:~
@@ -236,6 +228,7 @@ Parts:
   - position
   - filename
   - filetype
+  - buftype
   - encoding
   - fileformat
   - modified
@@ -243,12 +236,11 @@ Parts:
   - paste
   - mode
 
-                                       *'g:modestatus#extensions#core#symbols'*
+                                    *g:modestatus#extensions#core#mode_symbols*
 Symbols used by the part generator functions.
 
 default: >
-  let g:modestatus#extensions#core#symbols = {
-    \   'modes': {
+  let g:modestatus#extensions#core#mode_symbols = {
     \     'n':      'N',
     \     'i':      'I',
     \     'R':      'R',
@@ -260,26 +252,6 @@ default: >
     \     'S':      'S',
     \     "\<c-s>": 'S',
     \     '?':      '?'
-    \   },
-    \   'modified': '+',
-    \   'readonly': '‼',
-    \   'paste': 'P'
-    \ }
-<
-                             *'g:modestatus#extensions#core#filename_override'*
-Dictionary of displayed filename overrides.
-
-example: >
-  let g:modestatus#extensions#core#filename_override = {
-    \   '[No Name]': ''
-    \ }
-<
-                             *'g:modestatus#extensions#core#filetype_override'*
-Dictionary of displayed filetype overrides.
-
-example: >
-  let g:modestatus#extensions#core#filetype_override = {
-    \   'qf': 'Quick Fix',
     \ }
 <
 ===============================================================================
@@ -287,7 +259,7 @@ EXTENSION - DENITE                               *modestatus-extensions-denite*
 
 Overview:~
   |modestatus#extensions#denite|..............................Denite extension.
-  |modestatus#extensions#denite#symbols|.........................Added symbols.
+  |g:modestatus#extensions#denite#mode_symbols|...............Mode symbols map.
   |modestatus#extensions#denite#parts|.............................Added parts.
 
 -------------------------------------------------------------------------------
@@ -297,16 +269,14 @@ Description:~
 Defines statusline parts for creating a custom denite statusline.
 see: |modestatus#extensions#denite#parts|
 
-                                         *modestatus#extensions#denite#symbols*
+                                  *g:modestatus#extensions#denite#mode_symbols*
 Dictionary of symbols used by the denite extension.
 
 default: >
-  let g:modestatus#extensions#denite#symbols = {
-    \   'modes': {
+  let g:modestatus#extensions#denite#mode_symbols = {
     \     'n': 'N',
     \     'i': 'I',
     \     '?': '?'
-    \   }
     \ }
 <
                                            *modestatus#extensions#denite#parts*

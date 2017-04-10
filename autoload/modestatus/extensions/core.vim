@@ -6,11 +6,8 @@ function! modestatus#extensions#core#init()
 	endif
 	let s:initialized = 1
 
-	call modestatus#util#check_defined('g:modestatus#extensions#core#filename_override', {})
-	call modestatus#util#check_defined('g:modestatus#extensions#core#filetype_override', {})
-	call modestatus#util#check_defined('g:modestatus#extensions#core#symbols', {})
-	call extend(g:modestatus#extensions#core#symbols, {'modes': {}}, 'keep')
-	call extend(g:modestatus#extensions#core#symbols.modes, {
+	call modestatus#util#check_defined('g:modestatus#extensions#core#mode_symbols', {})
+	call extend(g:modestatus#extensions#core#mode_symbols, {
 		\   'n':      'N',
 		\   'i':      'I',
 		\   'R':      'R',
@@ -23,24 +20,26 @@ function! modestatus#extensions#core#init()
 		\   "\<c-s>": 'S',
 		\   '?':      '?'
 		\ }, 'keep')
-	call extend(g:modestatus#extensions#core#symbols, {'modified': '+'}, 'keep')
-	call extend(g:modestatus#extensions#core#symbols, {'paste': 'P'}, 'keep')
-	call extend(g:modestatus#extensions#core#symbols, {'readonly': 'RO'}, 'keep')
 
 	call modestatus#parts#add('line_percent', 'modestatus#extensions#core#line_percent')
-	call modestatus#parts#add('line',         'modestatus#extensions#core#line')
-	call modestatus#parts#add('max_line',     'modestatus#extensions#core#max_line')
-	call modestatus#parts#add('column',       'modestatus#extensions#core#column')
-	call modestatus#parts#add('max_column',   'modestatus#extensions#core#max_column')
-	call modestatus#parts#add('position',     'modestatus#extensions#core#position')
-	call modestatus#parts#add('filename',     'modestatus#extensions#core#filename')
-	call modestatus#parts#add('filetype',     'modestatus#extensions#core#filetype')
-	call modestatus#parts#add('encoding',     'modestatus#extensions#core#encoding')
-	call modestatus#parts#add('fileformat',   'modestatus#extensions#core#fileformat')
-	call modestatus#parts#add('modified',     'modestatus#extensions#core#modified')
-	call modestatus#parts#add('readonly',     'modestatus#extensions#core#readonly')
-	call modestatus#parts#add('paste',        'modestatus#extensions#core#paste')
-	call modestatus#parts#add('mode',         'modestatus#extensions#core#mode')
+	call modestatus#parts#add('line', 'modestatus#extensions#core#line')
+	call modestatus#parts#add('max_line', 'modestatus#extensions#core#max_line')
+	call modestatus#parts#add('column', 'modestatus#extensions#core#column')
+	call modestatus#parts#add('max_column', 'modestatus#extensions#core#max_column')
+	call modestatus#parts#add('position', 'modestatus#extensions#core#position')
+	call modestatus#parts#add('filename', 'modestatus#extensions#core#filename')
+	call modestatus#parts#add('filetype', 'modestatus#extensions#core#filetype')
+	call modestatus#parts#add('buftype', 'modestatus#extensions#core#buftype')
+	call modestatus#parts#add('encoding', 'modestatus#extensions#core#encoding')
+	call modestatus#parts#add('fileformat', 'modestatus#extensions#core#fileformat')
+	call modestatus#parts#add('modified', 'modestatus#extensions#core#modified')
+	call modestatus#parts#add('readonly', 'modestatus#extensions#core#readonly')
+	call modestatus#parts#add('paste', 'modestatus#extensions#core#paste')
+	call modestatus#parts#add('mode', 'modestatus#extensions#core#mode')
+	
+	call modestatus#options#add('modified', {'common': {'format': '+'}}, 'keep')
+	call modestatus#options#add('paste', {'common': {'format': 'P'}}, 'keep')
+	call modestatus#options#add('readonly', {'common': {'format': 'RO'}}, 'keep')
 endfunction
 
 function! modestatus#extensions#core#line_percent(nr) abort
@@ -95,18 +94,15 @@ function! modestatus#extensions#core#position(nr) abort
 endfunction
 
 function! modestatus#extensions#core#filename(nr) abort
-	let filename = bufname(winbufnr(a:nr))
-	let filetype = getbufvar(winbufnr(a:nr), '&filetype')
-	if has_key(g:modestatus#extensions#core#filename_override, filename)
-		let filename = g:modestatus#extensions#core#filename_override[filename]
-	elseif has_key(g:modestatus#extensions#core#filetype_override, filetype)
-		let filename = g:modestatus#extensions#core#filetype_override[filetype]
-	endif
-	return filename
+	return bufname(winbufnr(a:nr))
 endfunction
 
 function! modestatus#extensions#core#filetype(nr) abort
 	return getbufvar(winbufnr(a:nr), '&filetype')
+endfunction
+
+function! modestatus#extensions#core#buftype(nr) abort
+	return getbufvar(winbufnr(a:nr), '&buftype')
 endfunction
 
 function! modestatus#extensions#core#encoding(nr) abort
@@ -118,21 +114,17 @@ function! modestatus#extensions#core#fileformat(nr) abort
 endfunction
 
 function! modestatus#extensions#core#modified(nr) abort
-	return getbufvar(winbufnr(a:nr), '&modified') ? g:modestatus#extensions#core#symbols.modified : ''
+	return getbufvar(winbufnr(a:nr), '&modified') ? v:true : v:false
 endfunction
 
 function! modestatus#extensions#core#readonly(nr) abort
-	return getbufvar(winbufnr(a:nr), '&readonly') ? g:modestatus#extensions#core#symbols.readonly : ''
+	return getbufvar(winbufnr(a:nr), '&readonly') ? v:true : v:false
 endfunction
 
 function! modestatus#extensions#core#paste(nr) abort
-	if &paste
-		return g:modestatus#extensions#core#symbols.paste
-	else
-		return ''
-	endif
+	return &paste ? v:true : v:false
 endfunction
 
 function! modestatus#extensions#core#mode(nr) abort
-	return g:modestatus#extensions#core#symbols.modes[mode()]
+	return g:modestatus#extensions#core#mode_symbols[mode()]
 endfunction
