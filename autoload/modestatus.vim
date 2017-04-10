@@ -23,10 +23,10 @@ function! modestatus#section(nr, part, side, is_active)
 
 			" format the part
 			if has_key(options, 'format')
-				if content == v:true
-					let content = options['format']
-				else
+				if type(content) != v:t_bool
 					let content = printf(options['format'], content)
+				elseif content == v:true
+					let content = options['format']
 				endif
 			elseif type(content) == v:t_bool
 				throw printf('On/off part %s must have format', a:part)
