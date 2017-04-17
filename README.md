@@ -29,9 +29,9 @@ Just choose your favorite plugin manager:
 The [documentation](doc/modestatus.txt) covers behavior and usage fairly
 concisely, so here's my modestatus config as an example:
 
-![screenshot][screenshot.jpg "Active Statusline"]
+![screenshot](https://raw.github.com/kernan/vim-modestatus/master/statusline.jpg)
 
-![screenshot_nc][screenshot_nc.jpg "Inactive Statusline"]
+![screenshot_nc](https://raw.github.com/kernan/vim-modestatus/master/statusline_nc.jpg)
 
 ```viml
 hi StatusLine guifg=#a59f85 guibg=#49483e gui=none ctermfg=20 ctermbg=19 cterm=none
