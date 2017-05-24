@@ -2,7 +2,7 @@ let s:options = {}
 let s:default_options = {'common': {}, 'active': {}, 'inactive': {}}
 
 function! modestatus#options#add(key, val, ...)
-	call extend(s:options, {a:key: {}}, 'keep')
+	call extend(s:options, {a:key: s:default_options}, 'keep')
 	for subkey in keys(a:val)
 		call extend(s:options[a:key], {subkey: {}}, 'keep')
 		call extend(s:options[a:key][subkey], a:val[subkey], (a:0 == 1 ? a:1 : 'force'))
@@ -17,7 +17,7 @@ function! modestatus#options#get(key)
 	if modestatus#options#has(a:key)
 		return s:options[a:key]
 	else
-		return {'common': {}, 'active': {}, 'inactive': {}}
+		return s:default_options
 	endif
 endfunction
 

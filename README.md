@@ -1,5 +1,4 @@
 # Modestatus
-[![Build Status](https://travis-ci.org/kernan/vim-modestatus.svg?branch=master)](https://travis-ci.org/kernan/vim-modestatus)
 
 Modestatus is (yet another) statusline replacement aimed at users who prefer
 an easy to configure, minimalist vim statusline.
