@@ -3,26 +3,6 @@
 Modestatus is (yet another) statusline replacement aimed at users who prefer
 an easy to configure, minimalist vim statusline.
 
-It's designed to be:
-- **Simple.** 100% vimscript with as few moving parts as possible.
-- **Customizable.** Everything from statusline part colors to string formats
-  can be modified.
-- **Extensible.** Extensions can define new parts and behaviors. New extensions
-  are easy to create.
-
-## Installation
-
-Just choose your favorite plugin manager:
-
-- [NeoBundle][neobundle]
-  - `NeoBundle 'kernan/vim-modestatus'`
-- [Pathogen][pathogen]
-  - `git clone https://github.com/kernan/vim-modestatus.git ~/.vim/bundle/`
-- [vim-plug][vim-plug]
-  - `Plug 'kernan/vim-modestatus'`
-- [Vundle][vundle]
-  - `Plugin 'kernan/vim-modestatus'`
-
 ## Usage
 
 The [documentation](doc/modestatus.txt) covers behavior and usage fairly
@@ -119,23 +99,19 @@ call modestatus#options#add('denite_path', {'common': {'min_winwidth': 50}})
 call modestatus#options#add('denite_mode', {'active': {'color': 'ModestatusMode', 'format': (has('multi_byte') ? "\u2039%s\u203A" : '<%s>')}})
 ```
 
-## Extensions
+## Installation
 
-Extensions exist to make it easier to add new statusline parts, but more
-advanced behavior is also possible. In order for the user to initialize an
-extension through modestatus it must be located in
-`autoload/modestatus/extensions` and define a function
-`modestatus#extensions#{name}#init()`.
+Just choose your favorite plugin manager:
 
-[loclist](autoload/modestatus/extensions/loclist.vim) is a simple example of an
-extension that adds new statusline parts.
+- [NeoBundle](https://github.com/Shougo/neobundle.vim)
+  - `NeoBundle 'kernan/vim-modestatus'`
+- [Pathogen](https://github.com/tpope/vim-pathogen)
+  - `git clone https://github.com/kernan/vim-modestatus.git ~/.vim/bundle/`
+- [vim-plug](https://github.com/junegunn/vim-plug)
+  - `Plug 'kernan/vim-modestatus'`
+- [Vundle](https://github.com/gmarik/Vundle.vim)
+  - `Plugin 'kernan/vim-modestatus'`
 
 # License
 
 MIT License. Copyright (c) 2014-2015 Robert Kernan
-
-[neobundle]:  https://github.com/Shougo/neobundle.vim
-[pathogen]:   https://github.com/tpope/vim-pathogen
-[screenshot]: https://raw.githubusercontent.com/kernan/vim-modestatus/master/screenshot.png
-[vim-plug]:   https://github.com/junegunn/vim-plug
-[vundle]:     https://github.com/gmarik/Vundle.vim
