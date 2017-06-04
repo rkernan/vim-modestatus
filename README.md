@@ -19,19 +19,21 @@ function! s:setup_statusline_colorscheme()
 	hi ModestatusHunksAdded guifg=#a6e22e guibg=#49483e gui=none ctermfg=2 ctermbg=19 cterm=none
 	hi ModestatusHunksModified guifg=#66d9ef guibg=#49483e gui=none ctermfg=4 ctermbg=19 cterm=none
 	hi ModestatusHunksRemoved guifg=#f92672 guibg=#49483e gui=none ctermfg=1 ctermbg=19 cterm=none
-	hi ModestatusLoclistErrors guifg=White guibg=#af0000 gui=none ctermfg=White ctermbg=124 cterm=none
-	hi ModestatusLoclistWarnings guifg=Black guibg=#dfaf00 gui=none ctermfg=Black ctermbg=178 cterm=none
+	hi ModestatusLoclistWarnings guifg=Yellow guibg=#49483e gui=none ctermfg=Yellow ctermbg=19 cterm=none
+	hi ModestatusLoclistErrors guifg=Red guibg=#49483e gui=none ctermfg=Red ctermbg=19 cterm=none
 endfunction
 
 call s:setup_statusline_colorscheme()
 
-let g:modestatus#statusline = ['line_percent', 'line', 'column', 'mode', 'filename', 'modified', 'readonly', 'filetype', 'encoding', 'bomb', 'fileformat', 'hunks_added', 'hunks_modified', 'hunks_removed', 'loclist_errors', 'loclist_warnings']
-let g:modestatus#statusline_override_denite = ['denite_line_percent', 'denite_line', 'denite_mode', 'denite_sources', 'denite_path', 'filetype']
+let g:modestatus#statusline = ['line_percent', 'line', 'column', 'mode', 'filename', 'modified', 'readonly', 'hunks_added', 'hunks_modified', 'hunks_removed', 'filetype', 'encoding', 'bomb', 'fileformat', 'loclist_errors', 'loclist_warnings']
+let g:modestatus#statusline_override_denite = ['denite_line_percent', 'denite_line', 'denite_line_max', 'denite_mode', 'denite_sources', 'denite_path', 'filetype']
+let g:modestatus#statusline_override_qf = ['line_percent_always', 'line_always', 'line_max_always', 'filetype']
 
 let g:modestatus#parts#core#readonly_symbol = has('multi_byte') ? '🔒' : 'RO'
 
 call modestatus#options#add('bomb', 'format', '-%s')
 call modestatus#options#add('bomb', 'separator', '')
+call modestatus#options#add('denite_line', 'separator', '/')
 call modestatus#options#add('denite_mode', 'color', 'ModestatusMode')
 call modestatus#options#add('denite_mode', 'format', has('multi_byte') ? '‹%s›' : '<%s>')
 call modestatus#options#add('encoding', 'format', '[%s')
@@ -41,16 +43,21 @@ call modestatus#options#add('hunks_added', 'color', 'ModestatusHunksAdded')
 call modestatus#options#add('hunks_modified', 'color', 'ModestatusHunksModified')
 call modestatus#options#add('hunks_removed', 'color', 'ModestatusHunksRemoved')
 call modestatus#options#add('line', 'separator', ',')
+call modestatus#options#add('line_always', 'separator', '/')
 call modestatus#options#add('loclist_errors', 'color', 'ModestatusLoclistErrors')
+call modestatus#options#add('loclist_errors', 'format', '•%s')
 call modestatus#options#add('loclist_warnings', 'color', 'ModestatusLoclistWarnings')
+call modestatus#options#add('loclist_warnings', 'format', '•%s')
 call modestatus#options#add('mode', 'format', has('multi_byte') ? '‹%s›' : '<%s>')
 call modestatus#options#add('mode', 'color', 'ModestatusMode')
 call modestatus#options#add('modified', 'color', 'ModestatusRed')
 call modestatus#options#add('readonly', 'color', 'ModestatusRed')
 
 augroup vimrc
-	autocmd! FileType denite setlocal statusline=%!modestatus#statusline(winnr(),'denite')
-	autocmd! ColorScheme * call s:setup_statusline_colorscheme()
+	autocmd ColorScheme * call s:setup_statusline_colorscheme()
+	" overrides
+	autocmd FileType denite setlocal statusline=%!modestatus#statusline(winnr(),'denite')
+	autocmd FileType qf setlocal statusline=%!modestatus#statusline(winnr(),'qf')
 augroup END
 ```
 
