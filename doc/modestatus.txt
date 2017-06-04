@@ -4,21 +4,13 @@
 ===============================================================================
 CONTENTS                                                  *modestatus-contents*
 
-1. Intro.....................................................|modestatus-intro|
-2. Settings...............................................|modestatus-settings|
-3. Parts.....................................................|modestatus-parts|
-4. Options.................................................|modestatus-options|
-5. Extensions...........................................|modestatus-extensions|
-6. Extension: Core.................................|modestatus-extensions-core|
-7. Extension: Denite.............................|modestatus-extensions-denite|
-7. Extension: LocList...........................|modestatus-extensions-loclist|
-8. Extension: Signify...........................|modestatus-extensions-signify|
-
-===============================================================================
-INTRO                                                        *modestatus-intro*
-
-Modestatus is (yet another) statusline replacement aimed at users who prefer
-an easy to configure, minimalist vim statusline.
+1. Settings...............................................|modestatus-settings|
+2. Parts.....................................................|modestatus-parts|
+3. Parts: Core..........................................|modestatus-parts-core|
+4. Parts: Denite......................................|modestatus-parts-denite|
+5. Parts: LocList....................................|modestatus-parts-loclist|
+6. Parts: Hunks......................................|modestatus-parts-signify|
+7. Options.................................................|modestatus-options|
 
 ===============================================================================
 SETTINGS                                                  *modestatus-settings*
@@ -32,64 +24,29 @@ Overview:~
 -------------------------------------------------------------------------------
 Description:~
 
-                                                        *'g:modestatus_loaded'*
+                                                          *g:modestatus_loaded*
 g:modestatus_loaded
   Use this to disable the plugin: >
     let g:modestatus_loaded = 1
 <
-                                                    *'g:modestatus#statusline'*
+                                                      *g:modestatus#statusline*
 g:modestatus#statusline
-  Statusline dictionary representation. This is a list of |modestatus#parts|.
+  List of |modestatus#parts|.
 
-  default: >
-    let g:modestatus#statusline = {
-    \ 'active': {
-    \   'left': [
-    \     'mode',
-    \     'paste',
-    \     'filename',
-    \     'modified',
-    \     'readonly',
-    \     'filetype',
-    \     'encoding',
-    \     'fileformat',
-    \   ],
-    \   'right': [
-    \     'position',
-    \     'line_percent'
-    \   ],
-    \ },
-    \ 'inactive': {
-    \   'left': [
-    \     'filename',
-    \     'modified',
-    \     'readonly',
-    \     'filetype',
-    \     'encoding',
-    \     'fileformat'
-    \   ],
-    \   'right': []
-    \ }}
+  Default: >
+    let g:modestatus#statusline = []
 <
-                                             *'g:modestatus#default_separator'*
+                                               *g:modestatus#default_separator*
 g:modestatus#default_separator
-  Default separator string put between each statusline part.
+  Default separator string to put between each statusline part.
 
-  default: >
+  Default: >
     let g:modestatus#default_separator = ' '
 <
-                                           *'g:modestatus#statusline_override'*
-g:modestatus#statusline_override
-  Dictionary to override the statusline by filetype.
-
-  default: >
-    let g:modestatus#statusline_override = {}
-
 ===============================================================================
 PARTS                                                        *modestatus-parts*
 
 Overview:~
-  |modestatus#parts|.....................................................Parts.
   |modestatus#parts#add|............................................Add a part.
   |modestatus#parts#has|..................................Check if part exists.
   |modestatus#parts#get|............................................Get a part.
@@ -97,14 +54,6 @@ Overview:~
 
 -------------------------------------------------------------------------------
 Description:~
-
-                                                             *modestatus#parts*
-Statusline parts are stored in the form: >
-  {{key}: {func}}
-<
-Where:
-  {key} is the part name
-  {func} is the name of the function that creates the part contents
 
                                                          *modestatus#parts#add*
 modestatus#parts#add({key}, {func})
@@ -126,206 +75,146 @@ modestatus#parts#list()
 OPTIONS                                                    *modestatus-options*
 
 Overview:~
-  |modestatus#options|.................................................Options.
   |modestatus#options#add|.........................................Add options.
   |modestatus#options#has|..............................Check if options exist.
   |modestatus#options#get|.........................................Get options.
-  |modestatus#options#get_concat|...........Get active/inactive+common options.
   |modestatus#options#list|...................................List all options.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                           *modestatus#options*
-Each part can have a set of options of the form: >
-  {{key}, {'common': {{opts}}, 'active': {{opts}}, 'inactive': {{opts}}}}
-<
-Where:
-  {key} is the name of a part
-  {opt} is a dictionary of valid options
-  The 'common' dictionary specifies shared options.
-  The 'active' and 'inactive' dictionaries apply to the parts in the active
-  and inactive statusline respectively. Take precedence over 'common'.
-
-Valid options:
-  'color':  a highlight group
-  'format': a printf format string
-  'separator': a string separator
-  'min_winwidth': the minimum window width before truncating the part
-
                                                        *modestatus#options#add*
-modestatus#options#add({key}, {val})
-  Add options to a statusline part {key} with content {val}.
+modestatus#options#add({part}, {option}, {val})
+  Add option {option} to a statusline part {part} with content {val}.
 
                                                        *modestatus#options#has*
-modestatus#options#has({key})
-  Check if options exist for statusline part {key}.
+modestatus#options#has({part}, {option})
+  Check if option {option} exists for statusline part {part}.
 
                                                        *modestatus#options#get*
-modestatus#options#get({key})
-  Get the options for a statusline part {key}.
-
-                                                *modestatus#options#get_concat*
-modestatus#options#get_concat({key}, {isactive})
-  Concatenate active/inactive + common statusline options part {key}.
+modestatus#options#get({part}, {option})
+  Get the option {option} for a statusline part {part}.
 
                                                       *modestatus#options#list*
 modestatus#options#list()
   Echo a list of all existing options.
 
 ===============================================================================
-EXTENSIONS                                              *modestatus-extensions*
+PARTS - CORE                                            *modestatus-parts-core*
 
 Overview:~
-  |modestatus#extensions|...........................................Extensions.
-  |modestatus#extensions#enable|...........................Enable an extension.
-  |modestatus#extensions#enable_all|.....................Enable all extensions.
-  |modestatus#extensions#list|.............................List all extensions.
+  |modestatus#parts#core|.....................................Statusline parts.
+  |g:modestatus#parts#core#modified_symbol|....................Modified symbol.
+  |g:modestatus#parts#core#mode_symbols|......................Mode symbols map.
+  |g:modestatus#parts#core#paste_symbol|..........................Paste symbol.
+  |g:modestatus#parts#core#readonly_symbol|....................Readonly symbol.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                        *modestatus#extensions*
-Extensions define a set of parts that can be used to build the statusline.
-
-All extensions should define a function modestatus#extensions#{name}#init that
-contains all extension initialization.
-
-                                                 *modestatus#extensions#enable*
-modestatus#extensions#enable({ext})
-  Enable an extension with the given name {ext}.
-
-                                             *modestatus#extensions#enable_all*
-modestatus#extensions#enable_all()
-  Enable all extensions in '${rtp}/autoload/modestatus/extensions/'.
-
-                                                   *modestatus#extensions#list*
-modestatus#extensions#list()
-  Echo a list of all enabled extensions.
-
-===============================================================================
-EXTENSION - CORE                                   *modestatus-extensions-core*
-
-Overview:~
-  |modestatus#extensions#core|..................................Core extension.
-  |modestatus#extensions#core#parts|..........................Statusline parts.
-  |g:modestatus#extensions#core#mode_symbols|.................Mode symbols map.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                   *modestatus#extensions#core*
+                                                        *modestatus#parts#core*
 Defined a set of basic statusline parts.
-see: |modestatus#extensions#core#parts|
-
-                                             *modestatus#extensions#core#parts*
-Parts:
-  - line_percent
-  - line
-  - max_line
-  - column
-  - max_column
-  - position
-  - filename
-  - filetype
+  - bomb
+  - bufnr
   - buftype
+  - column
+  - column_max
   - encoding
   - fileformat
-  - modified
-  - readonly
-  - paste
+  - filename
+  - filesize
+  - filetype
+  - line
+  - line_max
+  - line_percent
   - mode
+  - modified
+  - paste
+  - readonly
+  - virtcol
+  - virtcol_max
 
-                                    *g:modestatus#extensions#core#mode_symbols*
-Symbols used by the part generator functions.
-
-default: >
-  let g:modestatus#extensions#core#mode_symbols = {
-    \     'n':      'N',
-    \     'i':      'I',
-    \     'R':      'R',
-    \     'v':      'V',
-    \     'V':      'V',
-    \     "\<c-v>": 'V',
-    \     'c':      'C',
-    \     's':      'S',
-    \     'S':      'S',
-    \     "\<c-s>": 'S',
-    \     '?':      '?'
-    \ }
+                                      *g:modestatus#parts#core#modified_symbol*
+Default: >
+  let g:modestatus#parts#core#modified_symbol = '+'
+<
+                                         *g:modestatus#parts#core#mode_symbols*
+Default: >
+  let g:modestatus#parts#core#mode_symbols = {
+  \   'n': 'N',
+  \   'i': 'I',
+  \   'R': 'R',
+  \   'v': 'V', 
+  \   'V': 'V',
+  \   "\<c-v>": 'V',
+  \   'c': 'C',
+  \   's': 'S',
+  \   'S': 'S',
+  \   "\<c-s>": 'S'
+  \ }
+<
+                                         *g:modestatus#parts#core#paste_symbol*
+Default: >
+  let g:modestatus#parts#core#paste_symbol = 'P'
+<
+                                      *g:modestatus#parts#core#readonly_symbol*
+Default: >
+  let g:modestatus#parts#core#readonly_symbol = 'RO'
 <
 ===============================================================================
-EXTENSION - DENITE                               *modestatus-extensions-denite*
+PARTS - DENITE                                        *modestatus-parts-denite*
 
 Overview:~
-  |modestatus#extensions#denite|..............................Denite extension.
-  |g:modestatus#extensions#denite#mode_symbols|...............Mode symbols map.
-  |modestatus#extensions#denite#parts|.............................Added parts.
+  |modestatus#parts#denite|.......................................Denite parts.
+  |g:modestatus#parts#denite#mode_symbols|....................Mode symbols map.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                 *modestatus#extensions#denite*
-Defines statusline parts for creating a custom denite statusline.
-see: |modestatus#extensions#denite#parts|
-
-                                  *g:modestatus#extensions#denite#mode_symbols*
-Dictionary of symbols used by the denite extension.
-
-default: >
-  let g:modestatus#extensions#denite#mode_symbols = {
-    \     'n': 'N',
-    \     'i': 'I',
-    \     '?': '?'
-    \ }
-<
-                                           *modestatus#extensions#denite#parts*
+                                                      *modestatus#parts#denite*
 Parts:
-  - denite_line_percent
   - denite_line
-  - denite_max_line
+  - denite_line_max
+  - denite_line_percent
   - denite_mode
-  - denite_sources
   - denite_path
+  - denite_sources
 
+                                       *g:modestatus#parts#denite#mode_symbols*
+Default: >
+  let g:modestatus#parts#denite#mode_symbols = {
+  \   '-- INSERT -- ': 'I',
+  \   '-- NORMAL -- ': 'N'
+  \ }
+<
 ===============================================================================
-EXTENSION - LOCLIST                             *modestatus-extensions-loclist*
+PARTS - LOCLIST                                      *modestatus-parts-loclist*
 
 Overview:~
-  |modestatus#extensions#loclist|............................LocList extension.
-  |modestatus#extensions#loclist#parts|............................Added parts.
+  |modestatus#parts#loclist|.....................................Loclist parts.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                *modestatus#extensions#loclist*
-Defines statusline parts for counting location list warnings and errors.
-see: |modestatus#extensions#loclist#parts|
-
-                                          *modestatus#extensions#loclist#parts*
+                                                     *modestatus#parts#loclist*
 Parts:
   - loclist_errors
   - loclist_warnings
 
 ===============================================================================
-EXTENSION - SIGNIFY                             *modestatus-extensions-signify*
+PARTS - HUNKS                                          *modestatus-parts-hunks*
 
 Overview:~
-  |modestatus#extensions#loclist|............................LocList extension.
-  |modestatus#extensions#loclist#parts|............................Added parts.
+  |modestatus#parts#hunks|..........................................Hunk parts.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                *modestatus#extensions#signify*
-Defines statusline parts for displaying signify hunks.
-see: |modestatus#extensions#signify#parts|
-
-                                          *modestatus#extensions#signify#parts*
+                                                       *modestatus#parts#hunks*
 Parts:
-  - signify_hunk_added
-  - signify_hunk_modified
-  - signify_hunk_removed
+  - hunks_added
+  - hunks_modified
+  - hunks_removed
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help

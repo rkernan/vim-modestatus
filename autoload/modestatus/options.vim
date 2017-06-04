@@ -1,51 +1,39 @@
 let s:options = {}
-let s:default_options = {'common': {}, 'active': {}, 'inactive': {}}
+let s:valid_options = ['color', 'format', 'separator']
 
-function! modestatus#options#add(key, val, ...)
-	call extend(s:options, {a:key: {}}, 'keep')
-	for subkey in keys(a:val)
-		call extend(s:options[a:key], {subkey: {}}, 'keep')
-		call extend(s:options[a:key][subkey], a:val[subkey], (a:0 == 1 ? a:1 : 'force'))
-	endfor
-endfunction
-
-function! modestatus#options#has(key)
-	return has_key(s:options, a:key)
-endfunction
-
-function! modestatus#options#get(key)
-	if modestatus#options#has(a:key)
-		return s:options[a:key]
+function! modestatus#options#add(part, option, val, ...)
+	let force = a:0 == 1 ? a:1 : v:true
+	if index(s:valid_options, a:option) == -1
+		echoerr 'invalid option "' . a:option . '"'
 	else
-		return {'common': {}, 'active': {}, 'inactive': {}}
+		call extend(s:options, {a:part: {}}, 'keep')
+		if !has_key(s:options[a:part], a:option) || force
+			let s:options[a:part][a:option] = a:val
+		endif
 	endif
 endfunction
 
-function! modestatus#options#get_concat(key, is_active)
-	if modestatus#options#has(a:key)
-		let options = {}
-		if has_key(s:options[a:key], 'common')
-			let options = extend(options, s:options[a:key]['common'])
-		endif
-		if has_key(s:options[a:key], (a:is_active ? 'active' : 'inactive'))
-			let options = extend(options, s:options[a:key][(a:is_active ? 'active' : 'inactive')])
-		endif
-		return options
+function! modestatus#options#has(part, option)
+	if has_key(s:options, a:part)
+		return has_key(s:options[a:part], a:option)
 	else
-		return {}
+		return 0
+	endif
+endfunction
+
+function! modestatus#options#get(part, option)
+	if modestatus#options#has(a:part, a:option)
+		return s:options[a:part][a:option]
+	else
+		return ''
 	endif
 endfunction
 
 function! modestatus#options#list()
-	for k1 in keys(s:options)
-		echom string(k1) . ':'
-		for k2 in keys(s:options[k1])
-			if len(s:options[k1][k2])
-				echom '  ' . string(k2) . ':'
-				for k3 in keys(s:options[k1][k2])
-					echom '    ' . string(k3) . ': ' . string(s:options[k1][k2][k3])
-				endfor
-			endif
+	for part in keys(s:options)
+		echom string(part) . ':'
+		for option in keys(s:options[part])
+			echom '  ' . string(option) . ': ' . string(s:options[part][option])
 		endfor
 	endfor
 endfunction

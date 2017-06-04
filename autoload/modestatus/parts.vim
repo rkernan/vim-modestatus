@@ -1,7 +1,13 @@
 let s:parts = {}
 
-function! modestatus#parts#add(key, func)
-	let s:parts[a:key] = a:func
+function! modestatus#parts#init()
+	for file in split(globpath(&rtp, 'autoload/modestatus/parts/*.vim'), '\n')
+		call modestatus#parts#{fnamemodify(file, ':t:r')}#init()
+	endfor
+endfunction
+
+function! modestatus#parts#add(key, val)
+	let s:parts[a:key] = a:val
 endfunction
 
 function! modestatus#parts#has(key)
@@ -12,7 +18,7 @@ function! modestatus#parts#get(key)
 	if modestatus#parts#has(a:key)
 		return s:parts[a:key]
 	else
-		call modestatus#log#error('part "' . a:key . '" not found')
+		echoerr 'part "' . a:key . '" not found'
 		return 0
 	endif
 endfunction

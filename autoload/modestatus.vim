@@ -1,91 +1,43 @@
-function! modestatus#section(nr, part, side, is_active)
-	if modestatus#parts#has(a:part)
-		let content = {modestatus#parts#get(a:part)}(a:nr)
-
-		" apply options
-		if modestatus#options#has(a:part)
-			let separator = g:modestatus#default_separator
-			let options = modestatus#options#get_concat(a:part, a:is_active)
-
-			if content == v:false
-				return ''
-			elseif type(content) != v:t_bool && len(content) == 0
-				return ''
-			endif
-
-			" check if the part should be truncated
-			if has_key(options, 'min_winwidth')
-				let winwidth = winwidth(a:nr)
-				if winwidth < options['min_winwidth']
-					return ''
-				endif
-			endif
-
-			" format the part
-			if has_key(options, 'format')
-				if type(content) != v:t_bool
-					let content = printf(options['format'], content)
-				elseif content == v:true
-					let content = options['format']
-				endif
-			elseif type(content) == v:t_bool
-				throw printf('On/off part %s must have format', a:part)
-			endif
-
-			" get separator
-			if has_key(options, 'separator')
-				let separator = options['separator']
-			endif
-
-			if type(content) != v:t_string
-				" if the content isn't a string yet it never will be
-				return ''
-			endif
-
-			" color the part
-			if has_key(options, 'color')
-				let content = '%#' . options['color'] . '#' . content . '%*'
-			endif
-		endif
-
-		" add separator
-		if a:side ==# 'left'
-			let content = modestatus#util#suffix(content, separator)
-		else
-			let content = modestatus#util#prefix(content, separator)
-		endif
-
-		return content
+function! modestatus#format(part, format)
+	if len(a:part) > 0
+		return printf(a:format, a:part)
 	else
 		return ''
 	endif
 endfunction
 
-function! modestatus#statusline(nr)
-	let statusline_parts = g:modestatus#statusline[a:nr == winnr() ? 'active' : 'inactive']
-	if has_key(g:modestatus#statusline_override, getbufvar(winbufnr(a:nr), '&filetype'))
-		let statusline_parts = g:modestatus#statusline_override[getbufvar(winbufnr(a:nr), '&filetype')][a:nr == winnr() ? 'active' : 'inactive']
+function! modestatus#statusline_part(nr, part, right_side)
+	if modestatus#parts#has(a:part)
+		let format = modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s'
+		let separator = modestatus#options#has(a:part, 'separator') ? modestatus#options#get(a:part, 'separator') : g:modestatus#statusline_separator
+		if a:right_side
+			let format = separator . format
+		else
+			let format = format . separator
+		endif
+		let part = '%{modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:nr . '), "' . format . '")}'
+		if modestatus#options#has(a:part, 'color')
+			" colorize the part
+			let part = '%#' . modestatus#options#get(a:part, 'color') . '#' . part . '%*'
+		endif
+		return part
+	else
+		return a:part
 	endif
-	call extend(statusline_parts, {'left': []}, 'keep')
-	call extend(statusline_parts, {'right': []}, 'keep')
-
-	let statusline  = ''
-
-	for part in statusline_parts['left']
-		let statusline .= modestatus#section(a:nr, part, 'left', (a:nr == winnr()))
-	endfor
-
-	let statusline .= '%='
-
-	for part in statusline_parts['right']
-		let statusline .= modestatus#section(a:nr, part, 'right', (a:nr == winnr()))
-	endfor
-
-	return statusline
 endfunction
 
-function! modestatus#update()
-	for nr in range(1, winnr('$'))
-		call setwinvar(nr, '&statusline', '%!modestatus#statusline(' . nr . ')')
+function! modestatus#statusline(nr, ...)
+	let statusline  = ''
+	let right_side = v:false
+	let statusline_parts = g:modestatus#statusline
+	if a:0 == 1
+		let statusline_parts = g:modestatus#statusline_override_{a:1}
+	endif
+	for part in statusline_parts
+		let statusline .= modestatus#statusline_part(a:nr, part, right_side)
+		if part ==# '%='
+			let right_side = v:true
+		endif
 	endfor
+	return statusline
 endfunction
