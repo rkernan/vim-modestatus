@@ -10,8 +10,11 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('filesize', 'modestatus#parts#core#filesize')
 	call modestatus#parts#add('filetype', 'modestatus#parts#core#filetype')
 	call modestatus#parts#add('line', 'modestatus#parts#core#line')
+	call modestatus#parts#add('line_always', 'modestatus#parts#core#line_always')
 	call modestatus#parts#add('line_max', 'modestatus#parts#core#line_max')
+	call modestatus#parts#add('line_max_always', 'modestatus#parts#core#line_max_always')
 	call modestatus#parts#add('line_percent', 'modestatus#parts#core#line_percent')
+	call modestatus#parts#add('line_percent_always', 'modestatus#parts#core#line_percent_always')
 	call modestatus#parts#add('mode', 'modestatus#parts#core#mode')
 	call modestatus#parts#add('modified', 'modestatus#parts#core#modified')
 	call modestatus#parts#add('paste', 'modestatus#parts#core#paste')
@@ -111,6 +114,10 @@ function! modestatus#parts#core#line(nr)
 	if winnr() != a:nr
 		return ''
 	endif
+	return modestatus#parts#core#line_always(a:nr)
+endfunction
+
+function! modestatus#parts#core#line_always(nr)
 	return line('.')
 endfunction
 
@@ -118,6 +125,10 @@ function! modestatus#parts#core#line_max(nr)
 	if winnr() != a:nr
 		return ''
 	endif
+	return modestatus#parts#core#line_max_always(a:nr)
+endfunction
+
+function! modestatus#parts#core#line_max_always(nr)
 	return line('$')
 endfunction
 
@@ -125,6 +136,10 @@ function! modestatus#parts#core#line_percent(nr)
 	if winnr() != a:nr
 		return ''
 	endif
+	return modestatus#parts#core#line_percent_always(a:nr)
+endfunction
+
+function! modestatus#parts#core#line_percent_always(nr)
 	return float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0)) . '%'
 endfunction
 

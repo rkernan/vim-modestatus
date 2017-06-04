@@ -125,8 +125,11 @@ Defined a set of basic statusline parts.
   - filesize
   - filetype
   - line
+  - line_always
   - line_max
+  - line_max_always
   - line_percent
+  - line_percent_always
   - mode
   - modified
   - paste
