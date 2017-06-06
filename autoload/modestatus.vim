@@ -6,6 +6,16 @@ function! modestatus#format(part, format)
 	endif
 endfunction
 
+function! modestatus#colorize(nr, part, color)
+	if type(a:color) == v:t_list
+		let part  = '%#' . a:color[0] . '#%{winnr()==' . a:nr . '?' . a:part[2:-2] . ':""}%*'
+		let part .= '%#' . a:color[1] . '#%{winnr()!=' . a:nr . '?' . a:part[2:-2] . ':""}%*'
+		return part
+	else
+		return '%#' . a:color . '#' . a:part . '%*'
+	endif
+endfunction
+
 function! modestatus#statusline_part(nr, part, add_separator)
 	if modestatus#parts#has(a:part)
 		let format = modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s'
@@ -13,12 +23,11 @@ function! modestatus#statusline_part(nr, part, add_separator)
 			let separator = modestatus#options#has(a:part, 'separator') ? modestatus#options#get(a:part, 'separator') : g:modestatus#statusline_separator
 			let format = format . separator
 		endif
-		let raw_part = '%{modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:nr . '), "' . format . '")}'
+		let part = '%{modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:nr . '), "' . format . '")}'
 		if modestatus#options#has(a:part, 'color')
-			" colorize the part
-			let raw_part = '%#' . modestatus#options#get(a:part, 'color') . '#' . raw_part . '%*'
+			let part = modestatus#colorize(a:nr, part, modestatus#options#get(a:part, 'color'))
 		endif
-		return raw_part
+		return part
 	else
 		return a:part
 	endif
