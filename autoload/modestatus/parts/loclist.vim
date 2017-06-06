@@ -20,6 +20,6 @@ function! modestatus#parts#loclist#errors(nr)
 endfunction
 
 function! modestatus#parts#loclist#warnings(nr)
-	let num_warnings = s:get_loclist_types(a:nr, 'E')
+	let num_warnings = s:get_loclist_types(a:nr, 'W')
 	return num_warnings > 0 ? num_warnings : ''
 endfunction
