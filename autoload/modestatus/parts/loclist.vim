@@ -11,17 +11,15 @@ function! s:get_loclist_types(nr, type)
 			let num_types += 1
 		endif
 	endfor
-	if num_types > 0
-		return num_types
-	else
-		return ''
-	endif
+	return num_types
 endfunction
 
 function! modestatus#parts#loclist#errors(nr)
-	return s:get_loclist_types(a:nr, 'E')
+	let num_errors = s:get_loclist_types(a:nr, 'E')
+	return num_errors > 0 ? num_errors : ''
 endfunction
 
 function! modestatus#parts#loclist#warnings(nr)
-	return s:get_loclist_types(a:nr, 'W')
+	let num_warnings = s:get_loclist_types(a:nr, 'E')
+	return num_warnings > 0 ? num_warnings : ''
 endfunction

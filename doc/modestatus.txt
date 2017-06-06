@@ -8,9 +8,10 @@ CONTENTS                                                  *modestatus-contents*
 2. Parts.....................................................|modestatus-parts|
 3. Parts: Core..........................................|modestatus-parts-core|
 4. Parts: Denite......................................|modestatus-parts-denite|
-5. Parts: LocList....................................|modestatus-parts-loclist|
-6. Parts: Hunks......................................|modestatus-parts-signify|
-7. Options.................................................|modestatus-options|
+5. Parts: Hunks......................................|modestatus-parts-signify|
+6. Parts: Loclist....................................|modestatus-parts-loclist|
+7. Parts: Quickfix..................................|modestatus-parts-quickfix|
+8. Options.................................................|modestatus-options|
 
 ===============================================================================
 SETTINGS                                                  *modestatus-settings*
@@ -189,6 +190,21 @@ Default: >
   \   '-- INSERT -- ': 'I',
   \   '-- NORMAL -- ': 'N'
   \ }
+
+===============================================================================
+PARTS - HUNKS                                          *modestatus-parts-hunks*
+
+Overview:~
+  |modestatus#parts#hunks|..........................................Hunk parts.
+
+-------------------------------------------------------------------------------
+Description:~
+
+                                                       *modestatus#parts#hunks*
+Parts:
+  - hunks_added
+  - hunks_modified
+  - hunks_removed
 <
 ===============================================================================
 PARTS - LOCLIST                                      *modestatus-parts-loclist*
@@ -205,19 +221,18 @@ Parts:
   - loclist_warnings
 
 ===============================================================================
-PARTS - HUNKS                                          *modestatus-parts-hunks*
+PARTS - QUICKFIX                                     *modestatus-parts-loclist*
 
 Overview:~
-  |modestatus#parts#hunks|..........................................Hunk parts.
+  |modestatus#parts#quickfix|...................................Loclist parts.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                       *modestatus#parts#hunks*
+                                                    *modestatus#parts#quickfix*
 Parts:
-  - hunks_added
-  - hunks_modified
-  - hunks_removed
+  - quickfix_errors
+  - quickfix_warnings
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help
