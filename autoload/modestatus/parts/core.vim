@@ -5,20 +5,19 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('column', 'modestatus#parts#core#column')
 	call modestatus#parts#add('column_max', 'modestatus#parts#core#column_max')
 	call modestatus#parts#add('encoding', 'modestatus#parts#core#encoding')
+	call modestatus#parts#add('expandtab', 'modestatus#parts#core#expandtab')
 	call modestatus#parts#add('fileformat', 'modestatus#parts#core#fileformat')
 	call modestatus#parts#add('filename', 'modestatus#parts#core#filename')
 	call modestatus#parts#add('filesize', 'modestatus#parts#core#filesize')
 	call modestatus#parts#add('filetype', 'modestatus#parts#core#filetype')
 	call modestatus#parts#add('line', 'modestatus#parts#core#line')
-	call modestatus#parts#add('line_always', 'modestatus#parts#core#line_always')
 	call modestatus#parts#add('line_max', 'modestatus#parts#core#line_max')
-	call modestatus#parts#add('line_max_always', 'modestatus#parts#core#line_max_always')
 	call modestatus#parts#add('line_percent', 'modestatus#parts#core#line_percent')
-	call modestatus#parts#add('line_percent_always', 'modestatus#parts#core#line_percent_always')
 	call modestatus#parts#add('mode', 'modestatus#parts#core#mode')
 	call modestatus#parts#add('modified', 'modestatus#parts#core#modified')
 	call modestatus#parts#add('paste', 'modestatus#parts#core#paste')
 	call modestatus#parts#add('readonly', 'modestatus#parts#core#readonly')
+	call modestatus#parts#add('shiftwidth', 'modestatus#parts#core#shiftwidth')
 	call modestatus#parts#add('virtcol', 'modestatus#parts#core#virtcol')
 	call modestatus#parts#add('virtcol_max', 'modestatus#parts#core#virtcol_max')
 
@@ -83,6 +82,10 @@ function! modestatus#parts#core#encoding(nr)
 	return &encoding
 endfunction
 
+function! modestatus#parts#core#expandtab(nr)
+	return &expandtab ? 'et' : 'noet'
+endfunction
+
 function! modestatus#parts#core#fileformat(nr)
 	return &fileformat
 endfunction
@@ -111,35 +114,14 @@ function! modestatus#parts#core#filetype(nr)
 endfunction
 
 function! modestatus#parts#core#line(nr)
-	if winnr() != a:nr
-		return ''
-	endif
-	return modestatus#parts#core#line_always(a:nr)
-endfunction
-
-function! modestatus#parts#core#line_always(nr)
 	return line('.')
 endfunction
 
 function! modestatus#parts#core#line_max(nr)
-	if winnr() != a:nr
-		return ''
-	endif
-	return modestatus#parts#core#line_max_always(a:nr)
-endfunction
-
-function! modestatus#parts#core#line_max_always(nr)
 	return line('$')
 endfunction
 
 function! modestatus#parts#core#line_percent(nr)
-	if winnr() != a:nr
-		return ''
-	endif
-	return modestatus#parts#core#line_percent_always(a:nr)
-endfunction
-
-function! modestatus#parts#core#line_percent_always(nr)
 	return float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0)) . '%'
 endfunction
 
@@ -160,6 +142,10 @@ endfunction
 
 function! modestatus#parts#core#readonly(nr)
 	return &readonly ? g:modestatus#parts#core#readonly_symbol : ''
+endfunction
+
+function! modestatus#parts#core#shiftwidth(nr)
+	return shiftwidth()
 endfunction
 
 function! modestatus#parts#core#virtcol(nr)
