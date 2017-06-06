@@ -6,38 +6,38 @@ function! modestatus#format(part, format)
 	endif
 endfunction
 
-function! modestatus#statusline_part(nr, part, right_side)
+function! modestatus#statusline_part(nr, part, add_separator)
 	if modestatus#parts#has(a:part)
 		let format = modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s'
-		let separator = modestatus#options#has(a:part, 'separator') ? modestatus#options#get(a:part, 'separator') : g:modestatus#statusline_separator
-		if a:right_side
-			let format = separator . format
-		else
+		if a:add_separator
+			let separator = modestatus#options#has(a:part, 'separator') ? modestatus#options#get(a:part, 'separator') : g:modestatus#statusline_separator
 			let format = format . separator
 		endif
-		let part = '%{modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:nr . '), "' . format . '")}'
+		let raw_part = '%{modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:nr . '), "' . format . '")}'
 		if modestatus#options#has(a:part, 'color')
 			" colorize the part
-			let part = '%#' . modestatus#options#get(a:part, 'color') . '#' . part . '%*'
+			let raw_part = '%#' . modestatus#options#get(a:part, 'color') . '#' . raw_part . '%*'
 		endif
-		return part
+		return raw_part
 	else
 		return a:part
 	endif
 endfunction
 
 function! modestatus#statusline(nr, ...)
-	let statusline  = ''
-	let right_side = v:false
-	let statusline_parts = g:modestatus#statusline
+	" override
 	if a:0 == 1
 		let statusline_parts = g:modestatus#statusline_override_{a:1}
+	else
+		let statusline_parts = g:modestatus#statusline
 	endif
-	for part in statusline_parts
-		let statusline .= modestatus#statusline_part(a:nr, part, right_side)
-		if part ==# '%='
-			let right_side = v:true
-		endif
-	endfor
+	" build the statusline
+	let statusline  = ''
+	if len(statusline_parts)
+		for part in statusline_parts[0:-2]
+			let statusline .= modestatus#statusline_part(a:nr, part, 1)
+		endfor
+		let statusline .= modestatus#statusline_part(a:nr, statusline_parts[-1], 0)
+	endif
 	return statusline
 endfunction
