@@ -65,16 +65,10 @@ function! modestatus#parts#core#buftype(nr)
 endfunction
 
 function! modestatus#parts#core#column(nr)
-	if winnr() != a:nr
-		return ''
-	endif
 	return col('.')
 endfunction
 
 function! modestatus#parts#core#column_max(nr)
-	if winnr() != a:nr
-		return ''
-	endif
 	return max(map(range(1, line('$')), "col([v:val, '$'])"))
 endfunction
 
