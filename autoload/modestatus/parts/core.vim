@@ -143,15 +143,9 @@ function! modestatus#parts#core#shiftwidth(nr)
 endfunction
 
 function! modestatus#parts#core#virtcol(nr)
-	if winnr() != a:nr
-		return ''
-	endif
 	return virtcol('.')
 endfunction
 
 function! modestatus#parts#core#virtcol_max(nr)
-	if winnr() != a:nr
-		return ''
-	endif
 	return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 endfunction
