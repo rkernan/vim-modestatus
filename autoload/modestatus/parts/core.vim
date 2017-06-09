@@ -142,18 +142,10 @@ function! modestatus#parts#core#shiftwidth(...)
 	return shiftwidth()
 endfunction
 
-<<<<<<< HEAD
-function! modestatus#parts#core#virtcol(nr)
-	return virtcol('.')
-endfunction
-
-function! modestatus#parts#core#virtcol_max(nr)
-=======
 function! modestatus#parts#core#virtcol(...)
 	return virtcol('.')
 endfunction
 
 function! modestatus#parts#core#virtcol_max(...)
->>>>>>> Fixed issue where leading spaces weren't displayed
 	return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 endfunction
