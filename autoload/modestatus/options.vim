@@ -2,7 +2,7 @@ let s:options = {}
 let s:valid_options = ['color', 'format', 'separator']
 
 function! modestatus#options#add(part, option, val, ...)
-	let force = a:0 == 1 ? a:1 : v:true
+	let force = a:0 == 1 ? a:1 : 1
 	if index(s:valid_options, a:option) == -1
 		echoerr 'invalid option "' . a:option . '"'
 	else

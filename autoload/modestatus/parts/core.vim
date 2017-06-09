@@ -21,9 +21,9 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('virtcol', 'modestatus#parts#core#virtcol')
 	call modestatus#parts#add('virtcol_max', 'modestatus#parts#core#virtcol_max')
 
-	call modestatus#options#add('fileformat', 'format', '[%s]', v:false)
-	call modestatus#options#add('filetype', 'format', '[%s]', v:false)
-	call modestatus#options#add('encoding', 'format', '[%s]', v:false)
+	call modestatus#options#add('fileformat', 'format', '[%s]', 0)
+	call modestatus#options#add('filetype', 'format', '[%s]', 0)
+	call modestatus#options#add('encoding', 'format', '[%s]', 0)
 
 	if !exists('g:modestatus#parts#core#mode_colors')
 		let g:modestatus#parts#core#mode_colors = {

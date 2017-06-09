@@ -1,5 +1,5 @@
 function! modestatus#format(part, format)
-	if len(a:part) > 0
+	if strlen(a:part) > 0
 		return printf(a:format, a:part)
 	else
 		return ''
