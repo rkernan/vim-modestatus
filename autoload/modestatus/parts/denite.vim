@@ -6,8 +6,20 @@ function! modestatus#parts#denite#init()
 	call modestatus#parts#add('denite_path', 'modestatus#parts#denite#path')
 	call modestatus#parts#add('denite_sources', 'modestatus#parts#denite#sources')
 
+	if !exists('g:modestatus#parts#denite#mode_colors')
+		let g:modestatus#parts#denite#mode_colors = {
+			\ '-- INSERT -- ': 'ModestatusModeInsert',
+			\ '-- NORMAL -- ': 'ModestatusModeNormal'}
+	endif
+
+	if !exists('g:modestatus#parts#denite#mode_master_color')
+		let g:modestatus#parts#denite#mode_master_color = 'ModestatusMode'
+	endif
+
 	if !exists('g:modestatus#parts#denite#mode_symbols')
-		let g:modestatus#parts#denite#mode_symbols = {'-- INSERT -- ': 'I', '-- NORMAL -- ': 'N'}
+		let g:modestatus#parts#denite#mode_symbols = {
+			\ '-- INSERT -- ': 'I',
+			\ '-- NORMAL -- ': 'N'}
 	endif
 endfunction
 
@@ -37,8 +49,15 @@ function! modestatus#parts#denite#path(...)
 	return denite#get_status_path()[1:-2]
 endfunction
 
-function! modestatus#parts#denite#mode(...)
-	return g:modestatus#parts#denite#mode_symbols[denite#get_status_mode()]
+function! modestatus#parts#denite#mode(active_win)
+	if winnr() != a:active_win
+		return ''
+	endif
+	let mode = denite#get_status_mode()
+	if strlen(g:modestatus#parts#denite#mode_master_color)
+		execute 'highlight! link ' . g:modestatus#parts#denite#mode_master_color . ' ' . g:modestatus#parts#denite#mode_colors[mode]
+	endif
+	return g:modestatus#parts#denite#mode_symbols[mode]
 endfunction
 
 function! modestatus#parts#denite#sources(...)

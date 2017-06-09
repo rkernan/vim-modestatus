@@ -24,9 +24,19 @@ function! modestatus#parts#core#init()
 	call modestatus#options#add('fileformat', 'format', '[%s]', v:false)
 	call modestatus#options#add('filetype', 'format', '[%s]', v:false)
 	call modestatus#options#add('encoding', 'format', '[%s]', v:false)
-	
-	if !exists('g:modestatus#parts#core#modified_symbol')
-		let g:modestatus#parts#core#modified_symbol = '+'
+
+	if !exists('g:modestatus#parts#core#mode_colors')
+		let g:modestatus#parts#core#mode_colors = {
+			\ 'n': 'ModestatusModeNormal',
+			\ 'i': 'ModestatusModeInsert',
+			\ 'R': 'ModestatusModeReplace',
+			\ 'v': 'ModestatusModeVisual', 
+			\ 'V': 'ModestatusModeVisualLine',
+			\ "\<c-v>": 'ModestatusModeVisualBlock'}
+	endif
+
+	if !exists('g:modestatus#parts#core#mode_master_color')
+		let g:modestatus#parts#core#mode_master_color = 'ModestatusMode'
 	endif
 
 	if !exists('g:modestatus#parts#core#mode_symbols')
@@ -36,11 +46,11 @@ function! modestatus#parts#core#init()
 			\ 'R': 'R',
 			\ 'v': 'V', 
 			\ 'V': 'V',
-			\ "\<c-v>": 'V',
-			\ 'c': 'C',
-			\ 's': 'S',
-			\ 'S': 'S',
-			\ "\<c-s>": 'S'}
+			\ "\<c-v>": 'V'}
+	endif
+	
+	if !exists('g:modestatus#parts#core#modified_symbol')
+		let g:modestatus#parts#core#modified_symbol = '+'
 	endif
 
 	if !exists('g:modestatus#parts#core#paste_symbol')
@@ -123,7 +133,11 @@ function! modestatus#parts#core#mode(active_win)
 	if winnr() != a:active_win
 		return ''
 	endif
-	return g:modestatus#parts#core#mode_symbols[mode()]
+	let mode = mode()
+	if strlen(g:modestatus#parts#core#mode_master_color)
+		execute 'highlight! link ' . g:modestatus#parts#core#mode_master_color . ' ' . g:modestatus#parts#core#mode_colors[mode]
+	endif
+	return g:modestatus#parts#core#mode_symbols[mode]
 endfunction
 
 function! modestatus#parts#core#modified(...)
