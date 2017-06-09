@@ -1,8 +1,8 @@
-function! modestatus#format(part, format)
+function! modestatus#format(part, format, blank)
 	if strlen(a:part) > 0
 		return printf(a:format, a:part)
 	else
-		return ''
+		return a:blank
 	endif
 endfunction
 
@@ -21,7 +21,8 @@ function! modestatus#statusline_part(active_win, part, first)
 		let format = (a:first ? '  ' : '') .
 			\ (modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s') .
 			\ (modestatus#options#has(a:part, 'separator') ? (!modestatus#options#get(a:part, 'separator') ? '' : ' ') : ' ')
-		let part = 'modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:active_win . '),"' . format . '")'
+		let blank = modestatus#options#has(a:part, 'blank') ? modestatus#options#get(a:part, 'blank') : ''
+		let part = 'modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:active_win . '),"' . format . '","' . blank . '")'
 		" color
 		if modestatus#options#has(a:part, 'color')
 			let part = modestatus#colorize(a:active_win, part, modestatus#options#get(a:part, 'color'))
