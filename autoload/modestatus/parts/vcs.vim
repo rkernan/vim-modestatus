@@ -2,7 +2,7 @@ function! modestatus#parts#vcs#init()
 	call modestatus#parts#add('hunks_added', 'modestatus#parts#vcs#added')
 	call modestatus#parts#add('hunks_modified', 'modestatus#parts#vcs#modified')
 	call modestatus#parts#add('hunks_removed', 'modestatus#parts#vcs#removed')
-	call modestatus#parts#add('git_branch', 'modestatus#parts#vcs#git_branch')
+	call modestatus#parts#add('git_branch', 'fugitive#head')
 	
 	call modestatus#options#add('hunks_added', 'format', '+%s', v:false)
 	call modestatus#options#add('hunks_modified', 'format', '~%s', v:false)
@@ -45,8 +45,4 @@ function! modestatus#parts#vcs#removed(active_win)
 	else
 		return ''
 	endif
-endfunction
-
-function! modestatus#parts#vcs#git_branch(...)
-	return fugitive#head()
 endfunction

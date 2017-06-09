@@ -1,8 +1,14 @@
-function! modestatus#format(part, format, blank)
+function! modestatus#format(part, format, first)
+	if a:first
+		let b:__modestatus_first = 1
+	endif
+
 	if strlen(a:part) > 0
-		return printf(a:format, a:part)
+		let part = (b:__modestatus_first ? '  ' : '') . printf(a:format, a:part)
+		let b:__modestatus_first = 0
+		return part
 	else
-		return a:blank
+		return ''
 	endif
 endfunction
 
@@ -18,11 +24,9 @@ endfunction
 function! modestatus#statusline_part(active_win, part, first)
 	if modestatus#parts#has(a:part)
 		" format
-		let format = (a:first ? '  ' : '') .
-			\ (modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s') .
-			\ (modestatus#options#has(a:part, 'separator') ? (!modestatus#options#get(a:part, 'separator') ? '' : ' ') : ' ')
-		let blank = modestatus#options#has(a:part, 'blank') ? modestatus#options#get(a:part, 'blank') : ''
-		let part = 'modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:active_win . '),"' . format . '","' . blank . '")'
+		let format = (modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s') .
+			\    (modestatus#options#has(a:part, 'separator') ? (!modestatus#options#get(a:part, 'separator') ? '' : ' ') : ' ')
+		let part = 'modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:active_win . '),"' . format . '",' . a:first . ')'
 		" color
 		if modestatus#options#has(a:part, 'color')
 			let part = modestatus#colorize(a:active_win, part, modestatus#options#get(a:part, 'color'))
@@ -41,6 +45,7 @@ function! modestatus#statusline_section(active_win, parts)
 	for part in a:parts
 		if type(part) == v:t_list
 			let statusline .= modestatus#statusline_section(a:active_win, part)
+			let first = 1
 		else
 			let statusline .= modestatus#statusline_part(a:active_win, part, first)
 			let first = 0
