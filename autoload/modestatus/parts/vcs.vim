@@ -9,8 +9,8 @@ function! modestatus#parts#vcs#init()
 	call modestatus#options#add('hunks_removed', 'format', '-%s', v:false)
 endfunction
 
-function! s:get_sy_stats(nr)
-	if winnr() == a:nr
+function! s:get_sy_stats(active_win)
+	if winnr() == a:active_win
 		let b:modestatus_hunks_cache = sy#repo#get_stats()
 	endif
 	if exists('b:modestatus_hunks_cache')
@@ -20,8 +20,8 @@ function! s:get_sy_stats(nr)
 	endif
 endfunction
 
-function! modestatus#parts#vcs#added(nr)
-	let stats = s:get_sy_stats(a:nr)
+function! modestatus#parts#vcs#added(active_win)
+	let stats = s:get_sy_stats(a:active_win)
 	if stats[0] > 0
 		return stats[0]
 	else
@@ -29,8 +29,8 @@ function! modestatus#parts#vcs#added(nr)
 	endif
 endfunction
 
-function! modestatus#parts#vcs#modified(nr)
-	let stats = s:get_sy_stats(a:nr)
+function! modestatus#parts#vcs#modified(active_win)
+	let stats = s:get_sy_stats(a:active_win)
 	if stats[1] > 0
 		return stats[1]
 	else
@@ -38,8 +38,8 @@ function! modestatus#parts#vcs#modified(nr)
 	endif
 endfunction
 
-function! modestatus#parts#vcs#removed(nr)
-	let stats = s:get_sy_stats(a:nr)
+function! modestatus#parts#vcs#removed(active_win)
+	let stats = s:get_sy_stats(a:active_win)
 	if stats[2] > 0
 		return stats[2]
 	else
@@ -47,6 +47,6 @@ function! modestatus#parts#vcs#removed(nr)
 	endif
 endfunction
 
-function! modestatus#parts#vcs#branch(nr)
+function! modestatus#parts#vcs#branch(...)
 	return fugitive#head()
 endfunction

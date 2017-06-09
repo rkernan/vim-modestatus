@@ -52,43 +52,43 @@ function! modestatus#parts#core#init()
 	endif
 endfunction
 
-function! modestatus#parts#core#bomb(nr)
+function! modestatus#parts#core#bomb(...)
 	return &bomb ? 'bomb' : ''
 endfunction
 
-function! modestatus#parts#core#bufnr(nr)
+function! modestatus#parts#core#bufnr(...)
 	return bufnr('%')
 endfunction
 
-function! modestatus#parts#core#buftype(nr)
+function! modestatus#parts#core#buftype(...)
 	return &buftype
 endfunction
 
-function! modestatus#parts#core#column(nr)
+function! modestatus#parts#core#column(...)
 	return col('.')
 endfunction
 
-function! modestatus#parts#core#column_max(nr)
+function! modestatus#parts#core#column_max(...)
 	return max(map(range(1, line('$')), "col([v:val, '$'])"))
 endfunction
 
-function! modestatus#parts#core#encoding(nr)
+function! modestatus#parts#core#encoding(...)
 	return &encoding
 endfunction
 
-function! modestatus#parts#core#expandtab(nr)
+function! modestatus#parts#core#expandtab(...)
 	return &expandtab ? 'et' : 'noet'
 endfunction
 
-function! modestatus#parts#core#fileformat(nr)
+function! modestatus#parts#core#fileformat(...)
 	return &fileformat
 endfunction
 
-function! modestatus#parts#core#filename(nr)
+function! modestatus#parts#core#filename(...)
 	return bufname('%')
 endfunction
 
-function! modestatus#parts#core#filesize(nr)
+function! modestatus#parts#core#filesize(...)
 	let size = getfsize(expand(@%))
 	if size == 0 || size == -1 || size == -1
 		return ''
@@ -103,49 +103,57 @@ function! modestatus#parts#core#filesize(nr)
 	endif
 endfunction
 
-function! modestatus#parts#core#filetype(nr)
+function! modestatus#parts#core#filetype(...)
 	return &filetype
 endfunction
 
-function! modestatus#parts#core#line(nr)
+function! modestatus#parts#core#line(...)
 	return line('.')
 endfunction
 
-function! modestatus#parts#core#line_max(nr)
+function! modestatus#parts#core#line_max(...)
 	return line('$')
 endfunction
 
-function! modestatus#parts#core#line_percent(nr)
+function! modestatus#parts#core#line_percent(...)
 	return float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0)) . '%'
 endfunction
 
-function! modestatus#parts#core#mode(nr)
-	if winnr() != a:nr
+function! modestatus#parts#core#mode(active_win)
+	if winnr() != a:active_win
 		return ''
 	endif
 	return g:modestatus#parts#core#mode_symbols[mode()]
 endfunction
 
-function! modestatus#parts#core#modified(nr)
+function! modestatus#parts#core#modified(...)
 	return &modified ? g:modestatus#parts#core#modified_symbol : ''
 endfunction
 
-function! modestatus#parts#core#paste(nr)
+function! modestatus#parts#core#paste(...)
 	return &paste ? g:modestatus#parts#core#paste_symbol : ''
 endfunction
 
-function! modestatus#parts#core#readonly(nr)
+function! modestatus#parts#core#readonly(...)
 	return &readonly ? g:modestatus#parts#core#readonly_symbol : ''
 endfunction
 
-function! modestatus#parts#core#shiftwidth(nr)
+function! modestatus#parts#core#shiftwidth(...)
 	return shiftwidth()
 endfunction
 
+<<<<<<< HEAD
 function! modestatus#parts#core#virtcol(nr)
 	return virtcol('.')
 endfunction
 
 function! modestatus#parts#core#virtcol_max(nr)
+=======
+function! modestatus#parts#core#virtcol(...)
+	return virtcol('.')
+endfunction
+
+function! modestatus#parts#core#virtcol_max(...)
+>>>>>>> Fixed issue where leading spaces weren't displayed
 	return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 endfunction
