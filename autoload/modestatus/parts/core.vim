@@ -133,7 +133,7 @@ function! modestatus#parts#core#mode(active_win)
 	if winnr() != a:active_win
 		return ''
 	endif
-	let mode = mode()
+	let mode = has_key(g:modestatus#parts#core#mode_symbols, mode()) ? mode() : 'n'
 	if strlen(g:modestatus#parts#core#mode_master_color)
 		execute 'highlight! link ' . g:modestatus#parts#core#mode_master_color . ' ' . g:modestatus#parts#core#mode_colors[mode]
 	endif
