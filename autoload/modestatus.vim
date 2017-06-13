@@ -15,9 +15,9 @@ endfunction
 function! modestatus#colorize(active_win, part, color)
 	if type(a:color) == v:t_list
 		return '%#' . a:color[0] . '#%{winnr()==' . a:active_win . '?' . a:part . ':""}' .
-			\ '%#' . a:color[1] . '#%{winnr()!=' . a:active_win . '?' . a:part . ':""}'
+			\ '%#' . a:color[1] . '#%{winnr()!=' . a:active_win . '?' . a:part . ':""}%*'
 	else
-		return '%#' . a:color . '#%{' . a:part . '}'
+		return '%#' . a:color . '#%{' . a:part . '}%*'
 	endif
 endfunction
 
@@ -33,7 +33,7 @@ function! modestatus#statusline_part(active_win, part, first)
 		else
 			let part = '%{' . part . '}'
 		endif
-		return part . '%*'
+		return part
 	else
 		return a:part
 	endif
