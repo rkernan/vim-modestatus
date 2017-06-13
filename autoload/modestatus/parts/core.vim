@@ -21,6 +21,11 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('virtcol', 'modestatus#parts#core#virtcol')
 	call modestatus#parts#add('virtcol_max', 'modestatus#parts#core#virtcol_max')
 
+	call modestatus#parts#add('loclist_errors', 'modestatus#parts#core#loclist_errors')
+	call modestatus#parts#add('loclist_warnings', 'modestatus#parts#core#loclist_warnings')
+	call modestatus#parts#add('quickfix_errors', 'modestatus#parts#core#quickfix_errors')
+	call modestatus#parts#add('quickfix_warnings', 'modestatus#parts#core#quickfix_warnings')
+
 	call modestatus#options#add('fileformat', 'format', '[%s]', 0)
 	call modestatus#options#add('filetype', 'format', '[%s]', 0)
 	call modestatus#options#add('encoding', 'format', '[%s]', 0)
@@ -162,4 +167,46 @@ endfunction
 
 function! modestatus#parts#core#virtcol_max(...)
 	return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
+endfunction
+
+function! s:get_loclist_types(type)
+	let loclist = getloclist(winnr())
+	let num_types = 0
+	for i in loclist
+		if i.type ==# a:type
+			let num_types += 1
+		endif
+	endfor
+	return num_types
+endfunction
+
+function! modestatus#parts#core#loclist_errors(nr)
+	let num_errors = s:get_loclist_types('E')
+	return num_errors > 0 ? num_errors : ''
+endfunction
+
+function! modestatus#parts#core#loclist_warnings(nr)
+	let num_warnings = s:get_loclist_types('W')
+	return num_warnings > 0 ? num_warnings : ''
+endfunction
+
+function! s:get_quickfix_types(type)
+	let quickfix = getqflist()
+	let num_types = 0
+	for i in quickfix
+		if i.type ==# a:type
+			let num_types += 1
+		endif
+	endfor
+	return num_types
+endfunction
+
+function! modestatus#parts#core#quickfix_errors(nr)
+	let num_errors = s:get_quickfix_types('E')
+	return num_errors > 0 ? num_errors : ''
+endfunction
+
+function! modestatus#parts#core#quickfix_warnings(nr)
+	let num_warnings = s:get_quickfix_types('W')
+	return num_warnings > 0 ? num_warnings : ''
 endfunction

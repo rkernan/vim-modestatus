@@ -8,10 +8,9 @@ CONTENTS                                                  *modestatus-contents*
 2. Parts.....................................................|modestatus-parts|
 3. Parts: Core..........................................|modestatus-parts-core|
 4. Parts: Denite......................................|modestatus-parts-denite|
-5. Parts: Hunks......................................|modestatus-parts-signify|
-6. Parts: Loclist....................................|modestatus-parts-loclist|
-7. Parts: Quickfix..................................|modestatus-parts-quickfix|
-8. Options.................................................|modestatus-options|
+5. Parts: Fugitive..................................|modestatus-parts-fugitive|
+6. Parts: Signify....................................|modestatus-parts-signify|
+7. Options.................................................|modestatus-options|
 
 ===============================================================================
 SETTINGS                                                  *modestatus-settings*
@@ -107,6 +106,8 @@ PARTS - CORE                                            *modestatus-parts-core*
 Overview:~
   |modestatus#parts#core|.....................................Statusline parts.
   |g:modestatus#parts#core#modified_symbol|....................Modified symbol.
+  |g:modestatus#parts#core#mode_colors|........................Mode colors map.
+  |g:modestatus#parts#core#mode_master_color|................Mode master color.
   |g:modestatus#parts#core#mode_symbols|......................Mode symbols map.
   |g:modestatus#parts#core#paste_symbol|..........................Paste symbol.
   |g:modestatus#parts#core#readonly_symbol|....................Readonly symbol.
@@ -137,10 +138,29 @@ Defined a set of basic statusline parts.
   - shiftwidth
   - virtcol
   - virtcol_max
+  - loclist_errors
+  - loclist_warnings
+  - quickfix_errors
+  - quickfix_warnings
 
                                       *g:modestatus#parts#core#modified_symbol*
 Default: >
   let g:modestatus#parts#core#modified_symbol = '+'
+<
+                                          *g:modestatus#parts#core#mode_colors*
+Default: >
+  let g:modestatus#parts#core#mode_colors = {
+  \   'n': 'ModestatusModeNormal',
+  \   'i': 'ModestatusModeInsert',
+  \   'R': 'ModestatusModeReplace',
+  \   'v': 'ModestatusModeVisual', 
+  \   'V': 'ModestatusModeVisualLine',
+  \   "\<c-v>": 'ModestatusVisualBlock'
+  \ }
+<
+                                    *g:modestatus#parts#core#mode_master_color*
+Default (empty to disable): >
+  let g:modestatus#parts#core#mode_master_color = 'ModestatusMode'
 <
                                          *g:modestatus#parts#core#mode_symbols*
 Default: >
@@ -150,11 +170,7 @@ Default: >
   \   'R': 'R',
   \   'v': 'V', 
   \   'V': 'V',
-  \   "\<c-v>": 'V',
-  \   'c': 'C',
-  \   's': 'S',
-  \   'S': 'S',
-  \   "\<c-s>": 'S'
+  \   "\<c-v>": 'V'
   \ }
 <
                                          *g:modestatus#parts#core#paste_symbol*
@@ -169,8 +185,10 @@ Default: >
 PARTS - DENITE                                        *modestatus-parts-denite*
 
 Overview:~
-  |modestatus#parts#denite|.......................................Denite parts.
-  |g:modestatus#parts#denite#mode_symbols|....................Mode symbols map.
+  |modestatus#parts#denite|......................................Denite parts.
+  |g:modestatus#parts#denite#mode_colors|.....................Mode colors map.
+  |g:modestatus#parts#denite#mode_master_color|.............Mode master color.
+  |g:modestatus#parts#denite#mode_symbols|...................Mode symbols map.
 
 -------------------------------------------------------------------------------
 Description:~
@@ -184,6 +202,17 @@ Parts:
   - denite_path
   - denite_sources
 
+                                        *g:modestatus#parts#denite#mode_colors*
+Default: >
+  let g:modestatus#parts#denite#mode_symbols = {
+  \   '-- INSERT -- ': 'ModestatusModeInsert',
+  \   '-- NORMAL -- ': 'ModestatusModeNormal'
+  \ }
+<
+                                  *g:modestatus#parts#denite#mode_master_color*
+Default (empty to disable): >
+  let g:modestatus#parts#denite#mode_master_color = 'ModestatusMode'
+<
                                        *g:modestatus#parts#denite#mode_symbols*
 Default: >
   let g:modestatus#parts#denite#mode_symbols = {
@@ -192,47 +221,32 @@ Default: >
   \ }
 
 ===============================================================================
-PARTS - HUNKS                                          *modestatus-parts-hunks*
+PARTS - FUGITIVE                                    *modestatus-parts-fugitive*
 
 Overview:~
-  |modestatus#parts#hunks|..........................................Hunk parts.
+  |modestatus#parts#fugitive|........................................Hunk parts.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                       *modestatus#parts#hunks*
+                                                    *modestatus#parts#fugitive*
 Parts:
-  - hunks_added
-  - hunks_modified
-  - hunks_removed
-<
-===============================================================================
-PARTS - LOCLIST                                      *modestatus-parts-loclist*
-
-Overview:~
-  |modestatus#parts#loclist|.....................................Loclist parts.
-
--------------------------------------------------------------------------------
-Description:~
-
-                                                     *modestatus#parts#loclist*
-Parts:
-  - loclist_errors
-  - loclist_warnings
+  - fugitive_branch
 
 ===============================================================================
-PARTS - QUICKFIX                                     *modestatus-parts-loclist*
+PARTS - SIGNIFY                                      *modestatus-parts-signify*
 
 Overview:~
-  |modestatus#parts#quickfix|...................................Loclist parts.
+  |modestatus#parts#signify|........................................Hunk parts.
 
 -------------------------------------------------------------------------------
 Description:~
 
-                                                    *modestatus#parts#quickfix*
+                                                     *modestatus#parts#signify*
 Parts:
-  - quickfix_errors
-  - quickfix_warnings
+  - signify_added
+  - signify_modified
+  - signify_removed
 
 ===============================================================================
 vim:tw=78:sw=2:ts=8:norl:noet:ft=help

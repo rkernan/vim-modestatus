@@ -13,7 +13,7 @@ Just choose your favorite plugin manager:
 - [vim-plug](https://github.com/junegunn/vim-plug)
   - `Plug 'kernan/vim-modestatus'`
 - [Vundle](https://github.com/gmarik/Vundle.vim)
-  - `Plugin 'kernan/vim-modestatus'`A
+  - `Plugin 'kernan/vim-modestatus'`
 
 ## Example Statusline
 
