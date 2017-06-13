@@ -15,6 +15,13 @@ Just choose your favorite plugin manager:
 - [Vundle](https://github.com/gmarik/Vundle.vim)
   - `Plugin 'kernan/vim-modestatus'`
 
+## Supported Plugins
+
+- [ALE](https://github.com/w0rp/ale)
+- [Denite](https://github.com/Shougo/denite.nvim)
+- [Fugitive](https://github.com/tpope/vim-fugitive)
+- [Signify](https://github.com/mhinz/vim-signify)
+
 ## Example Statusline
 
 ![screenshot](https://raw.github.com/kernan/vim-modestatus/master/statusline.png)
