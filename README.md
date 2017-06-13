@@ -28,35 +28,41 @@ Just choose your favorite plugin manager:
 
 ```viml
 let g:modestatus#statusline = [
-	\   ['mode'],
-	\   ['git_branch', 'hunks_added', 'hunks_modified', 'hunks_removed'],
-	\   'filename', 'modified', 'readonly', 'filetype', 'loclist_errors', 'loclist_warnings',
-	\   '%=',
-	\   'expandtab', 'shiftwidth', 'encoding', 'bomb', 'fileformat',
-	\   ['line', 'column', 'line_percent']
-	\ ]
+	\		['mode'],
+	\		['fugitive_branch', 'signify_added', 'signify_modified', 'signify_removed'],
+	\		'filename', 'modified', 'readonly', 'filetype', 'ale_errors', 'ale_warnings', 'ale_style_errors', 'ale_style_warnings',
+	\		'%=',
+	\		'expandtab', 'shiftwidth', 'encoding', 'bomb', 'fileformat',
+	\		['line', 'column', 'line_percent']
+	\	]
 
 let g:modestatus#statusline_override_denite = [['denite_mode'], 'denite_sources', 'denite_path', 'filetype', '%=', ['line', 'line_max', 'line_percent']]
-let g:modestatus#statusline_override_qf = [['mode'], 'filetype', '%=', ['line', 'line_max', 'line_percent']]
+let g:modestatus#statusline_override_fugitiveblame = ['filetype', '%=', ['line', 'line_max', 'line_percent']]
+let g:modestatus#statusline_override_qf = [['mode'], 'buftype', 'filetype', '%=', ['line', 'line_max', 'line_percent']]
 
 augroup vimrc
 	" overrides
 	autocmd FileType denite call modestatus#setlocal('denite')
+	autocmd FileType fugitiveblame call modestatus#setlocal('fugitiveblame')
 	autocmd FileType qf call modestatus#setlocal('qf')
 augroup END
 
 call modestatus#options#add('mode', 'color', 'ModestatusMode')
-call modestatus#options#add('git_branch', 'color', ['Modestatus2', 'Modestatus2NC'])
-call modestatus#options#add('hunks_added', 'color', ['Modestatus2Green', 'Modestatus2NCGreen'])
-call modestatus#options#add('hunks_modified', 'color', ['Modestatus2Aqua', 'Modestatus2NCAqua'])
-call modestatus#options#add('hunks_removed', 'color', ['Modestatus2Red', 'Modestatus2NCRed'])
+call modestatus#options#add('fugitive_branch', 'color', ['Modestatus2', 'Modestatus2NC'])
+call modestatus#options#add('signify_added', 'color', ['Modestatus2Green', 'Modestatus2NCGreen'])
+call modestatus#options#add('signify_modified', 'color', ['Modestatus2Aqua', 'Modestatus2NCAqua'])
+call modestatus#options#add('signify_removed', 'color', ['Modestatus2Red', 'Modestatus2NCRed'])
 call modestatus#options#add('filename', 'color', ['ModestatusBold', 'ModestatusNC'])
 call modestatus#options#add('modified', 'color', ['ModestatusRedBold', 'ModestatusNCRedBold'])
 call modestatus#options#add('readonly', 'color', ['ModestatusRed', 'ModestatusNCRed'])
-call modestatus#options#add('loclist_errors', 'color', ['ModestatusRed', 'ModestatusNCRed'])
-call modestatus#options#add('loclist_errors', 'format', '•%s')
-call modestatus#options#add('loclist_warnings', 'color', ['ModestatusYellow', 'ModestatusNCYellow'])
-call modestatus#options#add('loclist_warnings', 'format', '•%s')
+call modestatus#options#add('ale_errors', 'color', ['ModestatusRed', 'ModestatusNCRed'])
+call modestatus#options#add('ale_errors', 'format', '•%s')
+call modestatus#options#add('ale_warnings', 'color', ['ModestatusYellow', 'ModestatusNCYellow'])
+call modestatus#options#add('ale_warnings', 'format', '•%s')
+call modestatus#options#add('ale_style_errors', 'color', ['ModestatusPurple', 'ModestatusNCPurple'])
+call modestatus#options#add('ale_style_errors', 'format', '•%s')
+call modestatus#options#add('ale_style_warnings', 'color', ['ModestatusAqua', 'ModestatusNCAqua'])
+call modestatus#options#add('ale_style_warnings', 'format', '•%s')
 call modestatus#options#add('expandtab', 'format', '[%s')
 call modestatus#options#add('shiftwidth', 'format', '%s]')
 call modestatus#options#add('encoding', 'format', '[%s')
@@ -73,6 +79,7 @@ call modestatus#options#add('line_max', 'color', ['Modestatus2', 'Modestatus2NC'
 call modestatus#options#add('line_percent', 'color', ['Modestatus2', 'Modestatus2NC'])
 call modestatus#options#add('denite_mode', 'color', 'ModestatusMode')
 call modestatus#options#add('denite_sources', 'color', ['ModestatusBold', 'ModestatusNC'])
+
 ```
 
 The above uses the excellent [gruvbox](https://github.com/morhetz/gruvbox) vim colorscheme.
