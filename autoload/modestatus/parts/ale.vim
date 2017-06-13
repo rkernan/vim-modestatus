@@ -3,8 +3,8 @@ function! modestatus#parts#ale#init()
 	call modestatus#parts#add('ale_errors', 'modestatus#parts#ale#errors')
 	call modestatus#parts#add('ale_warnings', 'modestatus#parts#ale#warnings')
 	call modestatus#parts#add('ale_info', 'modestatus#parts#ale#info')
-	call modestatus#parts#add('ale_style_errors', 'modestatus#parts#ale#style_error')
-	call modestatus#parts#add('ale_style_warnings', 'modestatus#parts#ale#style_error')
+	call modestatus#parts#add('ale_style_errors', 'modestatus#parts#ale#style_errors')
+	call modestatus#parts#add('ale_style_warnings', 'modestatus#parts#ale#style_errors')
 endfunction
 
 function! modestatus#parts#ale#totals(...)
