@@ -86,7 +86,7 @@ Description:~
                                                        *modestatus#options#add*
 modestatus#options#add({part}, {option}, {val})
   Add option {option} to a statusline part {part} with content {val}.
-  Valid {option}s: ['color', 'format', 'separator']
+  Valid {option}s: ['active_only', 'color', 'format', 'separator']
 
                                                        *modestatus#options#has*
 modestatus#options#has({part}, {option})

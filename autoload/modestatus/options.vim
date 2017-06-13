@@ -1,9 +1,13 @@
 let s:options = {}
-let s:valid_options = ['color', 'format', 'separator']
+let s:valid_options = ['active_only', 'color', 'format', 'separator']
+let s:default_options = { 'active_only': 0,
+			\ 'color': v:none,
+			\ 'format': '%s',
+			\ 'separator': ' '}
 
 function! modestatus#options#add(part, option, val, ...)
 	let force = a:0 == 1 ? a:1 : 1
-	if index(s:valid_options, a:option) == -1
+	if !has_key(s:default_options, a:option)
 		echoerr 'invalid option "' . a:option . '"'
 	else
 		call extend(s:options, {a:part: {}}, 'keep')
@@ -25,7 +29,7 @@ function! modestatus#options#get(part, option)
 	if modestatus#options#has(a:part, a:option)
 		return s:options[a:part][a:option]
 	else
-		return ''
+		return s:default_options[a:option]
 	endif
 endfunction
 

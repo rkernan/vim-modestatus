@@ -26,9 +26,10 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('quickfix_errors', 'modestatus#parts#core#quickfix_errors')
 	call modestatus#parts#add('quickfix_warnings', 'modestatus#parts#core#quickfix_warnings')
 
+	call modestatus#options#add('encoding', 'format', '[%s]', 0)
 	call modestatus#options#add('fileformat', 'format', '[%s]', 0)
 	call modestatus#options#add('filetype', 'format', '[%s]', 0)
-	call modestatus#options#add('encoding', 'format', '[%s]', 0)
+	call modestatus#options#add('mode', 'active_only', 1)
 
 	if !exists('g:modestatus#parts#core#mode_colors')
 		let g:modestatus#parts#core#mode_colors = {
@@ -67,43 +68,43 @@ function! modestatus#parts#core#init()
 	endif
 endfunction
 
-function! modestatus#parts#core#bomb(...)
+function! modestatus#parts#core#bomb()
 	return &bomb ? 'bomb' : ''
 endfunction
 
-function! modestatus#parts#core#bufnr(...)
+function! modestatus#parts#core#bufnr()
 	return bufnr('%')
 endfunction
 
-function! modestatus#parts#core#buftype(...)
+function! modestatus#parts#core#buftype()
 	return &buftype
 endfunction
 
-function! modestatus#parts#core#column(...)
+function! modestatus#parts#core#column()
 	return col('.')
 endfunction
 
-function! modestatus#parts#core#column_max(...)
+function! modestatus#parts#core#column_max()
 	return max(map(range(1, line('$')), "col([v:val, '$'])"))
 endfunction
 
-function! modestatus#parts#core#encoding(...)
+function! modestatus#parts#core#encoding()
 	return &encoding
 endfunction
 
-function! modestatus#parts#core#expandtab(...)
+function! modestatus#parts#core#expandtab()
 	return &expandtab ? 'et' : 'noet'
 endfunction
 
-function! modestatus#parts#core#fileformat(...)
+function! modestatus#parts#core#fileformat()
 	return &fileformat
 endfunction
 
-function! modestatus#parts#core#filename(...)
+function! modestatus#parts#core#filename()
 	return bufname('%')
 endfunction
 
-function! modestatus#parts#core#filesize(...)
+function! modestatus#parts#core#filesize()
 	let size = getfsize(expand(@%))
 	if size == 0 || size == -1 || size == -1
 		return ''
@@ -118,26 +119,23 @@ function! modestatus#parts#core#filesize(...)
 	endif
 endfunction
 
-function! modestatus#parts#core#filetype(...)
+function! modestatus#parts#core#filetype()
 	return &filetype
 endfunction
 
-function! modestatus#parts#core#line(...)
+function! modestatus#parts#core#line()
 	return line('.')
 endfunction
 
-function! modestatus#parts#core#line_max(...)
+function! modestatus#parts#core#line_max()
 	return line('$')
 endfunction
 
-function! modestatus#parts#core#line_percent(...)
+function! modestatus#parts#core#line_percent()
 	return float2nr(round((line('.') * 1.0) / (line('$') * 1.0) * 100.0)) . '%'
 endfunction
 
-function! modestatus#parts#core#mode(active_win)
-	if winnr() != a:active_win
-		return ''
-	endif
+function! modestatus#parts#core#mode()
 	let mode = has_key(g:modestatus#parts#core#mode_symbols, mode()) ? mode() : 'n'
 	if strlen(g:modestatus#parts#core#mode_master_color)
 		execute 'highlight! link ' . g:modestatus#parts#core#mode_master_color . ' ' . g:modestatus#parts#core#mode_colors[mode]
@@ -145,27 +143,27 @@ function! modestatus#parts#core#mode(active_win)
 	return g:modestatus#parts#core#mode_symbols[mode]
 endfunction
 
-function! modestatus#parts#core#modified(...)
+function! modestatus#parts#core#modified()
 	return &modified ? g:modestatus#parts#core#modified_symbol : ''
 endfunction
 
-function! modestatus#parts#core#paste(...)
+function! modestatus#parts#core#paste()
 	return &paste ? g:modestatus#parts#core#paste_symbol : ''
 endfunction
 
-function! modestatus#parts#core#readonly(...)
+function! modestatus#parts#core#readonly()
 	return &readonly ? g:modestatus#parts#core#readonly_symbol : ''
 endfunction
 
-function! modestatus#parts#core#shiftwidth(...)
+function! modestatus#parts#core#shiftwidth()
 	return shiftwidth()
 endfunction
 
-function! modestatus#parts#core#virtcol(...)
+function! modestatus#parts#core#virtcol()
 	return virtcol('.')
 endfunction
 
-function! modestatus#parts#core#virtcol_max(...)
+function! modestatus#parts#core#virtcol_max()
 	return max(map(range(1, line('$')), "virtcol([v:val, '$'])"))
 endfunction
 

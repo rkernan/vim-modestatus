@@ -12,8 +12,22 @@ function! modestatus#format(part, format, first)
 	endif
 endfunction
 
-function! modestatus#colorize(active_win, part, color)
-	if type(a:color) == v:t_list
+function! s:format(first, part, format, separator)
+	return 'modestatus#format(' . modestatus#parts#get(a:part) . '(),"' . a:format . a:separator . '",' . a:first . ')'
+endfunction
+
+function! s:on_active_only(active_win, part, active_only)
+	if a:active_only
+		return 'winnr()==' . a:active_win . '?' . a:part . ':""'
+	else
+		return a:part
+	endif
+endfunction
+
+function! s:colorize(active_win, part, color)
+	if empty(a:color)
+		return '%{' . a:part . '}'
+	elseif type(a:color) == v:t_list
 		return '%#' . a:color[0] . '#%{winnr()==' . a:active_win . '?' . a:part . ':""}' .
 			\ '%#' . a:color[1] . '#%{winnr()!=' . a:active_win . '?' . a:part . ':""}%*'
 	else
@@ -23,17 +37,9 @@ endfunction
 
 function! modestatus#statusline_part(active_win, part, first)
 	if modestatus#parts#has(a:part)
-		" format
-		let format = (modestatus#options#has(a:part, 'format') ? modestatus#options#get(a:part, 'format') : '%s') .
-			\    (modestatus#options#has(a:part, 'separator') ? (!modestatus#options#get(a:part, 'separator') ? '' : ' ') : ' ')
-		let part = 'modestatus#format(' . modestatus#parts#get(a:part) . '(' . a:active_win . '),"' . format . '",' . a:first . ')'
-		" color
-		if modestatus#options#has(a:part, 'color')
-			let part = modestatus#colorize(a:active_win, part, modestatus#options#get(a:part, 'color'))
-		else
-			let part = '%{' . part . '}'
-		endif
-		return part
+		let part = s:format(a:first, a:part, modestatus#options#get(a:part, 'format'), modestatus#options#get(a:part, 'separator'))
+		let part = s:on_active_only(a:active_win, part, modestatus#options#get(a:part, 'active_only'))
+		return s:colorize(a:active_win, part, modestatus#options#get(a:part, 'color'))
 	else
 		return a:part
 	endif
