@@ -1,4 +1,4 @@
-function! modestatus#format(part, format, first)
+function! modestatus#part(part, format, first)
 	if a:first
 		let b:__modestatus_first = 1
 	endif
@@ -13,7 +13,7 @@ function! modestatus#format(part, format, first)
 endfunction
 
 function! s:format(first, part, format, separator)
-	return 'modestatus#format(' . modestatus#parts#get(a:part) . '(),"' . a:format . a:separator . '",' . a:first . ')'
+	return 'modestatus#part(' . modestatus#parts#get(a:part) . '(),"' . a:format . a:separator . '",' . a:first . ')'
 endfunction
 
 function! s:on_active_only(active_win, part, active_only)
