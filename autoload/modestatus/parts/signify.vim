@@ -14,11 +14,11 @@ function! modestatus#parts#signify#added(...)
 endfunction
 
 function! modestatus#parts#signify#modified(...)
-	let c = sy#repo#get_stats()[2]
+	let c = sy#repo#get_stats()[1]
 	return c > 0 ? c : ''
 endfunction
 
 function! modestatus#parts#signify#removed(...)
-	let c = sy#repo#get_stats()[1]
+	let c = sy#repo#get_stats()[2]
 	return c > 0 ? c : ''
 endfunction
