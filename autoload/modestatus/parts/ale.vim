@@ -8,26 +8,32 @@ function! modestatus#parts#ale#init()
 endfunction
 
 function modestatus#parts#ale#totals(...)
-	return ale#statusline#Count(winnr())['total']
+	let c = ale#statusline#Count(winnr())['total']
+	return c > 0 ? c : ''
 endfunction
 
 function modestatus#parts#ale#errors(...)
-	return ale#statusline#Count(winnr())['error']
+	let c = ale#statusline#Count(winnr())['error']
+	return c > 0 ? c : ''
 endfunction
 
 function modestatus#parts#ale#warnings(...)
-	return ale#statusline#Count(winnr())['warning']
+	let c = ale#statusline#Count(winnr())['warning']
+	return c > 0 ? c : ''
 endfunction
 
 function modestatus#parts#ale#info(...)
-	return ale#statusline#Count(winnr())['info']
+	let c = ale#statusline#Count(winnr())['info']
+	return c > 0 ? c : ''
 endfunction
 
 function modestatus#parts#ale#style_errors(...)
-	return ale#statusline#Count(winnr())['style_error']
+	let c = ale#statusline#Count(winnr())['style_error']
+	return c > 0 ? c : ''
 
 endfunction
 
 function modestatus#parts#ale#style_warnings(...)
-	return ale#statusline#Count(winnr())['style_warning']
+	let c = ale#statusline#Count(winnr())['style_warning']
+	return c > 0 ? c : ''
 endfunction
