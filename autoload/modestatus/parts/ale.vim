@@ -7,33 +7,33 @@ function! modestatus#parts#ale#init()
 	call modestatus#parts#add('ale_style_warnings', 'modestatus#parts#ale#style_error')
 endfunction
 
-function modestatus#parts#ale#totals(...)
+function! modestatus#parts#ale#totals(...)
 	let c = ale#statusline#Count(winnr())['total']
 	return c > 0 ? c : ''
 endfunction
 
-function modestatus#parts#ale#errors(...)
+function! modestatus#parts#ale#errors(...)
 	let c = ale#statusline#Count(winnr())['error']
 	return c > 0 ? c : ''
 endfunction
 
-function modestatus#parts#ale#warnings(...)
+function! modestatus#parts#ale#warnings(...)
 	let c = ale#statusline#Count(winnr())['warning']
 	return c > 0 ? c : ''
 endfunction
 
-function modestatus#parts#ale#info(...)
+function! modestatus#parts#ale#info(...)
 	let c = ale#statusline#Count(winnr())['info']
 	return c > 0 ? c : ''
 endfunction
 
-function modestatus#parts#ale#style_errors(...)
+function! modestatus#parts#ale#style_errors(...)
 	let c = ale#statusline#Count(winnr())['style_error']
 	return c > 0 ? c : ''
 
 endfunction
 
-function modestatus#parts#ale#style_warnings(...)
+function! modestatus#parts#ale#style_warnings(...)
 	let c = ale#statusline#Count(winnr())['style_warning']
 	return c > 0 ? c : ''
 endfunction
