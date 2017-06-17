@@ -7,13 +7,13 @@ Modestatus is (yet another) statusline replacement!
 Just choose your favorite plugin manager:
 
 - [NeoBundle](https://github.com/Shougo/neobundle.vim)
-  - `NeoBundle 'kernan/vim-modestatus'`
+  - `NeoBundle 'rkernan/vim-modestatus'`
 - [Pathogen](https://github.com/tpope/vim-pathogen)
-  - `git clone https://github.com/kernan/vim-modestatus.git ~/.vim/bundle/`
+  - `git clone https://github.com/rkernan/vim-modestatus.git ~/.vim/bundle/`
 - [vim-plug](https://github.com/junegunn/vim-plug)
-  - `Plug 'kernan/vim-modestatus'`
+  - `Plug 'rkernan/vim-modestatus'`
 - [Vundle](https://github.com/gmarik/Vundle.vim)
-  - `Plugin 'kernan/vim-modestatus'`
+  - `Plugin 'rkernan/vim-modestatus'`
 
 ## Supported Plugins
 
@@ -24,7 +24,7 @@ Just choose your favorite plugin manager:
 
 ## Example Statusline
 
-![screenshot](https://raw.github.com/kernan/vim-modestatus/master/statusline.png)
+![screenshot](https://raw.github.com/rkernan/vim-modestatus/master/statusline.png)
 
 ```viml
 let g:modestatus#statusline = [
@@ -139,7 +139,3 @@ call s:hl('ModestatusModeVisual', s:bg0, s:orange, 'none')
 call s:hl('ModestatusModeVisualLine', s:bg0, s:orange, 'none')
 call s:hl('ModestatusModeVisualBlock', s:bg0, s:orange, 'none')
 ```
-
-# License
-
-MIT License. Copyright (c) 2014-2017 Robert Kernan
