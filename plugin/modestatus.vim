@@ -1,7 +1,7 @@
-if exists('g:modestatus_loaded') && g:modestatus_loaded
+if exists('g:loaded_modestatus')
 	finish
 endif
-let g:modestatus_loaded = 1
+let g:loaded_modestatus = 1
 
 if !exists('g:modestatus#statusline')
 	let g:modestatus#statusline = []
