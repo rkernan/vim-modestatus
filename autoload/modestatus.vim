@@ -27,7 +27,7 @@ endfunction
 function! s:colorize(active_win, part, color)
 	if empty(a:color)
 		return '%{' . a:part . '}'
-	elseif type(a:color) == v:t_list
+	elseif type(a:color) == type([])
 		return '%#' . a:color[0] . '#%{winnr()==' . a:active_win . '?' . a:part . ':""}' .
 			\ '%#' . a:color[1] . '#%{winnr()!=' . a:active_win . '?' . a:part . ':""}%*'
 	else
@@ -49,7 +49,7 @@ function! modestatus#statusline_section(active_win, parts)
 	let statusline = ''
 	let first = 1
 	for part in a:parts
-		if type(part) == v:t_list
+		if type(part) == type([])
 			let statusline .= modestatus#statusline_section(a:active_win, part)
 			let first = 1
 		else
