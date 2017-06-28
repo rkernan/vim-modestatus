@@ -1,7 +1,7 @@
 let s:options = {}
 let s:valid_options = ['active_only', 'color', 'format', 'separator']
 let s:default_options = { 'active_only': 0,
-			\ 'color': v:none,
+			\ 'color': '',
 			\ 'format': '%s',
 			\ 'separator': ' '}
 
