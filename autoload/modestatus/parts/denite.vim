@@ -25,22 +25,18 @@ function! modestatus#parts#denite#init()
 	endif
 endfunction
 
-function! s:get_denite_linenr()
-	let linenr = split(denite#get_status_linenr(), '/')
-	return [str2nr(linenr[0]), str2nr(linenr[1])]
-endfunction
-
 function! modestatus#parts#denite#line()
-	return s:get_denite_linenr()[0]
+	return denite#get_status('line_cursor')
 endfunction
 
 function! modestatus#parts#denite#line_max()
-	return s:get_denite_linenr()[1]
+	return denite#get_status('line_total')
 endfunction
 
 function! modestatus#parts#denite#line_percent()
-	let linenr = s:get_denite_linenr()
-	let percent = (linenr[0] * 1.0) / (linenr[1] * 1.0) * 100.0
+	let line_cursor = denite#get_status('line_cursor')
+	let line_total = denite#get_status('line_total')
+	let percent = (line_cursor * 1.0) / (line_total * 1.0) * 100.0
 	if percent > 100.0
 		let percent = 100.0
 	endif
@@ -48,11 +44,11 @@ function! modestatus#parts#denite#line_percent()
 endfunction
 
 function! modestatus#parts#denite#path()
-	return denite#get_status_path()[1:-2]
+	return denite#get_status('path')
 endfunction
 
 function! modestatus#parts#denite#mode()
-	let mode = denite#get_status_mode()
+	let mode = denite#get_status('mode')
 	if strlen(g:modestatus#parts#denite#mode_master_color)
 		execute 'highlight! link ' . g:modestatus#parts#denite#mode_master_color . ' ' . g:modestatus#parts#denite#mode_colors[mode]
 	endif
@@ -60,5 +56,5 @@ function! modestatus#parts#denite#mode()
 endfunction
 
 function! modestatus#parts#denite#sources()
-	return denite#get_status_sources()[0:-2]
+	return denite#get_status('sources')
 endfunction
