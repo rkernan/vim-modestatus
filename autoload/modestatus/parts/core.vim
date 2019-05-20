@@ -178,12 +178,12 @@ function! s:get_loclist_types(type)
 	return num_types
 endfunction
 
-function! modestatus#parts#core#loclist_errors(nr)
+function! modestatus#parts#core#loclist_errors()
 	let num_errors = s:get_loclist_types('E')
 	return num_errors > 0 ? num_errors : ''
 endfunction
 
-function! modestatus#parts#core#loclist_warnings(nr)
+function! modestatus#parts#core#loclist_warnings()
 	let num_warnings = s:get_loclist_types('W')
 	return num_warnings > 0 ? num_warnings : ''
 endfunction
@@ -199,12 +199,12 @@ function! s:get_quickfix_types(type)
 	return num_types
 endfunction
 
-function! modestatus#parts#core#quickfix_errors(nr)
+function! modestatus#parts#core#quickfix_errors()
 	let num_errors = s:get_quickfix_types('E')
 	return num_errors > 0 ? num_errors : ''
 endfunction
 
-function! modestatus#parts#core#quickfix_warnings(nr)
+function! modestatus#parts#core#quickfix_warnings()
 	let num_warnings = s:get_quickfix_types('W')
 	return num_warnings > 0 ? num_warnings : ''
 endfunction
