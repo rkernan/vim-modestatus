@@ -10,7 +10,7 @@ endfunction
 
 function! s:get_signify_stats()
 	try
-		return sy#repo#get_status()
+		return sy#repo#get_stats()
 	catch
 		return [0, 0, 0]
 	endtry

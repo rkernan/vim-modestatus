@@ -4,7 +4,7 @@ endfunction
 
 function! modestatus#parts#fugitive#head()
 	try
-		return call fugitive#head()
+		return fugitive#head()
 	catch
 		return ''
 	endtry
