@@ -8,6 +8,7 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('expandtab', 'modestatus#parts#core#expandtab')
 	call modestatus#parts#add('fileformat', 'modestatus#parts#core#fileformat')
 	call modestatus#parts#add('filename', 'modestatus#parts#core#filename')
+	call modestatus#parts#add('filename_short', 'modestatus#parts#core#filename_short')
 	call modestatus#parts#add('filesize', 'modestatus#parts#core#filesize')
 	call modestatus#parts#add('filetype', 'modestatus#parts#core#filetype')
 	call modestatus#parts#add('line', 'modestatus#parts#core#line')
@@ -102,6 +103,11 @@ endfunction
 
 function! modestatus#parts#core#filename()
 	return bufname('%')
+endfunction
+
+function! modestatus#parts#core#filename_short()
+	" TODO shorten
+	return bufname('%s')
 endfunction
 
 function! modestatus#parts#core#filesize()
