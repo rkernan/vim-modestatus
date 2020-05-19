@@ -18,6 +18,7 @@ Just choose your favorite plugin manager:
 ## Supported Plugins
 
 - [ALE](https://github.com/w0rp/ale)
+- [CoC](https://github.com/neoclide/coc.nvim)
 - [Denite](https://github.com/Shougo/denite.nvim)
 - [Fugitive](https://github.com/tpope/vim-fugitive)
 - [Signify](https://github.com/mhinz/vim-signify)
