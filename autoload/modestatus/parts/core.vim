@@ -118,7 +118,11 @@ function! modestatus#parts#core#filename_short()
 	let path_split = split(path, path_sep)
 	" truncate dirs (except for top-level)
 	for item in path_split[0:-2]
-		let path_short .= item[0] . path_sep
+		if item[0] == '.'
+			let path_short .= item[0] . item[1] . path_sep
+		else
+			let path_short .= item[0] . path_sep
+		endif
 	endfor
 	" append full name of top-level file/dir
 	let path_short .= path_split[-1]
