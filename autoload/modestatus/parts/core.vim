@@ -106,8 +106,26 @@ function! modestatus#parts#core#filename()
 endfunction
 
 function! modestatus#parts#core#filename_short()
-	" TODO shorten
-	return bufname('%s')
+	let path = modestatus#parts#core#filename()
+	let path_sep = '/'
+	let path_short = ''
+
+	if path[0] == path_sep
+		path_short .= path_sep
+	endif
+
+	let path_split = split(path, '/')
+	if len(path_split) == 0
+		return path_short
+	endif
+
+	for item in path_split[0:-2]
+		path_short .= item[0] . path_sep
+	endfor
+
+	path_short .= path_short[-1]
+
+	return path_short
 endfunction
 
 function! modestatus#parts#core#filesize()
