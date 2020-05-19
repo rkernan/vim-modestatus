@@ -116,6 +116,9 @@ function! modestatus#parts#core#filename_short()
 	endif
 	" split at path separator
 	let path_split = split(path, path_sep)
+	if len(path_split) == 0
+		return ''
+	endif
 	" truncate dirs (except for top-level)
 	for item in path_split[0:-2]
 		if item[0] == '.'
