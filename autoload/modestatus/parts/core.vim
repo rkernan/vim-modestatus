@@ -8,6 +8,7 @@ function! modestatus#parts#core#init()
 	call modestatus#parts#add('expandtab', 'modestatus#parts#core#expandtab')
 	call modestatus#parts#add('fileformat', 'modestatus#parts#core#fileformat')
 	call modestatus#parts#add('filename', 'modestatus#parts#core#filename')
+	call modestatus#parts#add('filename_short', 'modestatus#parts#core#filename_short')
 	call modestatus#parts#add('filesize', 'modestatus#parts#core#filesize')
 	call modestatus#parts#add('filetype', 'modestatus#parts#core#filetype')
 	call modestatus#parts#add('line', 'modestatus#parts#core#line')
@@ -102,6 +103,31 @@ endfunction
 
 function! modestatus#parts#core#filename()
 	return fnamemodify(bufname('%'), ':~:.')
+endfunction
+
+function! modestatus#parts#core#filename_short()
+	let path = modestatus#parts#core#filename()
+	let path_sep = '/'
+	let path_short = ''
+
+	" handle '/' directory
+	if path[0] == path_sep
+		let path_short .= path_sep
+	endif
+	" split at path separator
+	let path_split = split(path, path_sep)
+	" truncate dirs (except for top-level)
+	for item in path_split[0:-2]
+		if item[0] == '.'
+			let path_short .= item[0] . item[1] . path_sep
+		else
+			let path_short .= item[0] . path_sep
+		endif
+	endfor
+	" append full name of top-level file/dir
+	let path_short .= path_split[-1]
+
+	return path_short
 endfunction
 
 function! modestatus#parts#core#filesize()
