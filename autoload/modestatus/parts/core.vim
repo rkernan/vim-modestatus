@@ -101,7 +101,7 @@ function! modestatus#parts#core#fileformat()
 endfunction
 
 function! modestatus#parts#core#filename()
-	return bufname('%')
+	return fnamemodify(bufname('%'), ':~:.')
 endfunction
 
 function! modestatus#parts#core#filesize()
